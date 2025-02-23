@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qr_plus/widgets/color.dart';
+import 'package:qr_plus/widgets/uihelper/color.dart';
 
 class CustomSettingTile extends StatelessWidget {
   String title;

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:qr_plus/screen/home_screen.dart';
-import 'package:qr_plus/widgets/color.dart';
+import 'package:qr_plus/widgets/uihelper/color.dart';
 import 'package:qr_plus/widgets/custom_cross_container.dart';
 import 'package:qr_plus/widgets/custom_setting_tile.dart';
 import 'package:qr_plus/widgets/custom_switch_button.dart';
+import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -20,7 +21,7 @@ class SettingScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 30),
+            SizedBox(height: SizeData.aboveAppBar),
             Padding(
               padding: const EdgeInsets.only(left: 15),
               child: CustomCrossContainer(
@@ -66,7 +67,7 @@ class SettingScreen extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(height: 35),
+            SizedBox(height: 30),
             Text(
               "Support",
               style: TextStyle(

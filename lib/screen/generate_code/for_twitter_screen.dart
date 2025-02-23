@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:qr_plus/widgets/single_field.dart';
 
-import '../../widgets/color.dart';
+import '../../widgets/uihelper/color.dart';
 
 class ForTwitterScreen extends StatelessWidget {
   const ForTwitterScreen({super.key});
@@ -17,6 +17,7 @@ class ForTwitterScreen extends StatelessWidget {
         title: "Twitter",
         labelText: "Username",
         icon: FontAwesomeIcons.xTwitter,
+        minLine: 1,
         onTap: () {},
       ),
     );

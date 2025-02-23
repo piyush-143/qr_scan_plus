@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'color.dart';
+import 'uihelper/color.dart';
 
 class GenerateQrButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -12,7 +12,7 @@ class GenerateQrButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 150,
-        height: 45,
+        height: 42,
         decoration: BoxDecoration(
           color: CustomColor.goldColor,
           borderRadius: BorderRadius.circular(7),

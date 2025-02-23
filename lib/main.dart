@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:qr_plus/provider/gallery_image_provider.dart';
 import 'package:qr_plus/provider/toggle_provider.dart';
 import 'package:qr_plus/screen/splash_screen.dart';
-import 'package:qr_plus/widgets/color.dart';
+import 'package:qr_plus/widgets/uihelper/color.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qr_plus/widgets/color.dart';
+import 'package:qr_plus/widgets/uihelper/color.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -15,7 +15,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     FocusNode focus = FocusNode();
     return Container(
-      height: 55,
+      //height: 55,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         color: CustomColor.barBgColor,
@@ -24,9 +24,9 @@ class CustomTextField extends StatelessWidget {
         controller: controller,
         focusNode: focus,
         maxLines: 3,
-        minLines: 1,
+        minLines: minLine ?? 1,
         style: TextStyle(color: Colors.white, fontSize: 18),
-        keyboardType: TextInputType.none,
+        keyboardType: TextInputType.text,
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
@@ -64,7 +64,7 @@ class RowTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: 25,
+      spacing: 30,
       children: [
         Expanded(
             child: CustomTextField(

@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:qr_plus/provider/gallery_image_provider.dart';
 import 'package:qr_plus/provider/toggle_provider.dart';
 import 'package:qr_plus/screen/setting_screen.dart';
-import 'color.dart';
+import 'uihelper/color.dart';
 
 class CustomTopBar extends StatefulWidget {
   final MobileScannerController mobileController;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_plus/widgets/single_field.dart';
 
-import '../../widgets/color.dart';
+import '../../widgets/uihelper/color.dart';
 
 class ForEmailScreen extends StatelessWidget {
   const ForEmailScreen({super.key});
@@ -16,6 +16,7 @@ class ForEmailScreen extends StatelessWidget {
         title: "Email",
         labelText: "Email",
         icon: Icons.mark_email_unread,
+        minLine: 1,
         onTap: () {},
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import '../widgets/color.dart';
+import '../widgets/uihelper/color.dart';
 import '../widgets/custom_cross_container.dart';
 import '../widgets/custom_share_save_button.dart';
 import 'home_screen.dart';

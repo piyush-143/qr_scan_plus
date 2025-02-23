@@ -11,8 +11,9 @@ import 'package:qr_plus/screen/generate_code/for_website_screen.dart';
 import 'package:qr_plus/screen/generate_code/for_whatsapp_screen.dart';
 import 'package:qr_plus/screen/generate_code/for_wifi_screen.dart';
 import 'package:qr_plus/screen/home_screen.dart';
-import 'package:qr_plus/widgets/color.dart';
+import 'package:qr_plus/widgets/uihelper/color.dart';
 import 'package:qr_plus/widgets/custom_cross_container.dart';
+import 'package:qr_plus/widgets/uihelper/size_data.dart';
 import '../widgets/custom_social_button.dart';
 import 'generate_code/for_email_screen.dart';
 
@@ -73,7 +74,7 @@ class GenerateScreen extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
         titleSpacing: 35,
-        toolbarHeight: 100,
+        toolbarHeight: SizeData.toolBarHeight,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 25),
@@ -92,12 +93,13 @@ class GenerateScreen extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 25),
         child: GridView.builder(
+          physics: ScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            crossAxisSpacing: 50,
-            mainAxisSpacing: 75,
+            crossAxisSpacing: 40,
+            mainAxisSpacing: 60,
           ),
           itemBuilder: (context, index) {
             return CustomSocialButton(

@@ -3,7 +3,7 @@ import 'package:qr_plus/screen/generate_screen.dart';
 import 'package:qr_plus/screen/history_screen.dart';
 
 import '../screen/splash_screen.dart';
-import 'color.dart';
+import 'uihelper/color.dart';
 
 class CustomBottomBar extends StatelessWidget {
   const CustomBottomBar({super.key});

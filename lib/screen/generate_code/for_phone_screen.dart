@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_plus/widgets/single_field.dart';
 
-import '../../widgets/color.dart';
+import '../../widgets/uihelper/color.dart';
 
 class ForPhoneScreen extends StatelessWidget {
   const ForPhoneScreen({super.key});
@@ -16,6 +16,7 @@ class ForPhoneScreen extends StatelessWidget {
         title: "Phone",
         labelText: "Phone Number",
         icon: Icons.phone_callback,
+        minLine: 1,
         onTap: () {},
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_plus/widgets/single_field.dart';
 
-import '../../widgets/color.dart';
+import '../../widgets/uihelper/color.dart';
 
 class ForTextScreen extends StatelessWidget {
   const ForTextScreen({super.key});
@@ -17,6 +17,7 @@ class ForTextScreen extends StatelessWidget {
         title: "Text",
         labelText: "Enter Text",
         icon: Icons.text_fields,
+        minLine: 2,
         onTap: () {},
       ),
     );

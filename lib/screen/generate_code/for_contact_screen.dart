@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../widgets/color.dart';
+import '../../widgets/uihelper/color.dart';
 import '../../widgets/custom_cross_container.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/generate_qr_button.dart';
@@ -24,12 +23,12 @@ class ForContactScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        padding: const EdgeInsets.only(left: 25.0, right: 25, bottom: 2),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 45),
+            SizedBox(height: 15),
             Padding(
               padding: const EdgeInsets.only(left: 15),
               child: Row(
@@ -58,9 +57,9 @@ class ForContactScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 35),
+            SizedBox(height: 20),
             Container(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               decoration: BoxDecoration(
                 color: CustomColor.barBgColor.withAlpha(150),
                 border: Border.symmetric(
@@ -76,49 +75,45 @@ class ForContactScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Expanded(
-                child: Column(
-                  spacing: 22,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(
-                      Icons.perm_contact_cal_rounded,
-                      size: 68,
-                      color: CustomColor.goldColor,
-                    ),
-                    RowTextField(
-                        controller1: firstNameController,
-                        controller2: lastNameController,
-                        labelText1: "First Name",
-                        labelText2: "Last Name"),
-                    RowTextField(
-                        controller1: companyNameController,
-                        controller2: jobNameController,
-                        labelText1: "Company",
-                        labelText2: "Job"),
-                    RowTextField(
-                        controller1: phoneController,
-                        controller2: emailController,
-                        labelText1: "Phone",
-                        labelText2: "Email"),
-                    CustomTextField(
-                      labelText: "Website",
-                      controller: websiteController,
-                    ),
-                    CustomTextField(
-                      labelText: "Address",
-                      controller: addressController,
-                    ),
-                    RowTextField(
-                        controller1: cityController,
-                        controller2: countryController,
-                        labelText1: "City",
-                        labelText2: "Country"),
-                    SizedBox(height: 1),
-                    GenerateQrButton(onTap: () {}),
-                    SizedBox(height: 0),
-                  ],
-                ),
+              child: Column(
+                spacing: 9,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Icon(
+                    Icons.perm_contact_cal_rounded,
+                    size: 58,
+                    color: CustomColor.goldColor,
+                  ),
+                  RowTextField(
+                      controller1: firstNameController,
+                      controller2: lastNameController,
+                      labelText1: "First Name",
+                      labelText2: "Last Name"),
+                  RowTextField(
+                      controller1: companyNameController,
+                      controller2: jobNameController,
+                      labelText1: "Company",
+                      labelText2: "Job"),
+                  RowTextField(
+                      controller1: phoneController,
+                      controller2: emailController,
+                      labelText1: "Phone",
+                      labelText2: "Email"),
+                  CustomTextField(
+                    labelText: "Website",
+                    controller: websiteController,
+                  ),
+                  CustomTextField(
+                    labelText: "Address",
+                    controller: addressController,
+                  ),
+                  RowTextField(
+                      controller1: cityController,
+                      controller2: countryController,
+                      labelText1: "City",
+                      labelText2: "Country"),
+                  GenerateQrButton(onTap: () {}),
+                ],
               ),
             ),
           ],

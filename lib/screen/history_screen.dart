@@ -1,8 +1,8 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_plus/screen/home_screen.dart';
+import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
-import '../widgets/color.dart';
+import '../widgets/uihelper/color.dart';
 import '../widgets/custom_cross_container.dart';
 
 class HistoryScreen extends StatefulWidget {
@@ -34,7 +34,7 @@ class _HistoryScreenState extends State<HistoryScreen>
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
       appBar: AppBar(
-        toolbarHeight: 100,
+        toolbarHeight: SizeData.toolBarHeight,
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
         title: Text(
@@ -60,11 +60,11 @@ class _HistoryScreenState extends State<HistoryScreen>
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
+        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 8),
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.all(8),
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 7),
               decoration: BoxDecoration(
                 color: CustomColor.barBgColor,
                 borderRadius: BorderRadius.circular(5),
@@ -91,12 +91,16 @@ class _HistoryScreenState extends State<HistoryScreen>
                 ],
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 5),
             Expanded(
               child: TabBarView(
+                physics: ScrollPhysics(),
                 controller: _tabController,
                 clipBehavior: Clip.none,
-                children: [_customTabView(), _customTabView()],
+                children: [
+                  _customTabView(),
+                  _customTabView(),
+                ],
               ),
             )
           ],
@@ -108,53 +112,55 @@ class _HistoryScreenState extends State<HistoryScreen>
   Widget _customTabView() {
     return ListView.builder(
       itemCount: 10,
-      itemBuilder: (BuildContext context, int index) => Container(
-        margin: EdgeInsets.only(top: 18),
-        decoration: BoxDecoration(
-          color: CustomColor.barBgColor,
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: [
-            BoxShadow(
-              color: CustomColor.barBgColor,
-              blurRadius: 10, blurStyle: BlurStyle.solid,
-              offset: Offset(0, 1), // changes position of shadow
-            ),
-          ],
-        ),
-        child: ListTile(
-          title: Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    "http://www.youtube.com/watch?v=Zd9g7sKvgIM",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                Icon(Icons.delete_forever, size: 25),
-              ],
-            ),
-          ),
-          subtitle: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Data"),
-              Text("Date"),
+      itemBuilder: (BuildContext context, int index) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+        child: Container(
+          decoration: BoxDecoration(
+            color: CustomColor.barBgColor,
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: [
+              BoxShadow(
+                color: CustomColor.barBgColor,
+                blurRadius: 10, blurStyle: BlurStyle.solid,
+                offset: Offset(0, 1), // changes position of shadow
+              ),
             ],
           ),
-          leading: Image.asset(
-            "assets/result/resultIcon.png",
-            height: 38,
-            width: 38,
+          child: ListTile(
+            title: Padding(
+              padding: const EdgeInsets.only(bottom: 7.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      "http://www.youtube.com/watch?v=Zd9g7sKvgIM",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Icon(Icons.delete_forever, size: 25),
+                ],
+              ),
+            ),
+            subtitle: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Data"),
+                Text("Date"),
+              ],
+            ),
+            leading: Image.asset(
+              "assets/result/resultIcon.png",
+              height: 38,
+              width: 38,
+            ),
+            titleTextStyle: TextStyle(
+                color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
+            subtitleTextStyle: TextStyle(color: Colors.white70, fontSize: 13),
+            //tileColor: CustomColor.goldColor,
+            iconColor: CustomColor.goldColor,
           ),
-          titleTextStyle: TextStyle(
-              color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
-          subtitleTextStyle: TextStyle(color: Colors.white70, fontSize: 13),
-          //tileColor: CustomColor.goldColor,
-          iconColor: CustomColor.goldColor,
         ),
       ),
     );

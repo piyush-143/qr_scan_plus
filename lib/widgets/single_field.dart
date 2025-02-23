@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
 import '../screen/generate_screen.dart';
-import 'color.dart';
+import 'uihelper/color.dart';
 import 'custom_cross_container.dart';
 import 'custom_text_field.dart';
 import 'generate_qr_button.dart';
@@ -12,24 +13,26 @@ class SingleField extends StatelessWidget {
   final String labelText;
   final VoidCallback onTap;
   final IconData icon;
-  const SingleField({
+  int? minLine;
+  SingleField({
     required this.controller,
     required this.title,
     required this.labelText,
     required this.onTap,
     required this.icon,
+    this.minLine,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+      padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 65),
+          SizedBox(height: SizeData.aboveAppBar),
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Row(
@@ -58,7 +61,7 @@ class SingleField extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 65),
+          SizedBox(height: SizeData.belowAppBar),
           Container(
             padding: EdgeInsets.all(15),
             decoration: BoxDecoration(
@@ -76,26 +79,25 @@ class SingleField extends StatelessWidget {
                 ),
               ],
             ),
-            child: Expanded(
-              child: Column(
-                spacing: 22,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Icon(
-                    icon,
-                    size: 68,
-                    color: CustomColor.goldColor,
-                  ),
-                  SizedBox(height: 10),
-                  CustomTextField(
-                    labelText: labelText,
-                    controller: controller,
-                  ),
-                  SizedBox(height: 10),
-                  GenerateQrButton(onTap: onTap),
-                  SizedBox(height: 8),
-                ],
-              ),
+            child: Column(
+              spacing: 22,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Icon(
+                  icon,
+                  size: 68,
+                  color: CustomColor.goldColor,
+                ),
+                SizedBox(height: 10),
+                CustomTextField(
+                  labelText: labelText,
+                  controller: controller,
+                  minLine: minLine ?? 1,
+                ),
+                SizedBox(height: 10),
+                GenerateQrButton(onTap: onTap),
+                SizedBox(height: 8),
+              ],
             ),
           ),
         ],

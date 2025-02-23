@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:qr_plus/widgets/single_field.dart';
 
-import '../../widgets/color.dart';
+import '../../widgets/uihelper/color.dart';
 
 class ForWhatsappScreen extends StatelessWidget {
   const ForWhatsappScreen({super.key});
@@ -17,6 +17,7 @@ class ForWhatsappScreen extends StatelessWidget {
         title: "WhatsApp",
         labelText: "WhatsApp Number",
         icon: FontAwesomeIcons.whatsapp,
+        // minLine: 1,
         onTap: () {},
       ),
     );

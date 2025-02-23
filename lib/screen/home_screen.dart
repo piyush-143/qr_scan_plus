@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_plus/screen/result_screen.dart';
-import 'package:qr_plus/widgets/color.dart';
+import 'package:qr_plus/widgets/uihelper/color.dart';
 import 'package:qr_plus/widgets/custom_bottom_bar.dart';
 import 'package:qr_scanner_overlay/qr_scanner_overlay.dart';
 import '../widgets/custom_top_bar.dart';

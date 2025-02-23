@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
-import '../../widgets/color.dart';
+import '../../widgets/uihelper/color.dart';
 import '../../widgets/custom_cross_container.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/generate_qr_button.dart';
@@ -21,7 +22,7 @@ class ForWiFiScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 65),
+            SizedBox(height: SizeData.aboveAppBar),
             Padding(
               padding: const EdgeInsets.only(left: 15),
               child: Row(
@@ -50,7 +51,7 @@ class ForWiFiScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 65),
+            SizedBox(height: SizeData.belowAppBar),
             Container(
               padding: EdgeInsets.all(15),
               decoration: BoxDecoration(
@@ -68,30 +69,28 @@ class ForWiFiScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Expanded(
-                child: Column(
-                  spacing: 22,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(
-                      Icons.wifi,
-                      size: 68,
-                      color: CustomColor.goldColor,
-                    ),
-                    SizedBox(height: 10),
-                    CustomTextField(
-                      labelText: "Network",
-                      controller: networkController,
-                    ),
-                    CustomTextField(
-                      labelText: "Password",
-                      controller: passController,
-                    ),
-                    SizedBox(height: 10),
-                    GenerateQrButton(onTap: () {}),
-                    SizedBox(height: 8),
-                  ],
-                ),
+              child: Column(
+                spacing: 22,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Icon(
+                    Icons.wifi,
+                    size: 68,
+                    color: CustomColor.goldColor,
+                  ),
+                  SizedBox(height: 10),
+                  CustomTextField(
+                    labelText: "Network",
+                    controller: networkController,
+                  ),
+                  CustomTextField(
+                    labelText: "Password",
+                    controller: passController,
+                  ),
+                  SizedBox(height: 10),
+                  GenerateQrButton(onTap: () {}),
+                  SizedBox(height: 8),
+                ],
               ),
             ),
           ],

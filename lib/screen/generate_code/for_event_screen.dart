@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
-import '../../widgets/color.dart';
+import '../../widgets/uihelper/color.dart';
 import '../../widgets/custom_cross_container.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/generate_qr_button.dart';
@@ -19,12 +20,12 @@ class ForEventScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        padding: const EdgeInsets.only(left: 25.0, right: 25, bottom: 5),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 45),
+            SizedBox(height: SizeData.aboveAppBar),
             Padding(
               padding: const EdgeInsets.only(left: 15),
               child: Row(
@@ -53,7 +54,7 @@ class ForEventScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 45),
+            SizedBox(height: SizeData.belowAppBar),
             Container(
               padding: EdgeInsets.all(15),
               decoration: BoxDecoration(
@@ -71,42 +72,37 @@ class ForEventScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Expanded(
-                child: Column(
-                  spacing: 22,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(
-                      Icons.event_available,
-                      size: 68,
-                      color: CustomColor.goldColor,
-                    ),
-                    CustomTextField(
-                      labelText: "Event Name",
-                      controller: nameController,
-                    ),
-                    CustomTextField(
-                      labelText: "Start Date and Time",
-                      controller: startDateTimeController,
-                    ),
-                    CustomTextField(
-                      labelText: "End Date and Time",
-                      controller: endDateTimeController,
-                    ),
-                    CustomTextField(
-                      labelText: "Event Location",
-                      controller: locationController,
-                    ),
-                    CustomTextField(
-                      labelText: "Description",
-                      controller: descController,
-                      minLine: 3,
-                    ),
-                    SizedBox(height: 8),
-                    GenerateQrButton(onTap: () {}),
-                    SizedBox(height: 0),
-                  ],
-                ),
+              child: Column(
+                spacing: 15,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Icon(
+                    Icons.event_available,
+                    size: 65,
+                    color: CustomColor.goldColor,
+                  ),
+                  CustomTextField(
+                    labelText: "Event Name",
+                    controller: nameController,
+                  ),
+                  RowTextField(
+                      controller1: startDateTimeController,
+                      controller2: endDateTimeController,
+                      labelText1: "Start Date and Time",
+                      labelText2: "End Date and Time"),
+                  CustomTextField(
+                    labelText: "Event Location",
+                    controller: locationController,
+                  ),
+                  CustomTextField(
+                    labelText: "Description",
+                    controller: descController,
+                    minLine: 2,
+                  ),
+                  SizedBox(height: 0),
+                  GenerateQrButton(onTap: () {}),
+                  SizedBox(height: 0),
+                ],
               ),
             ),
           ],

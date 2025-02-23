@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_plus/widgets/single_field.dart';
 
-import '../../widgets/color.dart';
+import '../../widgets/uihelper/color.dart';
 
 class ForWebsiteScreen extends StatelessWidget {
   const ForWebsiteScreen({super.key});
@@ -16,6 +16,7 @@ class ForWebsiteScreen extends StatelessWidget {
         title: "Website",
         labelText: "Website Url",
         icon: Icons.language,
+        minLine: 2,
         onTap: () {},
       ),
     );

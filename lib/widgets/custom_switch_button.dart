@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
+import 'package:qr_plus/widgets/uihelper/color.dart';
 
 class CustomSwitchButton extends StatefulWidget {
   final ValueChanged<dynamic> onChanged;
@@ -15,9 +16,9 @@ class _CustomSwitchButtonState extends State<CustomSwitchButton> {
   @override
   Widget build(BuildContext context) {
     return AdvancedSwitch(
-      activeColor: Color.fromRGBO(253, 182, 35, 0.5),
-      width: 45,
-      height: 23,
+      activeColor: Color.fromRGBO(253, 182, 35, 0.6),
+      width: 43,
+      height: 21,
       initialValue: widget.val,
       // onChanged: (value) {
       //   val = value;
