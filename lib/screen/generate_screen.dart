@@ -71,7 +71,10 @@ class GenerateScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         title: Text(
           "Generate QR",
-          style: TextStyle(color: Colors.white),
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .copyWith(color: Colors.white, fontSize: 27),
         ),
         titleSpacing: 35,
         toolbarHeight: SizeData.toolBarHeight,

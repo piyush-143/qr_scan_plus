@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_plus/widgets/uihelper/color.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
   int? minLine;
@@ -12,19 +12,31 @@ class CustomTextField extends StatelessWidget {
       super.key});
 
   @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    widget.controller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     FocusNode focus = FocusNode();
     return Container(
-      //height: 55,
+      //height: double.maxFinite,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         color: CustomColor.barBgColor,
       ),
       child: TextFormField(
-        controller: controller,
+        controller: widget.controller,
         focusNode: focus,
         maxLines: 3,
-        minLines: minLine ?? 1,
+        minLines: widget.minLine ?? 1,
         style: TextStyle(color: Colors.white, fontSize: 18),
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
@@ -36,7 +48,7 @@ class CustomTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(color: Colors.white38, width: 1.3),
           ),
-          labelText: labelText,
+          labelText: widget.labelText,
           labelStyle: TextStyle(color: Colors.white70, fontSize: 18),
         ),
         cursorColor: Colors.white38,
@@ -64,7 +76,7 @@ class RowTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: 30,
+      spacing: 23,
       children: [
         Expanded(
             child: CustomTextField(

@@ -4,12 +4,24 @@ import 'package:qr_plus/widgets/single_field.dart';
 
 import '../../widgets/uihelper/color.dart';
 
-class ForWhatsappScreen extends StatelessWidget {
+class ForWhatsappScreen extends StatefulWidget {
   const ForWhatsappScreen({super.key});
 
   @override
+  State<ForWhatsappScreen> createState() => _ForWhatsappScreenState();
+}
+
+class _ForWhatsappScreenState extends State<ForWhatsappScreen> {
+  TextEditingController controller = TextEditingController();
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    TextEditingController controller = TextEditingController();
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
       body: SingleField(

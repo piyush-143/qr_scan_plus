@@ -17,6 +17,13 @@ class CustomTopBar extends StatefulWidget {
 
 class _CustomTopBarState extends State<CustomTopBar> {
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    widget.mobileController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final toggleProvider = Provider.of<ToggleProvider>(context);
     final pathProvider =
@@ -86,6 +93,7 @@ class _CustomTopBarState extends State<CustomTopBar> {
       child: Icon(
         icon,
         color: color,
+        size: 30,
       ),
     );
   }

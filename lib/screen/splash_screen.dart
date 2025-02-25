@@ -14,18 +14,40 @@ class SplashScreen extends StatelessWidget {
         children: [
           Image.asset("assets/splash/Intersect.png"),
           Align(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                "assets/splash/logo.png",
-                width: 180,
-                height: 180,
-              ),
-              SizedBox(height: 30),
-              Image.asset("assets/splash/getStarted.png"),
-            ],
-          )),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/splash/logo.png",
+                  width: 160,
+                  height: 160,
+                ),
+                SizedBox(height: 25),
+                Column(
+                  children: [
+                    Text(
+                      "Get Started",
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            color: Colors.black,
+                            fontSize: 43,
+                          ),
+                    ),
+                    SizedBox(
+                      width: 300,
+                      child: Text(
+                        "Go and enjoy our features for free and make your life easy with us.",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              color: Colors.black54,
+                              fontSize: 17,
+                            ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
           Align(
             alignment: Alignment.bottomRight,
             child: Image.asset(

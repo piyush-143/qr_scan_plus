@@ -22,10 +22,15 @@ class GenerateQrButton extends StatelessWidget {
           ],
         ),
         child: Center(
-            child: Text(
-          "Generate QR Code",
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
-        )),
+          child: Text(
+            "Generate QR Code",
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+          ),
+        ),
       ),
     );
   }

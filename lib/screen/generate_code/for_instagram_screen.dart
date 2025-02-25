@@ -4,12 +4,24 @@ import 'package:qr_plus/widgets/single_field.dart';
 
 import '../../widgets/uihelper/color.dart';
 
-class ForInstagramScreen extends StatelessWidget {
+class ForInstagramScreen extends StatefulWidget {
   const ForInstagramScreen({super.key});
 
   @override
+  State<ForInstagramScreen> createState() => _ForInstagramScreenState();
+}
+
+class _ForInstagramScreenState extends State<ForInstagramScreen> {
+  TextEditingController controller = TextEditingController();
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    TextEditingController controller = TextEditingController();
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
       body: SingleField(

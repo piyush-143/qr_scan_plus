@@ -3,13 +3,24 @@ import 'package:qr_plus/widgets/single_field.dart';
 
 import '../../widgets/uihelper/color.dart';
 
-class ForTextScreen extends StatelessWidget {
+class ForTextScreen extends StatefulWidget {
   const ForTextScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    TextEditingController controller = TextEditingController();
+  State<ForTextScreen> createState() => _ForTextScreenState();
+}
 
+class _ForTextScreenState extends State<ForTextScreen> {
+  TextEditingController controller = TextEditingController();
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
       body: SingleField(

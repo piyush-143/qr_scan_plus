@@ -35,13 +35,15 @@ class CustomSettingTile extends StatelessWidget {
         subtitle: Text(subtitle),
         leading: Icon(leadingIcon),
         trailing: trailing,
-        titleTextStyle: TextStyle(
-            color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
-        subtitleTextStyle: TextStyle(color: Colors.white70, fontSize: 13),
+        titleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(),
+        subtitleTextStyle: Theme.of(context)
+            .textTheme
+            .bodyMedium!
+            .copyWith(fontSize: 12, color: Colors.white60),
         tileColor: CustomColor.barBgColor,
         iconColor: CustomColor.goldColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        minTileHeight: 63,
+        minTileHeight: 64,
       ),
     );
   }

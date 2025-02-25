@@ -14,11 +14,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final mobileController = MobileScannerController();
+  bool isScanDone = false;
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    mobileController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final mobileController = MobileScannerController();
-    bool isScanDone = false;
-
     return Scaffold(
       body: Stack(
         children: [

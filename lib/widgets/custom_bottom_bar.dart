@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_plus/screen/generate_screen.dart';
 import 'package:qr_plus/screen/history_screen.dart';
-
-import '../screen/splash_screen.dart';
 import 'uihelper/color.dart';
 
 class CustomBottomBar extends StatelessWidget {
@@ -35,33 +33,24 @@ class CustomBottomBar extends StatelessWidget {
                 ),
               );
             },
+            context: context,
           ),
           // Highlighted middle button - elevated with Transform
           Transform.translate(
             offset: const Offset(-4, -25),
-            child: InkWell(
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SplashScreen(),
-                  ),
-                );
-              },
-              child: Container(
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: CustomColor.goldColor,
-                  boxShadow: [
-                    BoxShadow(color: CustomColor.goldColor, blurRadius: 10)
-                  ],
-                ),
-                child: Image.asset(
-                  'assets/splash/logo.png', // Replace with your image path
-                  width: 35,
-                  height: 35,
-                ),
+            child: Container(
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: CustomColor.goldColor,
+                boxShadow: [
+                  BoxShadow(color: CustomColor.goldColor, blurRadius: 10)
+                ],
+              ),
+              child: Image.asset(
+                'assets/splash/logo.png', // Replace with your image path
+                width: 35,
+                height: 35,
               ),
             ),
           ),
@@ -76,16 +65,19 @@ class CustomBottomBar extends StatelessWidget {
                 ),
               );
             },
+            context: context,
           ),
         ],
       ),
     );
   }
 
-  Widget _buildButton(
-      {required IconData icon,
-      required String text,
-      required VoidCallback onTap}) {
+  Widget _buildButton({
+    required IconData icon,
+    required String text,
+    required VoidCallback onTap,
+    required BuildContext context,
+  }) {
     return InkWell(
       onTap: onTap,
       child: Column(
@@ -94,12 +86,14 @@ class CustomBottomBar extends StatelessWidget {
           Icon(
             icon,
             color: Colors.white,
+            size: 25,
           ),
           Text(
             text,
-            style: TextStyle(
-              color: Colors.white,
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge!
+                .copyWith(color: Colors.white, fontSize: 17),
           ),
         ],
       ),

@@ -15,14 +15,14 @@ class CustomShareSaveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        spacing: 10,
-        children: [
-          Container(
-            width: 60,
-            height: 60,
+    return Column(
+      spacing: 10,
+      children: [
+        InkWell(
+          onTap: onTap,
+          child: Container(
+            width: 58,
+            height: 58,
             decoration: BoxDecoration(
               color: CustomColor.goldColor,
               borderRadius: BorderRadius.circular(7),
@@ -38,15 +38,15 @@ class CustomShareSaveButton extends StatelessWidget {
               color: CustomColor.barBgColor,
             ),
           ),
-          Text(
-            text,
-            style: TextStyle(
-                color: Colors.white70,
-                fontSize: 15,
-                fontWeight: FontWeight.w600),
-          ),
-        ],
-      ),
+        ),
+        Text(
+          text,
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Colors.white,
+                fontSize: 18,
+              ),
+        ),
+      ],
     );
   }
 }

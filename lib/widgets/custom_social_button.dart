@@ -38,10 +38,11 @@ class CustomSocialButton extends StatelessWidget {
             ),
             Text(
               text,
-              style: TextStyle(
-                  color: CustomColor.goldColor,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w500),
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 0,
+                  ),
             ),
           ],
         ),

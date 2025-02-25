@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_plus/screen/home_screen.dart';
+import 'package:qr_plus/widgets/oval_bg.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
 import '../widgets/uihelper/color.dart';
@@ -39,7 +40,10 @@ class _HistoryScreenState extends State<HistoryScreen>
         automaticallyImplyLeading: false,
         title: Text(
           "History",
-          style: TextStyle(color: Colors.white),
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .copyWith(fontSize: 27, color: Colors.white),
         ),
         titleSpacing: 35,
         actions: [
@@ -64,6 +68,7 @@ class _HistoryScreenState extends State<HistoryScreen>
         child: Column(
           children: [
             Container(
+              height: 55,
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 7),
               decoration: BoxDecoration(
                 color: CustomColor.barBgColor,
@@ -81,8 +86,10 @@ class _HistoryScreenState extends State<HistoryScreen>
                 dividerColor: CustomColor.barBgColor,
                 labelColor: Colors.white, // Active text color
                 unselectedLabelColor: Colors.white, // Inactive text color
-                labelStyle: TextStyle(
-                    fontWeight: FontWeight.w600, fontSize: 18), // Bold text
+                labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontSize: 17,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600), // Bold text
                 indicatorSize: TabBarIndicatorSize
                     .tab, // Make indicator the same size as tab
                 tabs: [
@@ -128,14 +135,14 @@ class _HistoryScreenState extends State<HistoryScreen>
           ),
           child: ListTile(
             title: Padding(
-              padding: const EdgeInsets.only(bottom: 7.0),
+              padding: const EdgeInsets.only(bottom: 4.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                     child: Text(
                       "http://www.youtube.com/watch?v=Zd9g7sKvgIM",
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -155,11 +162,21 @@ class _HistoryScreenState extends State<HistoryScreen>
               height: 38,
               width: 38,
             ),
-            titleTextStyle: TextStyle(
-                color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
-            subtitleTextStyle: TextStyle(color: Colors.white70, fontSize: 13),
+            titleTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontSize: 15,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: 0,
+                ),
+            subtitleTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontSize: 13,
+                  color: Colors.white60,
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: 0,
+                ),
             //tileColor: CustomColor.goldColor,
             iconColor: CustomColor.goldColor,
+            minTileHeight: 60,
           ),
         ),
       ),
