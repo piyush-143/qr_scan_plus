@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_plus/screen/result_screen.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
 import 'package:qr_plus/widgets/uihelper/concat_string.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
+import '../../provider/toggle_provider.dart';
 import '../../widgets/uihelper/color.dart';
 import '../../widgets/custom_cross_container.dart';
 import '../../widgets/custom_text_field.dart';
@@ -19,13 +22,15 @@ class ForWiFiScreen extends StatefulWidget {
 class _ForWiFiScreenState extends State<ForWiFiScreen> {
   TextEditingController networkController = TextEditingController();
   TextEditingController passController = TextEditingController();
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   super.dispose();
-  //   networkController.dispose();
-  //   passController.dispose();
-  // }
+  final player = AudioPlayer();
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    // networkController.dispose();
+    // passController.dispose();
+    player.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +110,9 @@ class _ForWiFiScreenState extends State<ForWiFiScreen> {
                     ),
                     SizedBox(height: 10),
                     GenerateQrButton(
-                      onTap: () {
+                      onTap: () async {
+                        await player.setAsset("assets/audio/beepSound.mp3");
+                        context.read<ToggleProvider>().vibBeep(player);
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
