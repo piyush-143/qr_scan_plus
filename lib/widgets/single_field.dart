@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_plus/provider/toggle_provider.dart';
+import 'package:qr_plus/screen/result_screen.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
 import '../screen/generate_screen.dart';
@@ -9,17 +13,15 @@ import 'custom_text_field.dart';
 import 'generate_qr_button.dart';
 
 class SingleField extends StatefulWidget {
-  final TextEditingController controller;
+  TextEditingController controller;
   final String title;
   final String labelText;
-  final VoidCallback onTap;
   final IconData icon;
   int? minLine;
   SingleField({
     required this.controller,
     required this.title,
     required this.labelText,
-    required this.onTap,
     required this.icon,
     this.minLine,
     super.key,
@@ -30,11 +32,12 @@ class SingleField extends StatefulWidget {
 }
 
 class _SingleFieldState extends State<SingleField> {
+  final player = AudioPlayer();
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    widget.controller.dispose();
+    player.dispose();
   }
 
   @override
@@ -104,11 +107,25 @@ class _SingleFieldState extends State<SingleField> {
                   SizedBox(height: 10),
                   CustomTextField(
                     labelText: widget.labelText,
+                    //controller: widget.controller,
                     controller: widget.controller,
                     minLine: widget.minLine ?? 1,
                   ),
                   SizedBox(height: 10),
-                  GenerateQrButton(onTap: widget.onTap),
+                  GenerateQrButton(
+                    onTap: () async {
+                      await player.setAsset("assets/audio/beepSound.mp3");
+                      context.read<ToggleProvider>().vibBeep(player);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ResultScreen(
+                              code: widget.controller.text,
+                              navBack: GenerateScreen(),
+                            ),
+                          ));
+                    },
+                  ),
                   SizedBox(height: 8),
                 ],
               ),

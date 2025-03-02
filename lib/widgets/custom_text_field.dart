@@ -16,12 +16,12 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    widget.controller.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   super.dispose();
+  //   widget.controller.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +37,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
         focusNode: focus,
         maxLines: 3,
         minLines: widget.minLine ?? 1,
-        style: TextStyle(color: Colors.white, fontSize: 18),
+        style: TextStyle(color: Colors.white, fontSize: 17),
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 7, vertical: 5),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(color: Colors.white38, width: 1.3),
@@ -76,7 +77,7 @@ class RowTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: 23,
+      spacing: 15,
       children: [
         Expanded(
             child: CustomTextField(

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
 
+import '../../provider/toggle_provider.dart';
 import '../../widgets/uihelper/color.dart';
 import '../../widgets/custom_cross_container.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/generate_qr_button.dart';
+import '../../widgets/uihelper/concat_string.dart';
 import '../generate_screen.dart';
+import '../result_screen.dart';
 
 class ForBusinessScreen extends StatefulWidget {
   const ForBusinessScreen({super.key});
@@ -21,24 +26,36 @@ class _ForBusinessScreenState extends State<ForBusinessScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController websiteController = TextEditingController();
   TextEditingController addressController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
   TextEditingController countryController = TextEditingController();
+  final player = AudioPlayer();
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    nameController.dispose();
-    industryController.dispose();
-    phoneController.dispose();
-    emailController.dispose();
-    websiteController.dispose();
-    addressController.dispose();
-    cityController.dispose();
-    countryController.dispose();
+    // nameController.dispose();
+    // industryController.dispose();
+    // phoneController.dispose();
+    // emailController.dispose();
+    // websiteController.dispose();
+    // addressController.dispose();
+    // stateController.dispose();
+    // countryController.dispose();
+    player.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    List<TextEditingController> code = [
+      nameController,
+      industryController,
+      phoneController,
+      emailController,
+      websiteController,
+      addressController,
+      stateController,
+      countryController
+    ];
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
       body: OvalBg(
@@ -111,11 +128,14 @@ class _ForBusinessScreenState extends State<ForBusinessScreen> {
                       labelText: "Industry Name",
                       controller: industryController,
                     ),
-                    RowTextField(
-                        controller1: phoneController,
-                        controller2: emailController,
-                        labelText1: "Phone",
-                        labelText2: "Email"),
+                    CustomTextField(
+                      labelText: "Phone",
+                      controller: phoneController,
+                    ),
+                    CustomTextField(
+                      labelText: "Email",
+                      controller: emailController,
+                    ),
                     CustomTextField(
                       labelText: "Website",
                       controller: websiteController,
@@ -125,11 +145,24 @@ class _ForBusinessScreenState extends State<ForBusinessScreen> {
                       controller: addressController,
                     ),
                     RowTextField(
-                        controller1: cityController,
+                        controller1: stateController,
                         controller2: countryController,
-                        labelText1: "City Name",
+                        labelText1: "State Name",
                         labelText2: "Country Name"),
-                    GenerateQrButton(onTap: () {}),
+                    GenerateQrButton(
+                      onTap: () async {
+                        await player.setAsset("assets/audio/beepSound.mp3");
+                        context.read<ToggleProvider>().vibBeep(player);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ResultScreen(
+                                code: concatenateString(code).text,
+                                navBack: GenerateScreen(),
+                              ),
+                            ));
+                      },
+                    ),
                   ],
                 ),
               ),

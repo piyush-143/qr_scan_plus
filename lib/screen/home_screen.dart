@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_plus/provider/toggle_provider.dart';
 import 'package:qr_plus/screen/result_screen.dart';
 import 'package:qr_plus/widgets/uihelper/color.dart';
 import 'package:qr_plus/widgets/custom_bottom_bar.dart';
@@ -16,16 +19,18 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final mobileController = MobileScannerController();
   bool isScanDone = false;
-
+  final player = AudioPlayer();
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     mobileController.dispose();
+    player.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final toggleProvider = context.read<ToggleProvider>();
     return Scaffold(
       body: Stack(
         children: [
@@ -34,15 +39,21 @@ class _HomeScreenState extends State<HomeScreen> {
             height: double.infinity,
             child: MobileScanner(
               controller: mobileController,
-              onDetect: (detectedCode) {
+              onDetect: (detectedCode) async {
                 final List<Barcode> barcodes = detectedCode.barcodes;
+
                 if (!isScanDone) {
                   String code = barcodes.first.rawValue ?? "--";
+                  await player.setAsset("assets/audio/beepSound.mp3");
                   isScanDone = true;
+                  toggleProvider.vibBeep(player);
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ResultScreen(code: code),
+                        builder: (context) => ResultScreen(
+                          code: code,
+                          navBack: HomeScreen(),
+                        ),
                       ));
                 }
               },

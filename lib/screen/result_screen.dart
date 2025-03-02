@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
 import '../widgets/uihelper/color.dart';
 import '../widgets/custom_cross_container.dart';
 import '../widgets/custom_share_save_button.dart';
-import 'home_screen.dart';
 
 class ResultScreen extends StatelessWidget {
   final String code;
-  const ResultScreen({super.key, required this.code});
+  final Widget navBack;
+
+  const ResultScreen({
+    super.key,
+    required this.code,
+    required this.navBack,
+  });
 
   @override
   Widget build(BuildContext context) {
+    DateTime d = DateTime.now();
+    String date =
+        "${DateFormat('d MMM y, hh:mm').format(d)} ${DateFormat("a").format(d).toLowerCase()}";
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
       body: OvalBg(
@@ -34,7 +43,7 @@ class ResultScreen extends StatelessWidget {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
+                              builder: (context) => navBack,
                             ));
                       },
                       size: 35,
@@ -95,7 +104,7 @@ class ResultScreen extends StatelessWidget {
                                     ),
                               ),
                               Text(
-                                "Date",
+                                date,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge!

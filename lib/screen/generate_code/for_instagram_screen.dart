@@ -14,11 +14,11 @@ class ForInstagramScreen extends StatefulWidget {
 class _ForInstagramScreenState extends State<ForInstagramScreen> {
   TextEditingController controller = TextEditingController();
   @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    controller.dispose();
-  }
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   super.dispose();
+  //   controller.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,6 @@ class _ForInstagramScreenState extends State<ForInstagramScreen> {
         labelText: "Username",
         icon: FontAwesomeIcons.instagram,
         minLine: 1,
-        onTap: () {},
       ),
     );
   }

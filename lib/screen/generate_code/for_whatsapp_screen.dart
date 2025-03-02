@@ -13,12 +13,12 @@ class ForWhatsappScreen extends StatefulWidget {
 
 class _ForWhatsappScreenState extends State<ForWhatsappScreen> {
   TextEditingController controller = TextEditingController();
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    controller.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   super.dispose();
+  //   controller.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,6 @@ class _ForWhatsappScreenState extends State<ForWhatsappScreen> {
         labelText: "WhatsApp Number",
         icon: FontAwesomeIcons.whatsapp,
         // minLine: 1,
-        onTap: () {},
       ),
     );
   }

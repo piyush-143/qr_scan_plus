@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_plus/screen/result_screen.dart';
 import 'package:qr_plus/widgets/single_field.dart';
 
 import '../../widgets/uihelper/color.dart';
@@ -12,12 +13,11 @@ class ForTextScreen extends StatefulWidget {
 
 class _ForTextScreenState extends State<ForTextScreen> {
   TextEditingController controller = TextEditingController();
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    controller.dispose();
-  }
+  //  @override
+  //  void dispose() {
+  //    _controller.dispose();
+  //    super.dispose();
+  //  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,6 @@ class _ForTextScreenState extends State<ForTextScreen> {
         labelText: "Enter Text",
         icon: Icons.text_fields,
         minLine: 2,
-        onTap: () {},
       ),
     );
   }
