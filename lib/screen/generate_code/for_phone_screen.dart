@@ -12,12 +12,12 @@ class ForPhoneScreen extends StatefulWidget {
 
 class _ForPhoneScreenState extends State<ForPhoneScreen> {
   TextEditingController controller = TextEditingController();
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    controller.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   super.dispose();
+  //   controller.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,6 @@ class _ForPhoneScreenState extends State<ForPhoneScreen> {
         labelText: "Phone Number",
         icon: Icons.phone_callback,
         minLine: 1,
-        onTap: () {},
       ),
     );
   }

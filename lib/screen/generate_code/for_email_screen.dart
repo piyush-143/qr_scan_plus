@@ -12,12 +12,12 @@ class ForEmailScreen extends StatefulWidget {
 
 class _ForEmailScreenState extends State<ForEmailScreen> {
   TextEditingController controller = TextEditingController();
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    controller.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   super.dispose();
+  //   controller.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,6 @@ class _ForEmailScreenState extends State<ForEmailScreen> {
         labelText: "Email",
         icon: Icons.mark_email_unread,
         minLine: 1,
-        onTap: () {},
       ),
     );
   }

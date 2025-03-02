@@ -1,5 +1,8 @@
+import 'package:all_vibrate/all_vibrate.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_plus/provider/toggle_provider.dart';
 import 'package:qr_plus/screen/home_screen.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
 import 'package:qr_plus/widgets/uihelper/color.dart';
@@ -8,13 +11,24 @@ import 'package:qr_plus/widgets/custom_setting_tile.dart';
 import 'package:qr_plus/widgets/custom_switch_button.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
-class SettingScreen extends StatelessWidget {
+class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
 
   @override
+  State<SettingScreen> createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen> {
+  final player = AudioPlayer();
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    player.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    bool vibVal = true;
-    bool beepVal = false;
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
       body: OvalBg(
@@ -51,9 +65,12 @@ class SettingScreen extends StatelessWidget {
                 subtitle: "Vibration when scan is done.",
                 leadingIcon: Icons.vibration,
                 trailing: CustomSwitchButton(
-                  val: vibVal,
+                  val: context.watch<ToggleProvider>().canVibrate,
                   onChanged: (value) {
-                    vibVal = value;
+                    if (value == true) {
+                      AllVibrate().simpleVibrate(period: 100, amplitude: 100);
+                    }
+                    context.read<ToggleProvider>().toggleVibration(value);
                   },
                 ),
               ),
@@ -62,9 +79,15 @@ class SettingScreen extends StatelessWidget {
                 subtitle: "Beep when scan is done.",
                 leadingIcon: Icons.notifications_active_outlined,
                 trailing: CustomSwitchButton(
-                  val: beepVal,
-                  onChanged: (value) {
-                    beepVal = value;
+                  val: context.watch<ToggleProvider>().canBeep,
+                  onChanged: (value) async {
+                    await player.setAsset("assets/audio/beepSound.mp3");
+                    if (value == true) {
+                      player.play();
+                      await Future.delayed(Duration(seconds: 1));
+                      player.stop();
+                    }
+                    context.read<ToggleProvider>().toggleBeep(value);
                   },
                 ),
               ),

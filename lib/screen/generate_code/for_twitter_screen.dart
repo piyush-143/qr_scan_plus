@@ -13,12 +13,12 @@ class ForTwitterScreen extends StatefulWidget {
 
 class _ForTwitterScreenState extends State<ForTwitterScreen> {
   TextEditingController controller = TextEditingController();
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    controller.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   super.dispose();
+  //   controller.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,6 @@ class _ForTwitterScreenState extends State<ForTwitterScreen> {
         labelText: "Username",
         icon: FontAwesomeIcons.xTwitter,
         minLine: 1,
-        onTap: () {},
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:qr_plus/screen/home_screen.dart';
-import 'package:qr_plus/widgets/oval_bg.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
 import '../widgets/uihelper/color.dart';
@@ -117,6 +117,9 @@ class _HistoryScreenState extends State<HistoryScreen>
   }
 
   Widget _customTabView() {
+    DateTime d = DateTime.now();
+    String date =
+        "${DateFormat('d MMM y, hh:mm').format(d)} ${DateFormat("a").format(d).toLowerCase()}";
     return ListView.builder(
       itemCount: 10,
       itemBuilder: (BuildContext context, int index) => Padding(
@@ -154,7 +157,7 @@ class _HistoryScreenState extends State<HistoryScreen>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("Data"),
-                Text("Date"),
+                Text(date),
               ],
             ),
             leading: Image.asset(

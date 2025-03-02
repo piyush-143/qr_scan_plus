@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
+import '../../provider/toggle_provider.dart';
 import '../../widgets/uihelper/color.dart';
 import '../../widgets/custom_cross_container.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/generate_qr_button.dart';
+import '../../widgets/uihelper/concat_string.dart';
 import '../generate_screen.dart';
+import '../result_screen.dart';
 
 class ForEventScreen extends StatefulWidget {
   const ForEventScreen({super.key});
@@ -21,19 +26,28 @@ class _ForEventScreenState extends State<ForEventScreen> {
   TextEditingController endDateTimeController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   TextEditingController descController = TextEditingController();
+  final player = AudioPlayer();
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    nameController.dispose();
-    startDateTimeController.dispose();
-    endDateTimeController.dispose();
-    locationController.dispose();
-    descController.dispose();
+    // nameController.dispose();
+    // startDateTimeController.dispose();
+    // endDateTimeController.dispose();
+    // locationController.dispose();
+    // descController.dispose();
+    player.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    List<TextEditingController> code = [
+      nameController,
+      startDateTimeController,
+      endDateTimeController,
+      locationController,
+      descController
+    ];
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
       body: OvalBg(
@@ -117,7 +131,20 @@ class _ForEventScreenState extends State<ForEventScreen> {
                       minLine: 2,
                     ),
                     SizedBox(height: 0),
-                    GenerateQrButton(onTap: () {}),
+                    GenerateQrButton(
+                      onTap: () async {
+                        await player.setAsset("assets/audio/beepSound.mp3");
+                        context.read<ToggleProvider>().vibBeep(player);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ResultScreen(
+                                code: concatenateString(code).text,
+                                navBack: GenerateScreen(),
+                              ),
+                            ));
+                      },
+                    ),
                     SizedBox(height: 0),
                   ],
                 ),

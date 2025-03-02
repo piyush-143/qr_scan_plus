@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:qr_plus/screen/result_screen.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
+import 'package:qr_plus/widgets/uihelper/concat_string.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
-
 import '../../widgets/uihelper/color.dart';
 import '../../widgets/custom_cross_container.dart';
 import '../../widgets/custom_text_field.dart';
@@ -18,16 +19,17 @@ class ForWiFiScreen extends StatefulWidget {
 class _ForWiFiScreenState extends State<ForWiFiScreen> {
   TextEditingController networkController = TextEditingController();
   TextEditingController passController = TextEditingController();
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    networkController.dispose();
-    passController.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   super.dispose();
+  //   networkController.dispose();
+  //   passController.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    List<TextEditingController> code = [networkController, passController];
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
       body: OvalBg(
@@ -102,7 +104,18 @@ class _ForWiFiScreenState extends State<ForWiFiScreen> {
                       controller: passController,
                     ),
                     SizedBox(height: 10),
-                    GenerateQrButton(onTap: () {}),
+                    GenerateQrButton(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ResultScreen(
+                                code: concatenateString(code).text,
+                                navBack: GenerateScreen(),
+                              ),
+                            ));
+                      },
+                    ),
                     SizedBox(height: 8),
                   ],
                 ),

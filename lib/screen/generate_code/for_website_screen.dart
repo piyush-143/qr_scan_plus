@@ -12,12 +12,12 @@ class ForWebsiteScreen extends StatefulWidget {
 
 class _ForWebsiteScreenState extends State<ForWebsiteScreen> {
   TextEditingController controller = TextEditingController();
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    controller.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   super.dispose();
+  //   controller.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,6 @@ class _ForWebsiteScreenState extends State<ForWebsiteScreen> {
         labelText: "Website Url",
         icon: Icons.language,
         minLine: 2,
-        onTap: () {},
       ),
     );
   }
