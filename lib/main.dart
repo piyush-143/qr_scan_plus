@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_plus/provider/concatenate_provider.dart';
-import 'package:qr_plus/provider/gallery_image_provider.dart';
+import 'package:qr_plus/provider/images_provider.dart';
 import 'package:qr_plus/provider/toggle_provider.dart';
 import 'package:qr_plus/screen/splash_screen.dart';
 import 'package:qr_plus/widgets/uihelper/color.dart';
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => GalleryImageProvider()),
+        ChangeNotifierProvider(create: (_) => ImagesProvider()),
         ChangeNotifierProvider(create: (_) => ToggleProvider()),
         ChangeNotifierProvider(create: (_) => ConcatenateProvider()),
       ],

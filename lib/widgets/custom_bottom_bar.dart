@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_plus/screen/generate_screen.dart';
 import 'package:qr_plus/screen/history_screen.dart';
-import 'package:qr_plus/widgets/uihelper/concat_string.dart';
 import 'uihelper/color.dart';
 
 class CustomBottomBar extends StatelessWidget {

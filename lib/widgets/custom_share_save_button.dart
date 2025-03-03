@@ -34,7 +34,7 @@ class CustomShareSaveButton extends StatelessWidget {
             ),
             child: Icon(
               icon,
-              size: 35,
+              size: 30,
               color: CustomColor.barBgColor,
             ),
           ),

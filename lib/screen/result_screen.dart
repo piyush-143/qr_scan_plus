@@ -1,14 +1,19 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
+import 'package:qr_plus/widgets/uihelper/flushbar_message.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
+import '../provider/images_provider.dart';
 import '../widgets/uihelper/color.dart';
 import '../widgets/custom_cross_container.dart';
 import '../widgets/custom_share_save_button.dart';
+import 'package:screenshot/screenshot.dart';
 
-class ResultScreen extends StatelessWidget {
+class ResultScreen extends StatefulWidget {
   final String code;
   final Widget navBack;
 
@@ -18,6 +23,12 @@ class ResultScreen extends StatelessWidget {
     required this.navBack,
   });
 
+  @override
+  State<ResultScreen> createState() => _ResultScreenState();
+}
+
+class _ResultScreenState extends State<ResultScreen> {
+  ScreenshotController screenshotController = ScreenshotController();
   @override
   Widget build(BuildContext context) {
     DateTime d = DateTime.now();
@@ -43,7 +54,7 @@ class ResultScreen extends StatelessWidget {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => navBack,
+                              builder: (context) => widget.navBack,
                             ));
                       },
                       size: 35,
@@ -122,7 +133,7 @@ class ResultScreen extends StatelessWidget {
                         thickness: 1,
                       ),
                       Text(
-                        code,
+                        widget.code,
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -151,9 +162,12 @@ class ResultScreen extends StatelessWidget {
                           spreadRadius: 1)
                     ],
                   ),
-                  child: QrImageView(
-                    data: code,
-                    version: QrVersions.auto,
+                  child: Screenshot(
+                    controller: screenshotController,
+                    child: QrImageView(
+                      data: widget.code,
+                      version: QrVersions.auto,
+                    ),
                   ),
                   //child: Image.file(image!),
                 ),
@@ -168,11 +182,18 @@ class ResultScreen extends StatelessWidget {
                   CustomShareSaveButton(
                       icon: Icons.file_copy,
                       onTap: () {
-                        Clipboard.setData(ClipboardData(text: code));
+                        flushBarMessage(context, "Copied to clipboard");
+                        Clipboard.setData(ClipboardData(text: widget.code));
                       },
                       text: "Copy"),
                   CustomShareSaveButton(
-                      icon: Icons.save_sharp, onTap: () {}, text: "Save"),
+                      icon: Icons.save_sharp,
+                      onTap: () {
+                        // context
+                        //     .read<ImagesProvider>()
+                        //     .saveImageToGallery(screenshotController, context);
+                      },
+                      text: "Save"),
                 ],
               )
             ],
