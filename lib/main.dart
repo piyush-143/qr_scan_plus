@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_plus/provider/concatenate_provider.dart';
+import 'package:qr_plus/provider/db_provider.dart';
 import 'package:qr_plus/provider/images_provider.dart';
 import 'package:qr_plus/provider/toggle_provider.dart';
 import 'package:qr_plus/screen/splash_screen.dart';
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => ImagesProvider()),
         ChangeNotifierProvider(create: (_) => ToggleProvider()),
-        ChangeNotifierProvider(create: (_) => ConcatenateProvider()),
+        ChangeNotifierProvider(create: (_) => DBProvider()),
       ],
       child: SafeArea(
         child: MaterialApp(
