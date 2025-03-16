@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_plus/provider/toggle_provider.dart';
 import 'package:qr_plus/screen/result_screen.dart';
-import 'package:qr_plus/widgets/uihelper/flushbar_message.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
+import '../provider/db_provider.dart';
 import '../screen/generate_screen.dart';
-import 'oval_bg.dart';
-import 'uihelper/color.dart';
 import 'custom_cross_container.dart';
 import 'custom_text_field.dart';
 import 'generate_qr_button.dart';
+import 'oval_bg.dart';
+import 'uihelper/color.dart';
 
 class SingleField extends StatefulWidget {
   TextEditingController controller;
@@ -115,14 +116,22 @@ class _SingleFieldState extends State<SingleField> {
                   SizedBox(height: 10),
                   GenerateQrButton(
                     onTap: () async {
+                      final date = DateTime.now();
+                      String d =
+                          "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
                       await player.setAsset("assets/audio/beepSound.mp3");
                       context.read<ToggleProvider>().vibBeep(player);
+                      context.read<DBProvider>().addData(
+                          code: widget.controller.text,
+                          date: DateTime.now(),
+                          isCreate: true);
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => ResultScreen(
                               code: widget.controller.text,
                               navBack: GenerateScreen(),
+                              date: d,
                             ),
                           ));
                     },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:qr_plus/database/local_database/db_helper.dart';
 
 class DBProvider with ChangeNotifier {
@@ -16,10 +17,12 @@ class DBProvider with ChangeNotifier {
 
   Future<void> addData(
       {required String code,
-      required String date,
+      required DateTime date,
       required bool isCreate}) async {
+    String d =
+        "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
     bool check =
-        await _dbRef.addHistory(code: code, date: date, isCreate: isCreate);
+        await _dbRef.addHistory(code: code, date: d, isCreate: isCreate);
     if (check) {
       isCreate
           ? _allCreateData = await _dbRef.getAllData(isCreate: isCreate)

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_plus/provider/images_provider.dart';
+import 'package:qr_plus/provider/gallery_images_provider.dart';
 import 'package:qr_plus/provider/toggle_provider.dart';
 import 'package:qr_plus/screen/setting_screen.dart';
+
 import 'uihelper/color.dart';
 
 class CustomTopBar extends StatefulWidget {
@@ -26,7 +27,8 @@ class _CustomTopBarState extends State<CustomTopBar> {
   @override
   Widget build(BuildContext context) {
     final toggleProvider = Provider.of<ToggleProvider>(context);
-    final pathProvider = Provider.of<ImagesProvider>(context, listen: false);
+    final pathProvider =
+        Provider.of<GalleryImagesProvider>(context, listen: false);
 
     return Container(
       height: 40,

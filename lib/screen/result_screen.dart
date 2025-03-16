@@ -1,26 +1,25 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
 import 'package:qr_plus/widgets/uihelper/flushbar_message.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
-import '../provider/images_provider.dart';
-import '../widgets/uihelper/color.dart';
+import 'package:screenshot/screenshot.dart';
+
 import '../widgets/custom_cross_container.dart';
 import '../widgets/custom_share_save_button.dart';
-import 'package:screenshot/screenshot.dart';
+import '../widgets/uihelper/color.dart';
 
 class ResultScreen extends StatefulWidget {
   final String code;
   final Widget navBack;
+  final String date;
 
   const ResultScreen({
     super.key,
     required this.code,
     required this.navBack,
+    required this.date,
   });
 
   @override
@@ -31,9 +30,6 @@ class _ResultScreenState extends State<ResultScreen> {
   ScreenshotController screenshotController = ScreenshotController();
   @override
   Widget build(BuildContext context) {
-    DateTime d = DateTime.now();
-    String date =
-        "${DateFormat('d MMM y, hh:mm').format(d)} ${DateFormat("a").format(d).toLowerCase()}";
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
       body: OvalBg(
@@ -115,7 +111,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                     ),
                               ),
                               Text(
-                                date,
+                                widget.date,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge!

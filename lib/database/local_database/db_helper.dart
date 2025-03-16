@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -55,7 +56,7 @@ class DBHelper {
     int rowsEffected = isCreate
         ? await db.delete(createTableName,
             where: "$createTableColumnSno=?", whereArgs: ["$sno"])
-        : await db.delete(createTableName,
+        : await db.delete(scanTableName,
             where: "$scanTableColumnSno=?", whereArgs: ["$sno"]);
     return rowsEffected > 0;
   }
