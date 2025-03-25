@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_plus/provider/gallery_images_provider.dart';
+import 'package:qr_plus/provider/qr_code_provider.dart';
 import 'package:qr_plus/provider/toggle_provider.dart';
 import 'package:qr_plus/screen/setting_screen.dart';
 
+import '../provider/db_provider.dart';
+import '../screen/home_screen.dart';
+import '../screen/result_screen.dart';
 import 'uihelper/color.dart';
 
 class CustomTopBar extends StatefulWidget {
   final MobileScannerController mobileController;
-  // VoidCallback onPressed = () {};
+
   const CustomTopBar({required this.mobileController, super.key});
 
   @override
@@ -18,18 +22,8 @@ class CustomTopBar extends StatefulWidget {
 
 class _CustomTopBarState extends State<CustomTopBar> {
   @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    widget.mobileController.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final toggleProvider = Provider.of<ToggleProvider>(context);
-    final pathProvider =
-        Provider.of<GalleryImagesProvider>(context, listen: false);
-
     return Container(
       height: 40,
       decoration: BoxDecoration(
@@ -40,12 +34,41 @@ class _CustomTopBarState extends State<CustomTopBar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildButton(
-            icon: Icons.image_rounded,
-            color: Colors.white,
-            onTap: () {
-              pathProvider.getGalleryImage();
-            },
+          Consumer<QrCodeProvider>(
+            builder: (context, value, child) => _buildButton(
+              icon: Icons.image_rounded,
+              color: Colors.white,
+              onTap: () {
+                final date = DateTime.now();
+                String d =
+                    "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
+
+                context
+                    .read<QrCodeProvider>()
+                    .pickImageAndScan(context, widget.mobileController)
+                    .whenComplete(
+                  () {
+                    if (value.detectedQrCode != "") {
+                      context.read<DBProvider>().addData(
+                            code: value.detectedQrCode,
+                            date: DateTime.now(),
+                            isCreate: false,
+                          );
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ResultScreen(
+                            code: value.detectedQrCode,
+                            navBack: HomeScreen(),
+                            date: d,
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                );
+              },
+            ),
           ),
           _buildButton(
             icon: toggleProvider.isFlashOn ? Icons.flash_on : Icons.flash_off,

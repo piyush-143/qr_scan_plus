@@ -1,5 +1,6 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+
 import 'color.dart';
 
 Future flushBarMessage(BuildContext context, String msg) {
@@ -9,8 +10,9 @@ Future flushBarMessage(BuildContext context, String msg) {
     duration: Duration(seconds: 2),
     icon: Icon(Icons.info_outline_rounded, color: CustomColor.goldColor),
     messageSize: 15,
-    backgroundColor: Colors.black12,
+    backgroundColor: Colors.black54,
     shouldIconPulse: false,
     borderRadius: BorderRadius.circular(5),
+    leftBarIndicatorColor: CustomColor.goldColor,
   ).show(context);
 }

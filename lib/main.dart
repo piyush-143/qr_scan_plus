@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_plus/provider/db_provider.dart';
-import 'package:qr_plus/provider/gallery_images_provider.dart';
+import 'package:qr_plus/provider/qr_code_provider.dart';
+import 'package:qr_plus/provider/save_image_provider.dart';
 import 'package:qr_plus/provider/tab_index_provider.dart';
 import 'package:qr_plus/provider/toggle_provider.dart';
 import 'package:qr_plus/screen/splash_screen.dart';
@@ -19,10 +20,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => GalleryImagesProvider()),
+        ChangeNotifierProvider(create: (_) => SaveImageToGalleryProvider()),
         ChangeNotifierProvider(create: (_) => ToggleProvider()),
         ChangeNotifierProvider(create: (_) => DBProvider()),
         ChangeNotifierProvider(create: (_) => TabIndexProvider()),
+        ChangeNotifierProvider(create: (_) => QrCodeProvider()),
       ],
       child: SafeArea(
         child: MaterialApp(

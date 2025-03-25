@@ -38,7 +38,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         maxLines: 3,
         minLines: widget.minLine ?? 1,
         style: TextStyle(color: Colors.white, fontSize: 17),
-        keyboardType: TextInputType.none,
+        keyboardType: TextInputType.text,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(horizontal: 7, vertical: 5),
           focusedBorder: OutlineInputBorder(
