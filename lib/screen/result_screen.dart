@@ -1,28 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:qr_plus/provider/qr_code_provider.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
+import 'package:qr_plus/widgets/uihelper/flushbar_message.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
-import '../widgets/uihelper/color.dart';
+import 'package:screenshot/screenshot.dart';
+
+import '../provider/save_image_provider.dart';
 import '../widgets/custom_cross_container.dart';
 import '../widgets/custom_share_save_button.dart';
+import '../widgets/uihelper/color.dart';
 
-class ResultScreen extends StatelessWidget {
+class ResultScreen extends StatefulWidget {
   final String code;
   final Widget navBack;
+  final String date;
 
   const ResultScreen({
     super.key,
     required this.code,
     required this.navBack,
+    required this.date,
   });
 
   @override
+  State<ResultScreen> createState() => _ResultScreenState();
+}
+
+class _ResultScreenState extends State<ResultScreen> {
+  ScreenshotController screenshotController = ScreenshotController();
+
+  @override
   Widget build(BuildContext context) {
-    DateTime d = DateTime.now();
-    String date =
-        "${DateFormat('d MMM y, hh:mm').format(d)} ${DateFormat("a").format(d).toLowerCase()}";
+    bool isUrl = Uri.tryParse(widget.code)?.hasAbsolutePath ?? false;
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
       body: OvalBg(
@@ -43,7 +55,7 @@ class ResultScreen extends StatelessWidget {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => navBack,
+                              builder: (context) => widget.navBack,
                             ));
                       },
                       size: 35,
@@ -104,7 +116,7 @@ class ResultScreen extends StatelessWidget {
                                     ),
                               ),
                               Text(
-                                date,
+                                widget.date,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge!
@@ -121,15 +133,31 @@ class ResultScreen extends StatelessWidget {
                         color: Colors.white30,
                         thickness: 1,
                       ),
-                      Text(
-                        code,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            color: Colors.white,
-                            fontSize: 17,
-                            letterSpacing: 0,
-                            height: 1.2),
+                      InkWell(
+                        onTap: () {
+                          if (isUrl) {
+                            context.read<QrCodeProvider>().openUrl(widget.code);
+                          }
+                        },
+                        child: Text(
+                          widget.code,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
+                                  color: isUrl
+                                      ? Colors.blue.shade300
+                                      : Colors.white,
+                                  decoration: isUrl
+                                      ? TextDecoration.underline
+                                      : TextDecoration.none,
+                                  decorationColor: Colors.blue.shade300,
+                                  fontSize: 17,
+                                  letterSpacing: 0,
+                                  height: 1.2),
+                        ),
                       ),
                     ],
                   ),
@@ -151,11 +179,13 @@ class ResultScreen extends StatelessWidget {
                           spreadRadius: 1)
                     ],
                   ),
-                  child: QrImageView(
-                    data: code,
-                    version: QrVersions.auto,
+                  child: Screenshot(
+                    controller: screenshotController,
+                    child: QrImageView(
+                      data: widget.code,
+                      version: QrVersions.auto,
+                    ),
                   ),
-                  //child: Image.file(image!),
                 ),
               ),
               SizedBox(height: 20),
@@ -168,11 +198,19 @@ class ResultScreen extends StatelessWidget {
                   CustomShareSaveButton(
                       icon: Icons.file_copy,
                       onTap: () {
-                        Clipboard.setData(ClipboardData(text: code));
+                        flushBarMessage(context, "Copied to clipboard");
+                        Clipboard.setData(ClipboardData(text: widget.code));
                       },
                       text: "Copy"),
                   CustomShareSaveButton(
-                      icon: Icons.save_sharp, onTap: () {}, text: "Save"),
+                      icon: Icons.save_sharp,
+                      onTap: () {
+                        context
+                            .read<SaveImageToGalleryProvider>()
+                            .saveImageToGallery(screenshotController, context);
+                        flushBarMessage(context, "Image saved to gallery");
+                      },
+                      text: "Save"),
                 ],
               )
             ],

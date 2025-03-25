@@ -9,6 +9,7 @@ import 'package:qr_plus/widgets/uihelper/color.dart';
 import 'package:qr_plus/widgets/custom_cross_container.dart';
 import 'package:qr_plus/widgets/custom_setting_tile.dart';
 import 'package:qr_plus/widgets/custom_switch_button.dart';
+import 'package:qr_plus/widgets/uihelper/flushbar_message.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -68,7 +69,10 @@ class _SettingScreenState extends State<SettingScreen> {
                   val: context.watch<ToggleProvider>().canVibrate,
                   onChanged: (value) {
                     if (value == true) {
+                      flushBarMessage(context, "Vibration turned On");
                       AllVibrate().simpleVibrate(period: 100, amplitude: 100);
+                    } else {
+                      flushBarMessage(context, "Vibration turned Off");
                     }
                     context.read<ToggleProvider>().toggleVibration(value);
                   },
@@ -83,9 +87,12 @@ class _SettingScreenState extends State<SettingScreen> {
                   onChanged: (value) async {
                     await player.setAsset("assets/audio/beepSound.mp3");
                     if (value == true) {
+                      flushBarMessage(context, "Beep turned On");
                       player.play();
                       await Future.delayed(Duration(seconds: 1));
                       player.stop();
+                    } else {
+                      flushBarMessage(context, "Beep turned Off");
                     }
                     context.read<ToggleProvider>().toggleBeep(value);
                   },

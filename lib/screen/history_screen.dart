@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_plus/database/local_database/db_helper.dart';
+import 'package:qr_plus/provider/db_provider.dart';
+import 'package:qr_plus/provider/tab_index_provider.dart';
 import 'package:qr_plus/screen/home_screen.dart';
+import 'package:qr_plus/screen/result_screen.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
-import '../widgets/uihelper/color.dart';
 import '../widgets/custom_cross_container.dart';
+import '../widgets/uihelper/color.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -15,19 +19,22 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+  late final TabController _tabController = TabController(
+      length: 2,
+      vsync: this,
+      initialIndex: context.watch<TabIndexProvider>().index);
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    //_tabController = TabController(length: 2, vsync: this);
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _tabController.dispose();
+    //_tabController.dispose();
   }
 
   @override
@@ -51,6 +58,7 @@ class _HistoryScreenState extends State<HistoryScreen>
             padding: const EdgeInsets.only(right: 25),
             child: CustomCrossContainer(
               onTap: () {
+                context.read<TabIndexProvider>().setTabIndex(false);
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
@@ -80,18 +88,17 @@ class _HistoryScreenState extends State<HistoryScreen>
                   gradient: LinearGradient(
                       colors: [CustomColor.goldColor, CustomColor.bgColor],
                       begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter), // Active tab color
+                      end: Alignment.bottomCenter),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 dividerColor: CustomColor.barBgColor,
-                labelColor: Colors.white, // Active text color
-                unselectedLabelColor: Colors.white, // Inactive text color
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.white,
                 labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontSize: 17,
                     color: Colors.white,
-                    fontWeight: FontWeight.w600), // Bold text
-                indicatorSize: TabBarIndicatorSize
-                    .tab, // Make indicator the same size as tab
+                    fontWeight: FontWeight.w600),
+                indicatorSize: TabBarIndicatorSize.tab,
                 tabs: [
                   Tab(text: 'Scan'),
                   Tab(text: 'Create'),
@@ -105,8 +112,8 @@ class _HistoryScreenState extends State<HistoryScreen>
                 controller: _tabController,
                 clipBehavior: Clip.none,
                 children: [
-                  _customTabView(),
-                  _customTabView(),
+                  _customTabView(isCreate: false),
+                  _customTabView(isCreate: true),
                 ],
               ),
             )
@@ -116,73 +123,118 @@ class _HistoryScreenState extends State<HistoryScreen>
     );
   }
 
-  Widget _customTabView() {
-    DateTime d = DateTime.now();
-    String date =
-        "${DateFormat('d MMM y, hh:mm').format(d)} ${DateFormat("a").format(d).toLowerCase()}";
+  Widget _customTabView({required bool isCreate}) {
+    final dbDataProvider = context.watch<DBProvider>();
     return ListView.builder(
-      itemCount: 10,
-      itemBuilder: (BuildContext context, int index) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-        child: Container(
-          decoration: BoxDecoration(
-            color: CustomColor.barBgColor,
-            borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              BoxShadow(
-                color: CustomColor.barBgColor,
-                blurRadius: 10, blurStyle: BlurStyle.solid,
-                offset: Offset(0, 1), // changes position of shadow
-              ),
-            ],
-          ),
-          child: ListTile(
-            title: Padding(
-              padding: const EdgeInsets.only(bottom: 4.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      "http://www.youtube.com/watch?v=Zd9g7sKvgIM",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Icon(Icons.delete_forever, size: 25),
-                ],
-              ),
-            ),
-            subtitle: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Data"),
-                Text(date),
+      itemCount: isCreate
+          ? dbDataProvider.allCreateData.length
+          : dbDataProvider.allScanData.length,
+      itemBuilder: (BuildContext context, int revIdx) {
+        final itemCount = isCreate
+            ? dbDataProvider.allCreateData.length
+            : dbDataProvider.allScanData.length;
+        final index = itemCount - 1 - revIdx;
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+          child: Container(
+            decoration: BoxDecoration(
+              color: CustomColor.barBgColor,
+              borderRadius: BorderRadius.circular(5),
+              boxShadow: [
+                BoxShadow(
+                  color: CustomColor.barBgColor,
+                  blurRadius: 10, blurStyle: BlurStyle.solid,
+                  offset: Offset(0, 1), // changes position of shadow
+                ),
               ],
             ),
-            leading: Image.asset(
-              "assets/result/resultIcon.png",
-              height: 38,
-              width: 38,
+            child: ListTile(
+              onTap: () {
+                context.read<TabIndexProvider>().setTabIndex(isCreate);
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ResultScreen(
+                        code: isCreate
+                            ? dbDataProvider.allCreateData[index]
+                                [DBHelper.createTableColumnCode]
+                            : dbDataProvider.allScanData[index]
+                                [DBHelper.scanTableColumnCode],
+                        navBack: HistoryScreen(),
+                        date: isCreate
+                            ? dbDataProvider.allCreateData[index]
+                                [DBHelper.createTableColumnDate]
+                            : dbDataProvider.allScanData[index]
+                                [DBHelper.scanTableColumnDate],
+                      ),
+                    ));
+              },
+              title: Padding(
+                padding: const EdgeInsets.only(bottom: 4.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        isCreate
+                            ? dbDataProvider.allCreateData[index]
+                                [DBHelper.createTableColumnCode]
+                            : dbDataProvider.allScanData[index]
+                                [DBHelper.scanTableColumnCode],
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    InkWell(
+                        onTap: () {
+                          dbDataProvider.deleteData(
+                              sno: isCreate
+                                  ? dbDataProvider.allCreateData[index]
+                                      [DBHelper.createTableColumnSno]
+                                  : dbDataProvider.allScanData[index]
+                                      [DBHelper.scanTableColumnSno],
+                              isCreate: isCreate);
+                        },
+                        child: Icon(Icons.delete_forever, size: 25)),
+                  ],
+                ),
+              ),
+              subtitle: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Data"),
+                  Text(isCreate
+                      ? dbDataProvider.allCreateData[index]
+                          [DBHelper.createTableColumnDate]
+                      : dbDataProvider.allScanData[index]
+                          [DBHelper.scanTableColumnDate]),
+                ],
+              ),
+              leading: Image.asset(
+                "assets/result/resultIcon.png",
+                height: 38,
+                width: 38,
+              ),
+              titleTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontSize: 15,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: 0,
+                  ),
+              subtitleTextStyle:
+                  Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontSize: 13,
+                        color: Colors.white60,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: 0,
+                      ),
+              //tileColor: CustomColor.goldColor,
+              iconColor: CustomColor.goldColor,
+              minTileHeight: 60,
             ),
-            titleTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  fontSize: 15,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 0,
-                ),
-            subtitleTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  fontSize: 13,
-                  color: Colors.white60,
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 0,
-                ),
-            //tileColor: CustomColor.goldColor,
-            iconColor: CustomColor.goldColor,
-            minTileHeight: 60,
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
