@@ -49,6 +49,7 @@ class _CustomTopBarState extends State<CustomTopBar> {
                     .whenComplete(
                   () {
                     if (value.detectedQrCode != "") {
+                      toggleProvider.vibBeep();
                       context.read<DBProvider>().addData(
                             code: value.detectedQrCode,
                             date: DateTime.now(),

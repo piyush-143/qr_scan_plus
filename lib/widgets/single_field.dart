@@ -122,6 +122,7 @@ class _SingleFieldState extends State<SingleField> {
                               "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
                           // await player.setAsset("assets/audio/beepSound.mp3");
                           context.read<ToggleProvider>().vibBeep();
+
                           context.read<DBProvider>().addData(
                               code: widget.controller.text,
                               date: DateTime.now(),
