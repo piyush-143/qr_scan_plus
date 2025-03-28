@@ -125,116 +125,133 @@ class _HistoryScreenState extends State<HistoryScreen>
 
   Widget _customTabView({required bool isCreate}) {
     final dbDataProvider = context.watch<DBProvider>();
-    return ListView.builder(
-      itemCount: isCreate
-          ? dbDataProvider.allCreateData.length
-          : dbDataProvider.allScanData.length,
-      itemBuilder: (BuildContext context, int revIdx) {
-        final itemCount = isCreate
-            ? dbDataProvider.allCreateData.length
-            : dbDataProvider.allScanData.length;
-        final index = itemCount - 1 - revIdx;
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-          child: Container(
-            decoration: BoxDecoration(
-              color: CustomColor.barBgColor,
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: [
-                BoxShadow(
-                  color: CustomColor.barBgColor,
-                  blurRadius: 10, blurStyle: BlurStyle.solid,
-                  offset: Offset(0, 1), // changes position of shadow
-                ),
-              ],
+    return (isCreate
+            ? dbDataProvider.allCreateData.isEmpty
+            : dbDataProvider.allScanData.isEmpty)
+        ? Center(
+            child: Text(
+              "Nothing to show!\n${isCreate ? "Create any QrCode" : "Scan any QrCode"}",
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontSize: 22,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 0,
+                    height: 1.1,
+                  ),
             ),
-            child: ListTile(
-              onTap: () {
-                context.read<TabIndexProvider>().setTabIndex(isCreate);
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ResultScreen(
-                        code: isCreate
-                            ? dbDataProvider.allCreateData[index]
-                                [DBHelper.createTableColumnCode]
-                            : dbDataProvider.allScanData[index]
-                                [DBHelper.scanTableColumnCode],
-                        navBack: HistoryScreen(),
-                        date: isCreate
+          )
+        : ListView.builder(
+            itemCount: isCreate
+                ? dbDataProvider.allCreateData.length
+                : dbDataProvider.allScanData.length,
+            itemBuilder: (BuildContext context, int revIdx) {
+              final itemCount = isCreate
+                  ? dbDataProvider.allCreateData.length
+                  : dbDataProvider.allScanData.length;
+              final index = itemCount - 1 - revIdx;
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: CustomColor.barBgColor,
+                    borderRadius: BorderRadius.circular(5),
+                    boxShadow: [
+                      BoxShadow(
+                        color: CustomColor.barBgColor,
+                        blurRadius: 10, blurStyle: BlurStyle.solid,
+                        offset: Offset(0, 1), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: ListTile(
+                    onTap: () {
+                      context.read<TabIndexProvider>().setTabIndex(isCreate);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ResultScreen(
+                              code: isCreate
+                                  ? dbDataProvider.allCreateData[index]
+                                      [DBHelper.createTableColumnCode]
+                                  : dbDataProvider.allScanData[index]
+                                      [DBHelper.scanTableColumnCode],
+                              navBack: HistoryScreen(),
+                              date: isCreate
+                                  ? dbDataProvider.allCreateData[index]
+                                      [DBHelper.createTableColumnDate]
+                                  : dbDataProvider.allScanData[index]
+                                      [DBHelper.scanTableColumnDate],
+                            ),
+                          ));
+                    },
+                    title: Padding(
+                      padding: const EdgeInsets.only(bottom: 4.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              isCreate
+                                  ? dbDataProvider.allCreateData[index]
+                                      [DBHelper.createTableColumnCode]
+                                  : dbDataProvider.allScanData[index]
+                                      [DBHelper.scanTableColumnCode],
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          InkWell(
+                              onTap: () {
+                                dbDataProvider.deleteData(
+                                    sno: isCreate
+                                        ? dbDataProvider.allCreateData[index]
+                                            [DBHelper.createTableColumnSno]
+                                        : dbDataProvider.allScanData[index]
+                                            [DBHelper.scanTableColumnSno],
+                                    isCreate: isCreate);
+                              },
+                              child: Icon(Icons.delete_forever, size: 25)),
+                        ],
+                      ),
+                    ),
+                    subtitle: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Data"),
+                        Text(isCreate
                             ? dbDataProvider.allCreateData[index]
                                 [DBHelper.createTableColumnDate]
                             : dbDataProvider.allScanData[index]
-                                [DBHelper.scanTableColumnDate],
-                      ),
-                    ));
-              },
-              title: Padding(
-                padding: const EdgeInsets.only(bottom: 4.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        isCreate
-                            ? dbDataProvider.allCreateData[index]
-                                [DBHelper.createTableColumnCode]
-                            : dbDataProvider.allScanData[index]
-                                [DBHelper.scanTableColumnCode],
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                                [DBHelper.scanTableColumnDate]),
+                      ],
                     ),
-                    InkWell(
-                        onTap: () {
-                          dbDataProvider.deleteData(
-                              sno: isCreate
-                                  ? dbDataProvider.allCreateData[index]
-                                      [DBHelper.createTableColumnSno]
-                                  : dbDataProvider.allScanData[index]
-                                      [DBHelper.scanTableColumnSno],
-                              isCreate: isCreate);
-                        },
-                        child: Icon(Icons.delete_forever, size: 25)),
-                  ],
-                ),
-              ),
-              subtitle: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Data"),
-                  Text(isCreate
-                      ? dbDataProvider.allCreateData[index]
-                          [DBHelper.createTableColumnDate]
-                      : dbDataProvider.allScanData[index]
-                          [DBHelper.scanTableColumnDate]),
-                ],
-              ),
-              leading: Image.asset(
-                "assets/result/resultIcon.png",
-                height: 38,
-                width: 38,
-              ),
-              titleTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontSize: 15,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w400,
-                    letterSpacing: 0,
+                    leading: Image.asset(
+                      "assets/result/resultIcon.png",
+                      height: 38,
+                      width: 38,
+                    ),
+                    titleTextStyle:
+                        Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              fontSize: 15,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: 0,
+                            ),
+                    subtitleTextStyle:
+                        Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              fontSize: 13,
+                              color: Colors.white60,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: 0,
+                            ),
+                    //tileColor: CustomColor.goldColor,
+                    iconColor: CustomColor.goldColor,
+                    minTileHeight: 60,
                   ),
-              subtitleTextStyle:
-                  Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontSize: 13,
-                        color: Colors.white60,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: 0,
-                      ),
-              //tileColor: CustomColor.goldColor,
-              iconColor: CustomColor.goldColor,
-              minTileHeight: 60,
-            ),
-          ),
-        );
-      },
-    );
+                ),
+              );
+            },
+          );
   }
 }

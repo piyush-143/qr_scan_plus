@@ -19,11 +19,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final MobileScannerController mobileController = MobileScannerController();
+  final MobileScannerController mobileController = MobileScannerController(
+    detectionSpeed: DetectionSpeed.noDuplicates,
+  );
   // final player = AudioPlayer();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context.read<DBProvider>().getInitialData();
   }
@@ -50,11 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
               onDetect: (detectedCode) {
                 String scannedCode =
                     detectedCode.barcodes.first.rawValue.toString();
-                // context.read<QrCodeProvider>().setQrCode(detectedCode.barcodes);
                 final date = DateTime.now();
                 String d =
                     "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
-                // await player.setAsset("assets/audio/beepSound.mp3");
+                //await player.setAsset("assets/audio/beepSound.mp3");
                 toggleProvider.vibBeep();
                 context.read<DBProvider>().addData(
                     code: scannedCode, date: DateTime.now(), isCreate: false);
