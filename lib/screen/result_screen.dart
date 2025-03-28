@@ -7,6 +7,7 @@ import 'package:qr_plus/widgets/oval_bg.dart';
 import 'package:qr_plus/widgets/uihelper/flushbar_message.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../provider/save_image_provider.dart';
 import '../widgets/custom_cross_container.dart';
@@ -143,20 +144,16 @@ class _ResultScreenState extends State<ResultScreen> {
                           widget.code,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(
-                                  color: isUrl
-                                      ? Colors.blue.shade300
-                                      : Colors.white,
-                                  decoration: isUrl
-                                      ? TextDecoration.underline
-                                      : TextDecoration.none,
-                                  decorationColor: Colors.blue.shade300,
-                                  fontSize: 17,
-                                  letterSpacing: 0,
-                                  height: 1.2),
+                          style: TextStyle(
+                              color:
+                                  isUrl ? Colors.blue.shade300 : Colors.white,
+                              decoration: isUrl
+                                  ? TextDecoration.underline
+                                  : TextDecoration.none,
+                              decorationColor: Colors.blue.shade300,
+                              fontSize: 17,
+                              letterSpacing: 0,
+                              height: 1.2),
                         ),
                       ),
                     ],
@@ -194,7 +191,11 @@ class _ResultScreenState extends State<ResultScreen> {
                 spacing: 40,
                 children: [
                   CustomShareSaveButton(
-                      icon: Icons.share, onTap: () {}, text: "Share"),
+                      icon: Icons.share,
+                      onTap: () {
+                        Share.share(widget.code);
+                      },
+                      text: "Share"),
                   CustomShareSaveButton(
                       icon: Icons.file_copy,
                       onTap: () {

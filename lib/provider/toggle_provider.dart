@@ -1,6 +1,5 @@
 import 'package:all_vibrate/all_vibrate.dart';
 import 'package:flutter/widgets.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class ToggleProvider with ChangeNotifier {
@@ -34,13 +33,13 @@ class ToggleProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void vibBeep(AudioPlayer player) {
+  void vibBeep() {
     if (canVibrate == true) {
       AllVibrate().simpleVibrate(period: 100, amplitude: 100);
     }
-    if (canBeep == true) {
-      player.play().timeout(Duration(seconds: 1));
-      Future.delayed(Duration(seconds: 1));
-    }
+    // if (canBeep == true) {
+    //   player.play().timeout(Duration(seconds: 1));
+    //   Future.delayed(Duration(seconds: 1));
+    // }
   }
 }

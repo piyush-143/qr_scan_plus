@@ -1,14 +1,13 @@
 import 'package:all_vibrate/all_vibrate.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_plus/provider/toggle_provider.dart';
 import 'package:qr_plus/screen/home_screen.dart';
-import 'package:qr_plus/widgets/oval_bg.dart';
-import 'package:qr_plus/widgets/uihelper/color.dart';
 import 'package:qr_plus/widgets/custom_cross_container.dart';
 import 'package:qr_plus/widgets/custom_setting_tile.dart';
 import 'package:qr_plus/widgets/custom_switch_button.dart';
+import 'package:qr_plus/widgets/oval_bg.dart';
+import 'package:qr_plus/widgets/uihelper/color.dart';
 import 'package:qr_plus/widgets/uihelper/flushbar_message.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
@@ -20,12 +19,12 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  final player = AudioPlayer();
+  // final player = AudioPlayer();
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    player.dispose();
+    // player.dispose();
   }
 
   @override
@@ -70,7 +69,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   onChanged: (value) {
                     if (value == true) {
                       flushBarMessage(context, "Vibration turned On");
-                      AllVibrate().simpleVibrate(period: 100, amplitude: 100);
+                      AllVibrate().simpleVibrate(period: 80, amplitude: 100);
                     } else {
                       flushBarMessage(context, "Vibration turned Off");
                     }
@@ -78,26 +77,26 @@ class _SettingScreenState extends State<SettingScreen> {
                   },
                 ),
               ),
-              CustomSettingTile(
-                title: "Beep",
-                subtitle: "Beep when scan is done.",
-                leadingIcon: Icons.notifications_active_outlined,
-                trailing: CustomSwitchButton(
-                  val: context.watch<ToggleProvider>().canBeep,
-                  onChanged: (value) async {
-                    await player.setAsset("assets/audio/beepSound.mp3");
-                    if (value == true) {
-                      flushBarMessage(context, "Beep turned On");
-                      player.play();
-                      await Future.delayed(Duration(seconds: 1));
-                      player.stop();
-                    } else {
-                      flushBarMessage(context, "Beep turned Off");
-                    }
-                    context.read<ToggleProvider>().toggleBeep(value);
-                  },
-                ),
-              ),
+              // CustomSettingTile(
+              //   title: "Beep",
+              //   subtitle: "Beep when scan is done.",
+              //   leadingIcon: Icons.notifications_active_outlined,
+              //   trailing: CustomSwitchButton(
+              //     val: context.watch<ToggleProvider>().canBeep,
+              //     onChanged: (value) async {
+              //       await player.setAsset("assets/audio/beepSound.mp3");
+              //       if (value == true) {
+              //         flushBarMessage(context, "Beep turned On");
+              //         player.play();
+              //         await Future.delayed(Duration(seconds: 1));
+              //         player.stop();
+              //       } else {
+              //         flushBarMessage(context, "Beep turned Off");
+              //       }
+              //       context.read<ToggleProvider>().toggleBeep(value);
+              //     },
+              //   ),
+              // ),
               SizedBox(height: 15),
               Text(
                 "Support",

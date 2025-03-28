@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
 
@@ -30,7 +29,7 @@ class _ForBusinessScreenState extends State<ForBusinessScreen> {
   TextEditingController addressController = TextEditingController();
   TextEditingController stateController = TextEditingController();
   TextEditingController countryController = TextEditingController();
-  final player = AudioPlayer();
+  //final player = AudioPlayer();
   @override
   void dispose() {
     // TODO: implement dispose
@@ -43,7 +42,7 @@ class _ForBusinessScreenState extends State<ForBusinessScreen> {
     // addressController.dispose();
     // stateController.dispose();
     // countryController.dispose();
-    player.dispose();
+    //player.dispose();
   }
 
   @override
@@ -158,8 +157,8 @@ class _ForBusinessScreenState extends State<ForBusinessScreen> {
                             final date = DateTime.now();
                             String d =
                                 "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
-                            await player.setAsset("assets/audio/beepSound.mp3");
-                            context.read<ToggleProvider>().vibBeep(player);
+                            //  await player.setAsset("assets/audio/beepSound.mp3");
+                            context.read<ToggleProvider>().vibBeep();
                             context.read<DBProvider>().addData(
                                 code: concatenateString(code).text,
                                 date: DateTime.now(),

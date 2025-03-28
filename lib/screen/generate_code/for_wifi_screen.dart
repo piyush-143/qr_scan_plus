@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_plus/screen/result_screen.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
@@ -25,14 +24,14 @@ class ForWiFiScreen extends StatefulWidget {
 class _ForWiFiScreenState extends State<ForWiFiScreen> {
   TextEditingController networkController = TextEditingController();
   TextEditingController passController = TextEditingController();
-  final player = AudioPlayer();
+  // final player = AudioPlayer();
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     // networkController.dispose();
     // passController.dispose();
-    player.dispose();
+    //   player.dispose();
   }
 
   @override
@@ -76,66 +75,70 @@ class _ForWiFiScreenState extends State<ForWiFiScreen> {
                 ),
               ),
               SizedBox(height: SizeData.belowAppBar),
-              Container(
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                  color: CustomColor.barBgColor.withAlpha(150),
-                  border: Border.symmetric(
-                      horizontal:
-                          BorderSide(color: CustomColor.goldColor, width: 2)),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: CustomColor.barBgColor,
-                      blurRadius: 8,
-                      blurStyle: BlurStyle.outer,
-                      offset: Offset(0, 1),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Container(
+                    padding: EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      color: CustomColor.barBgColor.withAlpha(150),
+                      border: Border.symmetric(
+                          horizontal: BorderSide(
+                              color: CustomColor.goldColor, width: 2)),
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: CustomColor.barBgColor,
+                          blurRadius: 8,
+                          blurStyle: BlurStyle.outer,
+                          offset: Offset(0, 1),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: Column(
-                  spacing: 22,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(
-                      Icons.wifi,
-                      size: 68,
-                      color: CustomColor.goldColor,
-                    ),
-                    SizedBox(height: 10),
-                    CustomTextField(
-                      labelText: "Network",
-                      controller: networkController,
-                    ),
-                    CustomTextField(
-                      labelText: "Password",
-                      controller: passController,
-                    ),
-                    SizedBox(height: 10),
-                    GenerateQrButton(
-                      onTap: () async {
-                        final date = DateTime.now();
-                        String d =
-                            "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
-                        await player.setAsset("assets/audio/beepSound.mp3");
-                        context.read<ToggleProvider>().vibBeep(player);
-                        context.read<DBProvider>().addData(
-                            code: concatenateString(code).text,
-                            date: DateTime.now(),
-                            isCreate: true);
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ResultScreen(
+                    child: Column(
+                      spacing: 22,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(
+                          Icons.wifi,
+                          size: 68,
+                          color: CustomColor.goldColor,
+                        ),
+                        SizedBox(height: 10),
+                        CustomTextField(
+                          labelText: "Network",
+                          controller: networkController,
+                        ),
+                        CustomTextField(
+                          labelText: "Password",
+                          controller: passController,
+                        ),
+                        SizedBox(height: 10),
+                        GenerateQrButton(
+                          onTap: () async {
+                            final date = DateTime.now();
+                            String d =
+                                "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
+                            // await player.setAsset("assets/audio/beepSound.mp3");
+                            context.read<ToggleProvider>().vibBeep();
+                            context.read<DBProvider>().addData(
                                 code: concatenateString(code).text,
-                                navBack: GenerateScreen(),
-                                date: d,
-                              ),
-                            ));
-                      },
+                                date: DateTime.now(),
+                                isCreate: true);
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ResultScreen(
+                                    code: concatenateString(code).text,
+                                    navBack: GenerateScreen(),
+                                    date: d,
+                                  ),
+                                ));
+                          },
+                        ),
+                        SizedBox(height: 8),
+                      ],
                     ),
-                    SizedBox(height: 8),
-                  ],
+                  ),
                 ),
               ),
             ],
