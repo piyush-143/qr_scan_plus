@@ -130,7 +130,7 @@ class _HistoryScreenState extends State<HistoryScreen>
             : dbDataProvider.allScanData.isEmpty)
         ? Center(
             child: Text(
-              "Nothing to show!\n${isCreate ? "Create any QrCode" : "Scan any QrCode"}",
+              "Nothing to show !!!\n${isCreate ? "Create any QrCode" : "Scan any QrCode"}",
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontSize: 22,

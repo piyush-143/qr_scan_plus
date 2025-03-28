@@ -161,23 +161,24 @@ class _ResultScreenState extends State<ResultScreen> {
                 ),
               ),
               SizedBox(height: 20),
-              Center(
-                child: Container(
-                  width: 200,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: CustomColor.goldColor, width: 5),
-                    boxShadow: [
-                      BoxShadow(
-                          color: CustomColor.barBgColor,
-                          blurRadius: 10,
-                          spreadRadius: 1)
-                    ],
-                  ),
-                  child: Screenshot(
-                    controller: screenshotController,
+              Screenshot(
+                controller: screenshotController,
+                child: Center(
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      border:
+                          Border.all(color: CustomColor.goldColor, width: 5),
+                      boxShadow: [
+                        BoxShadow(
+                            color: CustomColor.barBgColor,
+                            blurRadius: 10,
+                            spreadRadius: 1)
+                      ],
+                    ),
                     child: QrImageView(
                       data: widget.code,
                       version: QrVersions.auto,
@@ -209,7 +210,6 @@ class _ResultScreenState extends State<ResultScreen> {
                         context
                             .read<SaveImageToGalleryProvider>()
                             .saveImageToGallery(screenshotController, context);
-                        flushBarMessage(context, "Image saved to gallery");
                       },
                       text: "Save"),
                 ],
