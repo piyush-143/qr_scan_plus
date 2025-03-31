@@ -6,10 +6,10 @@ import 'package:qr_plus/provider/db_provider.dart';
 import 'package:qr_plus/provider/toggle_provider.dart';
 import 'package:qr_plus/screen/result_screen.dart';
 import 'package:qr_plus/widgets/custom_bottom_bar.dart';
-import 'package:qr_plus/widgets/uihelper/color.dart';
 import 'package:qr_scanner_overlay/qr_scanner_overlay.dart';
 
 import '../widgets/custom_top_bar.dart';
+import '../widgets/uihelper/color.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,7 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final toggleProvider = context.read<ToggleProvider>();
-
     return Scaffold(
       body: Stack(
         children: [
@@ -71,10 +70,16 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           QRScannerOverlay(
-            scanAreaSize: Size(260, 260),
+            scanAreaSize: Size(260, 250),
             borderRadius: 15,
             borderColor: CustomColor.goldColor,
-            borderStrokeWidth: 5,
+            borderStrokeWidth: 7,
+          ),
+          Center(
+            child: Image.asset(
+              "assets/home/overlayMidLine.png",
+              width: 260,
+            ),
           ),
           Align(
             alignment: Alignment.topCenter,
@@ -85,12 +90,39 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 35.0, right: 35, bottom: 20),
-              child: CustomBottomBar(),
-            ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.remove,
+                    color: Colors.white,
+                  ),
+                  ValueListenableBuilder(
+                    valueListenable: mobileController,
+                    builder: (context, state, child) => Slider(
+                      value: state.zoomScale,
+                      onChanged: mobileController.setZoomScale,
+                      activeColor: CustomColor.goldColor,
+                      thumbColor: CustomColor.goldColor,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15.0, vertical: 15),
+                    ),
+                  ),
+                  Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 35.0, right: 35, bottom: 20, top: 25),
+                child: CustomBottomBar(),
+              ),
+            ],
           ),
         ],
       ),
