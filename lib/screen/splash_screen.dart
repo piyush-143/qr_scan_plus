@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_plus/provider/toggle_provider.dart';
 import 'package:qr_plus/screen/home_screen.dart';
+import 'package:vibration/vibration.dart';
 
 import '../widgets/uihelper/color.dart';
 
@@ -57,7 +60,10 @@ class SplashScreen extends StatelessWidget {
           Align(
             alignment: Alignment(0.8, 0.9),
             child: InkWell(
-              onTap: () {
+              onTap: () async {
+                context
+                    .read<ToggleProvider>()
+                    .setHasVibration(await Vibration.hasVibrator());
                 Navigator.push(
                   context,
                   MaterialPageRoute(

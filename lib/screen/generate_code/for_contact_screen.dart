@@ -30,7 +30,6 @@ class _ForContactScreenState extends State<ForContactScreen> {
   TextEditingController addressController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController countryController = TextEditingController();
-//  final player = AudioPlayer();
   @override
   void dispose() {
     // TODO: implement dispose
@@ -44,7 +43,6 @@ class _ForContactScreenState extends State<ForContactScreen> {
     // addressController.dispose();
     // cityController.dispose();
     // countryController.dispose();
-    //player.dispose();
   }
 
   @override
@@ -158,8 +156,7 @@ class _ForContactScreenState extends State<ForContactScreen> {
                             final date = DateTime.now();
                             String d =
                                 "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
-                            // await player.setAsset("assets/audio/beepSound.mp3");
-                            context.read<ToggleProvider>().vibBeep();
+                            context.read<ToggleProvider>().vib();
                             context.read<DBProvider>().addData(
                                 code: concatenateString(code).text,
                                 date: DateTime.now(),

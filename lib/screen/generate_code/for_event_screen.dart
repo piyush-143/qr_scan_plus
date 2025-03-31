@@ -27,7 +27,7 @@ class _ForEventScreenState extends State<ForEventScreen> {
   TextEditingController endDateTimeController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   TextEditingController descController = TextEditingController();
-  // final player = AudioPlayer();
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -37,7 +37,6 @@ class _ForEventScreenState extends State<ForEventScreen> {
     // endDateTimeController.dispose();
     // locationController.dispose();
     // descController.dispose();
-    //player.dispose();
   }
 
   @override
@@ -140,8 +139,7 @@ class _ForEventScreenState extends State<ForEventScreen> {
                             final date = DateTime.now();
                             String d =
                                 "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
-                            //  await player.setAsset("assets/audio/beepSound.mp3");
-                            context.read<ToggleProvider>().vibBeep();
+                            context.read<ToggleProvider>().vib();
                             context.read<DBProvider>().addData(
                                 code: concatenateString(code).text,
                                 date: DateTime.now(),

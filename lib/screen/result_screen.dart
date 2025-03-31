@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_plus/provider/qr_code_provider.dart';
+import 'package:qr_plus/provider/toggle_provider.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
 import 'package:qr_plus/widgets/uihelper/flushbar_message.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
@@ -36,6 +37,7 @@ class _ResultScreenState extends State<ResultScreen> {
   @override
   Widget build(BuildContext context) {
     bool isUrl = Uri.tryParse(widget.code)?.hasAbsolutePath ?? false;
+    final toggleProvider = context.read<ToggleProvider>();
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
       body: OvalBg(
@@ -195,12 +197,14 @@ class _ResultScreenState extends State<ResultScreen> {
                       icon: Icons.share,
                       onTap: () {
                         Share.share(widget.code);
+                        toggleProvider.vib();
                       },
                       text: "Share"),
                   CustomShareSaveButton(
                       icon: Icons.file_copy,
                       onTap: () {
                         flushBarMessage(context, "Copied to clipboard");
+                        toggleProvider.vib();
                         Clipboard.setData(ClipboardData(text: widget.code));
                       },
                       text: "Copy"),
@@ -210,6 +214,7 @@ class _ResultScreenState extends State<ResultScreen> {
                         context
                             .read<SaveImageToGalleryProvider>()
                             .saveImageToGallery(screenshotController, context);
+                        toggleProvider.vib();
                       },
                       text: "Save"),
                 ],

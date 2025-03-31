@@ -1,4 +1,3 @@
-import 'package:all_vibrate/all_vibrate.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_plus/provider/toggle_provider.dart';
@@ -11,24 +10,12 @@ import 'package:qr_plus/widgets/uihelper/color.dart';
 import 'package:qr_plus/widgets/uihelper/flushbar_message.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
-class SettingScreen extends StatefulWidget {
+class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
 
   @override
-  State<SettingScreen> createState() => _SettingScreenState();
-}
-
-class _SettingScreenState extends State<SettingScreen> {
-  // final player = AudioPlayer();
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    // player.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final toggleProvider = context.read<ToggleProvider>();
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
       body: OvalBg(
@@ -65,38 +52,19 @@ class _SettingScreenState extends State<SettingScreen> {
                 subtitle: "Vibration when scan is done.",
                 leadingIcon: Icons.vibration,
                 trailing: CustomSwitchButton(
-                  val: context.watch<ToggleProvider>().canVibrate,
+                  val: context.read<ToggleProvider>().canVibrate,
                   onChanged: (value) {
                     if (value == true) {
                       flushBarMessage(context, "Vibration turned On");
-                      AllVibrate().simpleVibrate(period: 80, amplitude: 100);
+                      toggleProvider.vib();
                     } else {
                       flushBarMessage(context, "Vibration turned Off");
                     }
-                    context.read<ToggleProvider>().toggleVibration(value);
+                    toggleProvider.toggleVibration(value);
                   },
                 ),
               ),
-              // CustomSettingTile(
-              //   title: "Beep",
-              //   subtitle: "Beep when scan is done.",
-              //   leadingIcon: Icons.notifications_active_outlined,
-              //   trailing: CustomSwitchButton(
-              //     val: context.watch<ToggleProvider>().canBeep,
-              //     onChanged: (value) async {
-              //       await player.setAsset("assets/audio/beepSound.mp3");
-              //       if (value == true) {
-              //         flushBarMessage(context, "Beep turned On");
-              //         player.play();
-              //         await Future.delayed(Duration(seconds: 1));
-              //         player.stop();
-              //       } else {
-              //         flushBarMessage(context, "Beep turned Off");
-              //       }
-              //       context.read<ToggleProvider>().toggleBeep(value);
-              //     },
-              //   ),
-              // ),
+
               SizedBox(height: 15),
               Text(
                 "Support",

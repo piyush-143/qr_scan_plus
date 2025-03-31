@@ -19,10 +19,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final MobileScannerController mobileController = MobileScannerController(
-    detectionSpeed: DetectionSpeed.noDuplicates,
-  );
-  // final player = AudioPlayer();
+  final MobileScannerController mobileController =
+      MobileScannerController(detectionSpeed: DetectionSpeed.noDuplicates);
+
   @override
   void initState() {
     super.initState();
@@ -34,12 +33,12 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement dispose
     super.dispose();
     mobileController.dispose();
-    // player.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final toggleProvider = context.read<ToggleProvider>();
+
     return Scaffold(
       body: Stack(
         children: [
@@ -48,14 +47,14 @@ class _HomeScreenState extends State<HomeScreen> {
             height: double.infinity,
             child: MobileScanner(
               controller: mobileController,
-              onDetect: (detectedCode) {
+              onDetect: (detectedCode) async {
                 String scannedCode =
                     detectedCode.barcodes.first.rawValue.toString();
                 final date = DateTime.now();
                 String d =
                     "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
-                //await player.setAsset("assets/audio/beepSound.mp3");
-                toggleProvider.vibBeep();
+
+                toggleProvider.vib();
                 context.read<DBProvider>().addData(
                     code: scannedCode, date: DateTime.now(), isCreate: false);
                 Navigator.pushReplacement(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_plus/provider/toggle_provider.dart';
 import 'package:qr_plus/screen/result_screen.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
 import '../provider/db_provider.dart';
-import '../provider/toggle_provider.dart';
 import '../screen/generate_screen.dart';
 import 'custom_cross_container.dart';
 import 'custom_text_field.dart';
@@ -13,7 +13,7 @@ import 'generate_qr_button.dart';
 import 'oval_bg.dart';
 import 'uihelper/color.dart';
 
-class SingleField extends StatefulWidget {
+class SingleField extends StatelessWidget {
   TextEditingController controller;
   final String title;
   final String labelText;
@@ -27,19 +27,6 @@ class SingleField extends StatefulWidget {
     this.minLine,
     super.key,
   });
-
-  @override
-  State<SingleField> createState() => _SingleFieldState();
-}
-
-class _SingleFieldState extends State<SingleField> {
-  // final player = AudioPlayer();
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    // player.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +56,7 @@ class _SingleFieldState extends State<SingleField> {
                   Padding(
                     padding: const EdgeInsets.only(left: 28.0),
                     child: Text(
-                      widget.title,
+                      title,
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             color: Colors.white,
                           ),
@@ -103,16 +90,16 @@ class _SingleFieldState extends State<SingleField> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Icon(
-                        widget.icon,
+                        icon,
                         size: 68,
                         color: CustomColor.goldColor,
                       ),
                       SizedBox(height: 10),
                       CustomTextField(
-                        labelText: widget.labelText,
+                        labelText: labelText,
                         //controller: widget.controller,
-                        controller: widget.controller,
-                        minLine: widget.minLine ?? 1,
+                        controller: controller,
+                        minLine: minLine ?? 1,
                       ),
                       SizedBox(height: 10),
                       GenerateQrButton(
@@ -120,18 +107,17 @@ class _SingleFieldState extends State<SingleField> {
                           final date = DateTime.now();
                           String d =
                               "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
-                          // await player.setAsset("assets/audio/beepSound.mp3");
-                          context.read<ToggleProvider>().vibBeep();
+                          context.read<ToggleProvider>().vib();
 
                           context.read<DBProvider>().addData(
-                              code: widget.controller.text,
+                              code: controller.text,
                               date: DateTime.now(),
                               isCreate: true);
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => ResultScreen(
-                                  code: widget.controller.text,
+                                  code: controller.text,
                                   navBack: GenerateScreen(),
                                   date: d,
                                 ),

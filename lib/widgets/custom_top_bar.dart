@@ -11,19 +11,15 @@ import '../screen/home_screen.dart';
 import '../screen/result_screen.dart';
 import 'uihelper/color.dart';
 
-class CustomTopBar extends StatefulWidget {
+class CustomTopBar extends StatelessWidget {
   final MobileScannerController mobileController;
 
   const CustomTopBar({required this.mobileController, super.key});
 
   @override
-  State<CustomTopBar> createState() => _CustomTopBarState();
-}
-
-class _CustomTopBarState extends State<CustomTopBar> {
-  @override
   Widget build(BuildContext context) {
-    final toggleProvider = Provider.of<ToggleProvider>(context);
+    final readToggle = context.read<ToggleProvider>();
+    final watchToggle = context.watch<ToggleProvider>();
     return Container(
       height: 40,
       decoration: BoxDecoration(
@@ -45,11 +41,11 @@ class _CustomTopBarState extends State<CustomTopBar> {
 
                 context
                     .read<QrCodeProvider>()
-                    .pickImageAndScan(context, widget.mobileController)
+                    .pickImageAndScan(context, mobileController)
                     .whenComplete(
                   () {
                     if (value.detectedQrCode != "") {
-                      toggleProvider.vibBeep();
+                      readToggle.vib();
                       context.read<DBProvider>().addData(
                             code: value.detectedQrCode,
                             date: DateTime.now(),
@@ -72,26 +68,20 @@ class _CustomTopBarState extends State<CustomTopBar> {
             ),
           ),
           _buildButton(
-            icon: toggleProvider.isFlashOn ? Icons.flash_on : Icons.flash_off,
+            icon: watchToggle.isFlashOn ? Icons.flash_on : Icons.flash_off,
             onTap: () {
-              context
-                  .read<ToggleProvider>()
-                  .toggleFlash(widget.mobileController);
+              context.read<ToggleProvider>().toggleFlash(mobileController);
             },
-            color:
-                toggleProvider.isFlashOn ? CustomColor.goldColor : Colors.white,
+            color: watchToggle.isFlashOn ? CustomColor.goldColor : Colors.white,
           ),
           _buildButton(
-            icon: toggleProvider.isFront
+            icon: watchToggle.isFront
                 ? Icons.camera_front
                 : Icons.photo_camera_back,
             onTap: () {
-              context
-                  .read<ToggleProvider>()
-                  .toggleCamera(widget.mobileController);
+              context.read<ToggleProvider>().toggleCamera(mobileController);
             },
-            color:
-                toggleProvider.isFront ? CustomColor.goldColor : Colors.white,
+            color: watchToggle.isFront ? CustomColor.goldColor : Colors.white,
           ),
           _buildButton(
             icon: Icons.settings,

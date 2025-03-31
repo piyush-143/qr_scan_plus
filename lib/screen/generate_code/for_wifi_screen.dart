@@ -24,14 +24,13 @@ class ForWiFiScreen extends StatefulWidget {
 class _ForWiFiScreenState extends State<ForWiFiScreen> {
   TextEditingController networkController = TextEditingController();
   TextEditingController passController = TextEditingController();
-  // final player = AudioPlayer();
+
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     // networkController.dispose();
     // passController.dispose();
-    //   player.dispose();
   }
 
   @override
@@ -118,8 +117,7 @@ class _ForWiFiScreenState extends State<ForWiFiScreen> {
                             final date = DateTime.now();
                             String d =
                                 "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
-                            // await player.setAsset("assets/audio/beepSound.mp3");
-                            context.read<ToggleProvider>().vibBeep();
+                            context.read<ToggleProvider>().vib();
                             context.read<DBProvider>().addData(
                                 code: concatenateString(code).text,
                                 date: DateTime.now(),

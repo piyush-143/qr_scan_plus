@@ -1,6 +1,6 @@
-import 'package:all_vibrate/all_vibrate.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:vibration/vibration.dart';
 
 class ToggleProvider with ChangeNotifier {
   bool _isFlashOn = false;
@@ -24,22 +24,20 @@ class ToggleProvider with ChangeNotifier {
   void toggleVibration(bool vibVal) {
     _canVibrate = vibVal;
     notifyListeners();
+    if (vibVal == true) {
+      vib();
+    }
   }
 
-  bool _canBeep = true;
-  bool get canBeep => _canBeep;
-  void toggleBeep(bool beepVal) async {
-    _canBeep = beepVal;
+  final bool _hasVibration = true;
+  void setHasVibration(bool val) {
+    _hasVibration == val;
     notifyListeners();
   }
 
-  void vibBeep() {
-    if (canVibrate == true) {
-      AllVibrate().simpleVibrate(period: 100, amplitude: 100);
+  void vib() async {
+    if (canVibrate == true && _hasVibration == true) {
+      await Vibration.vibrate(duration: 100);
     }
-    // if (canBeep == true) {
-    //   player.play().timeout(Duration(seconds: 1));
-    //   Future.delayed(Duration(seconds: 1));
-    // }
   }
 }
