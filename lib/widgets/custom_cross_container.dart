@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'uihelper/color.dart';
 
 class CustomCrossContainer extends StatelessWidget {
-  double size;
-  IconData icon;
-  VoidCallback onTap;
-  CustomCrossContainer({
+  final double size;
+  final IconData icon;
+  final VoidCallback onTap;
+  const CustomCrossContainer({
     required this.icon,
     required this.onTap,
     required this.size,

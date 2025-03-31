@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
+import 'package:qr_plus/widgets/uihelper/flushbar_message.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
 import '../../provider/db_provider.dart';
@@ -11,7 +12,6 @@ import '../../widgets/custom_text_field.dart';
 import '../../widgets/generate_qr_button.dart';
 import '../../widgets/uihelper/color.dart';
 import '../../widgets/uihelper/concat_string.dart';
-import '../generate_screen.dart';
 import '../result_screen.dart';
 
 class ForEventScreen extends StatefulWidget {
@@ -65,11 +65,7 @@ class _ForEventScreenState extends State<ForEventScreen> {
                     CustomCrossContainer(
                       icon: Icons.arrow_back_ios_sharp,
                       onTap: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => GenerateScreen(),
-                            ));
+                        Navigator.pop(context);
                       },
                       size: 35,
                     ),
@@ -122,8 +118,8 @@ class _ForEventScreenState extends State<ForEventScreen> {
                         RowTextField(
                             controller1: startDateTimeController,
                             controller2: endDateTimeController,
-                            labelText1: "Start Date and Time",
-                            labelText2: "End Date and Time"),
+                            labelText1: "Start Date",
+                            labelText2: "End Date"),
                         CustomTextField(
                           labelText: "Event Location",
                           controller: locationController,
@@ -131,28 +127,36 @@ class _ForEventScreenState extends State<ForEventScreen> {
                         CustomTextField(
                           labelText: "Description",
                           controller: descController,
-                          minLine: 2,
+                          minLines: 2,
+                          isRequired: false,
                         ),
                         SizedBox(height: 0),
                         GenerateQrButton(
                           onTap: () async {
-                            final date = DateTime.now();
-                            String d =
-                                "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
-                            context.read<ToggleProvider>().vib();
-                            context.read<DBProvider>().addData(
-                                code: concatenateString(code).text,
-                                date: DateTime.now(),
-                                isCreate: true);
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ResultScreen(
-                                    code: concatenateString(code).text,
-                                    navBack: GenerateScreen(),
-                                    date: d,
-                                  ),
-                                ));
+                            if (nameController.text.isNotEmpty &&
+                                startDateTimeController.text.isNotEmpty &&
+                                endDateTimeController.text.isNotEmpty &&
+                                locationController.text.isNotEmpty) {
+                              final date = DateTime.now();
+                              String d =
+                                  "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
+                              context.read<ToggleProvider>().vibrate();
+                              context.read<DBProvider>().addData(
+                                  code: concatenateString(code).text,
+                                  date: DateTime.now(),
+                                  isCreate: true);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ResultScreen(
+                                      code: concatenateString(code).text,
+                                      date: d,
+                                    ),
+                                  ));
+                            } else {
+                              flushBarMessage(
+                                  context, "Enter required details !");
+                            }
                           },
                         ),
                         SizedBox(height: 0),

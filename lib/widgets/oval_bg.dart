@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class OvalBg extends StatefulWidget {
-  Widget body;
-  OvalBg({super.key, required this.body});
+  final Widget body;
+  const OvalBg({super.key, required this.body});
 
   @override
   State<OvalBg> createState() => _OvalBgState();

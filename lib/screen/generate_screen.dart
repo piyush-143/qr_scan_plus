@@ -10,10 +10,10 @@ import 'package:qr_plus/screen/generate_code/for_twitter_screen.dart';
 import 'package:qr_plus/screen/generate_code/for_website_screen.dart';
 import 'package:qr_plus/screen/generate_code/for_whatsapp_screen.dart';
 import 'package:qr_plus/screen/generate_code/for_wifi_screen.dart';
-import 'package:qr_plus/screen/home_screen.dart';
-import 'package:qr_plus/widgets/uihelper/color.dart';
 import 'package:qr_plus/widgets/custom_cross_container.dart';
+import 'package:qr_plus/widgets/uihelper/color.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
+
 import '../widgets/custom_social_button.dart';
 import 'generate_code/for_email_screen.dart';
 
@@ -83,11 +83,12 @@ class GenerateScreen extends StatelessWidget {
             padding: const EdgeInsets.only(right: 25),
             child: CustomCrossContainer(
               onTap: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
-                    ));
+                // Navigator.pushReplacement(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => HomeScreen(),
+                //     ));
+                Navigator.pop(context);
               },
               icon: Icons.close,
               size: 32,
@@ -108,7 +109,7 @@ class GenerateScreen extends StatelessWidget {
             return CustomSocialButton(
                 icon: icon[index],
                 onTap: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => route[index],

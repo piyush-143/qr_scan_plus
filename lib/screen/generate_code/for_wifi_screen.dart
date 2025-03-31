@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:qr_plus/screen/result_screen.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
 import 'package:qr_plus/widgets/uihelper/concat_string.dart';
+import 'package:qr_plus/widgets/uihelper/flushbar_message.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
 import '../../provider/db_provider.dart';
@@ -12,7 +13,6 @@ import '../../widgets/custom_cross_container.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/generate_qr_button.dart';
 import '../../widgets/uihelper/color.dart';
-import '../generate_screen.dart';
 
 class ForWiFiScreen extends StatefulWidget {
   const ForWiFiScreen({super.key});
@@ -53,11 +53,7 @@ class _ForWiFiScreenState extends State<ForWiFiScreen> {
                     CustomCrossContainer(
                       icon: Icons.arrow_back_ios_sharp,
                       onTap: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => GenerateScreen(),
-                            ));
+                        Navigator.pop(context);
                       },
                       size: 35,
                     ),
@@ -114,23 +110,28 @@ class _ForWiFiScreenState extends State<ForWiFiScreen> {
                         SizedBox(height: 10),
                         GenerateQrButton(
                           onTap: () async {
-                            final date = DateTime.now();
-                            String d =
-                                "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
-                            context.read<ToggleProvider>().vib();
-                            context.read<DBProvider>().addData(
-                                code: concatenateString(code).text,
-                                date: DateTime.now(),
-                                isCreate: true);
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ResultScreen(
-                                    code: concatenateString(code).text,
-                                    navBack: GenerateScreen(),
-                                    date: d,
-                                  ),
-                                ));
+                            if (networkController.text.isNotEmpty &&
+                                passController.text.isNotEmpty) {
+                              final date = DateTime.now();
+                              String d =
+                                  "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
+                              context.read<ToggleProvider>().vibrate();
+                              context.read<DBProvider>().addData(
+                                  code: concatenateString(code).text,
+                                  date: DateTime.now(),
+                                  isCreate: true);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ResultScreen(
+                                      code: concatenateString(code).text,
+                                      date: d,
+                                    ),
+                                  ));
+                            } else {
+                              flushBarMessage(
+                                  context, "Enter required details!!!");
+                            }
                           },
                         ),
                         SizedBox(height: 8),

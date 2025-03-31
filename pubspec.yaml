@@ -89,12 +89,12 @@ flutter:
       - assets/splash/button2.png
       - assets/splash/logo.png
       - assets/splash/getStarted.png
-      - assets/splash/Group 1.svg
+   #   - assets/splash/Group 1.svg
       - assets/result/resultIcon.png
       - assets/home/overlay.png
+      - assets/home/overlayMidLine.png
       - assets/bg/upperOval.png
       - assets/bg/lowerOval.png
-      - assets/audio/beepSound.mp3
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

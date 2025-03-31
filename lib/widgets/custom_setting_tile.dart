@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:qr_plus/widgets/uihelper/color.dart';
 
 class CustomSettingTile extends StatelessWidget {
-  String title;
-  String subtitle;
-  IconData leadingIcon;
-  Widget? trailing;
-  CustomSettingTile(
+  final String title;
+  final String subtitle;
+  final IconData leadingIcon;
+  final Widget? trailing;
+  const CustomSettingTile(
       {required this.title,
       required this.subtitle,
       required this.leadingIcon,
@@ -16,10 +16,10 @@ class CustomSettingTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 15),
+      margin: const EdgeInsets.only(top: 15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        border: Border(
+        border: const Border(
           bottom: BorderSide(color: CustomColor.goldColor, width: 2),
         ),
         boxShadow: [

@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:qr_plus/database/local_database/db_helper.dart';
 import 'package:qr_plus/provider/db_provider.dart';
 import 'package:qr_plus/provider/tab_index_provider.dart';
-import 'package:qr_plus/screen/home_screen.dart';
 import 'package:qr_plus/screen/result_screen.dart';
 import 'package:qr_plus/widgets/uihelper/size_data.dart';
 
@@ -59,11 +58,12 @@ class _HistoryScreenState extends State<HistoryScreen>
             child: CustomCrossContainer(
               onTap: () {
                 context.read<TabIndexProvider>().setTabIndex(false);
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
-                    ));
+                // Navigator.pushReplacement(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => HomeScreen(),
+                //     ));
+                Navigator.pop(context);
               },
               icon: Icons.close,
               size: 32,
@@ -167,7 +167,7 @@ class _HistoryScreenState extends State<HistoryScreen>
                   child: ListTile(
                     onTap: () {
                       context.read<TabIndexProvider>().setTabIndex(isCreate);
-                      Navigator.pushReplacement(
+                      Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => ResultScreen(
@@ -176,7 +176,6 @@ class _HistoryScreenState extends State<HistoryScreen>
                                       [DBHelper.createTableColumnCode]
                                   : dbDataProvider.allScanData[index]
                                       [DBHelper.scanTableColumnCode],
-                              navBack: HistoryScreen(),
                               date: isCreate
                                   ? dbDataProvider.allCreateData[index]
                                       [DBHelper.createTableColumnDate]

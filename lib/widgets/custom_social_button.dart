@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'uihelper/color.dart';
 
@@ -23,7 +22,7 @@ class CustomSocialButton extends StatelessWidget {
           color: CustomColor.barBgColor,
           borderRadius: BorderRadius.circular(7),
           border: Border.all(color: Colors.black12),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(color: CustomColor.barBgColor, blurRadius: 5),
             BoxShadow(color: CustomColor.bgColor, blurRadius: 7),
           ],

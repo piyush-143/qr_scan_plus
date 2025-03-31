@@ -7,12 +7,10 @@ import 'package:sqflite/sqflite.dart';
 class DBHelper {
   DBHelper._();
   static final DBHelper getInstance = DBHelper._();
-  //Scan Table Data
   static const String scanTableName = "ScanTable";
   static const String scanTableColumnCode = "ScanCode";
   static const String scanTableColumnSno = "ScanSno";
   static const String scanTableColumnDate = "ScanDate";
-  //Create Table Data
   static const String createTableName = "createTable";
   static const String createTableColumnCode = "createCode";
   static const String createTableColumnSno = "createSno";

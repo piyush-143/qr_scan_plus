@@ -28,7 +28,7 @@ class _ForPhoneScreenState extends State<ForPhoneScreen> {
         title: "Phone",
         labelText: "Phone Number",
         icon: Icons.phone_callback,
-        minLine: 1,
+        minLines: 1,
       ),
     );
   }
