@@ -42,6 +42,7 @@ class CustomTextField extends StatelessWidget {
             borderSide: const BorderSide(color: Colors.white38, width: 1.3),
           ),
           label: Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 labelText,

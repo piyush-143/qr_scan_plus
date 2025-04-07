@@ -68,7 +68,7 @@ class CustomTopBar extends StatelessWidget {
           _topBarButton(
             icon: watchToggle.isFlashOn ? Icons.flash_on : Icons.flash_off,
             onTap: () {
-              context.read<ToggleProvider>().toggleFlash(mobileController);
+              readToggle.toggleFlash(mobileController);
             },
             color: watchToggle.isFlashOn ? CustomColor.goldColor : Colors.white,
           ),
@@ -77,7 +77,7 @@ class CustomTopBar extends StatelessWidget {
                 ? Icons.camera_front
                 : Icons.photo_camera_back,
             onTap: () {
-              context.read<ToggleProvider>().toggleCamera(mobileController);
+              readToggle.toggleCamera(mobileController);
             },
             color: watchToggle.isFront ? CustomColor.goldColor : Colors.white,
           ),
