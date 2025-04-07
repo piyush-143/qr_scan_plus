@@ -17,9 +17,10 @@ class QrCodeProvider with ChangeNotifier {
 
   Future<void> pickImageAndScan(
       BuildContext context, MobileScannerController controller) async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      final barcode = await controller.analyzeImage(image.path);
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      final barcode = await controller.analyzeImage(pickedImage.path);
       if (barcode != null && barcode.barcodes.isNotEmpty) {
         _detectedQrCode = barcode.barcodes.first.rawValue.toString();
         notifyListeners();

@@ -28,7 +28,7 @@ class _ForEmailScreenState extends State<ForEmailScreen> {
         title: "Email",
         labelText: "Email",
         icon: Icons.mark_email_unread,
-        minLine: 1,
+        minLines: 1,
       ),
     );
   }

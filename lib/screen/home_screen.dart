@@ -53,15 +53,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 String d =
                     "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
 
-                toggleProvider.vib();
+                toggleProvider.vibrate();
                 context.read<DBProvider>().addData(
                     code: scannedCode, date: DateTime.now(), isCreate: false);
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => ResultScreen(
                       code: scannedCode,
-                      navBack: HomeScreen(),
                       date: d,
                     ),
                   ),

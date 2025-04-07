@@ -17,13 +17,11 @@ import '../widgets/uihelper/color.dart';
 
 class ResultScreen extends StatefulWidget {
   final String code;
-  final Widget navBack;
   final String date;
 
   const ResultScreen({
     super.key,
     required this.code,
-    required this.navBack,
     required this.date,
   });
 
@@ -55,11 +53,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     CustomCrossContainer(
                       icon: Icons.arrow_back_ios_sharp,
                       onTap: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => widget.navBack,
-                            ));
+                        Navigator.pop(context);
                       },
                       size: 35,
                     ),
@@ -197,14 +191,14 @@ class _ResultScreenState extends State<ResultScreen> {
                       icon: Icons.share,
                       onTap: () {
                         Share.share(widget.code);
-                        toggleProvider.vib();
+                        toggleProvider.vibrate();
                       },
                       text: "Share"),
                   CustomShareSaveButton(
                       icon: Icons.file_copy,
                       onTap: () {
                         flushBarMessage(context, "Copied to clipboard");
-                        toggleProvider.vib();
+                        toggleProvider.vibrate();
                         Clipboard.setData(ClipboardData(text: widget.code));
                       },
                       text: "Copy"),
@@ -214,7 +208,7 @@ class _ResultScreenState extends State<ResultScreen> {
                         context
                             .read<SaveImageToGalleryProvider>()
                             .saveImageToGallery(screenshotController, context);
-                        toggleProvider.vib();
+                        toggleProvider.vibrate();
                       },
                       text: "Save"),
                 ],

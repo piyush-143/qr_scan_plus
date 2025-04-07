@@ -64,7 +64,7 @@ class SplashScreen extends StatelessWidget {
                 context
                     .read<ToggleProvider>()
                     .setHasVibration(await Vibration.hasVibrator());
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => HomeScreen(),

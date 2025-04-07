@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
+import 'package:qr_plus/widgets/uihelper/flushbar_message.dart';
 
 import '../../provider/db_provider.dart';
 import '../../provider/toggle_provider.dart';
@@ -10,7 +11,6 @@ import '../../widgets/custom_text_field.dart';
 import '../../widgets/generate_qr_button.dart';
 import '../../widgets/uihelper/color.dart';
 import '../../widgets/uihelper/concat_string.dart';
-import '../generate_screen.dart';
 import '../result_screen.dart';
 
 class ForBusinessScreen extends StatefulWidget {
@@ -73,11 +73,7 @@ class _ForBusinessScreenState extends State<ForBusinessScreen> {
                     CustomCrossContainer(
                       icon: Icons.arrow_back_ios_sharp,
                       onTap: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => GenerateScreen(),
-                            ));
+                        Navigator.pop(context);
                       },
                       size: 35,
                     ),
@@ -147,29 +143,41 @@ class _ForBusinessScreenState extends State<ForBusinessScreen> {
                           controller: addressController,
                         ),
                         RowTextField(
-                            controller1: stateController,
-                            controller2: countryController,
-                            labelText1: "State Name",
-                            labelText2: "Country Name"),
+                          controller1: stateController,
+                          controller2: countryController,
+                          labelText1: "State Name",
+                          labelText2: "Country Name",
+                          isRequired1: false,
+                          isRequired2: false,
+                        ),
                         GenerateQrButton(
                           onTap: () async {
-                            final date = DateTime.now();
-                            String d =
-                                "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
-                            context.read<ToggleProvider>().vib();
-                            context.read<DBProvider>().addData(
-                                code: concatenateString(code).text,
-                                date: DateTime.now(),
-                                isCreate: true);
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ResultScreen(
-                                    code: concatenateString(code).text,
-                                    navBack: GenerateScreen(),
-                                    date: d,
-                                  ),
-                                ));
+                            if (nameController.text.isNotEmpty &&
+                                industryController.text.isNotEmpty &&
+                                phoneController.text.isNotEmpty &&
+                                emailController.text.isNotEmpty &&
+                                websiteController.text.isNotEmpty &&
+                                addressController.text.isNotEmpty) {
+                              final date = DateTime.now();
+                              String d =
+                                  "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
+                              context.read<ToggleProvider>().vibrate();
+                              context.read<DBProvider>().addData(
+                                  code: concatenateString(code).text,
+                                  date: DateTime.now(),
+                                  isCreate: true);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ResultScreen(
+                                      code: concatenateString(code).text,
+                                      date: d,
+                                    ),
+                                  ));
+                            } else {
+                              flushBarMessage(
+                                  context, "Enter required details !");
+                            }
                           },
                         ),
                       ],

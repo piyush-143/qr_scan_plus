@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_plus/provider/toggle_provider.dart';
-import 'package:qr_plus/screen/home_screen.dart';
 import 'package:qr_plus/widgets/custom_cross_container.dart';
 import 'package:qr_plus/widgets/custom_setting_tile.dart';
 import 'package:qr_plus/widgets/custom_switch_button.dart';
@@ -31,11 +30,12 @@ class SettingScreen extends StatelessWidget {
                 child: CustomCrossContainer(
                   icon: Icons.arrow_back_ios_sharp,
                   onTap: () {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomeScreen(),
-                        ));
+                    // Navigator.pushReplacement(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => HomeScreen(),
+                    //     ));
+                    Navigator.pop(context);
                   },
                   size: 35,
                 ),
@@ -56,7 +56,7 @@ class SettingScreen extends StatelessWidget {
                   onChanged: (value) {
                     if (value == true) {
                       flushBarMessage(context, "Vibration turned On");
-                      toggleProvider.vib();
+                      toggleProvider.vibrate();
                     } else {
                       flushBarMessage(context, "Vibration turned Off");
                     }

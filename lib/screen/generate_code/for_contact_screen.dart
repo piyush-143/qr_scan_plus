@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
+import 'package:qr_plus/widgets/uihelper/flushbar_message.dart';
 
 import '../../provider/db_provider.dart';
 import '../../provider/toggle_provider.dart';
@@ -10,7 +11,6 @@ import '../../widgets/custom_text_field.dart';
 import '../../widgets/generate_qr_button.dart';
 import '../../widgets/uihelper/color.dart';
 import '../../widgets/uihelper/concat_string.dart';
-import '../generate_screen.dart';
 import '../result_screen.dart';
 
 class ForContactScreen extends StatefulWidget {
@@ -75,11 +75,7 @@ class _ForContactScreenState extends State<ForContactScreen> {
                     CustomCrossContainer(
                       icon: Icons.arrow_back_ios_sharp,
                       onTap: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => GenerateScreen(),
-                            ));
+                        Navigator.pop(context);
                       },
                       size: 35,
                     ),
@@ -130,10 +126,13 @@ class _ForContactScreenState extends State<ForContactScreen> {
                             labelText1: "First Name",
                             labelText2: "Last Name"),
                         RowTextField(
-                            controller1: companyNameController,
-                            controller2: jobNameController,
-                            labelText1: "Company",
-                            labelText2: "Job"),
+                          controller1: companyNameController,
+                          controller2: jobNameController,
+                          labelText1: "Company",
+                          labelText2: "Job",
+                          isRequired1: false,
+                          isRequired2: false,
+                        ),
                         CustomTextField(
                           labelText: "phone",
                           controller: phoneController,
@@ -141,35 +140,46 @@ class _ForContactScreenState extends State<ForContactScreen> {
                         CustomTextField(
                           labelText: "Email",
                           controller: emailController,
+                          isRequired: false,
                         ),
                         CustomTextField(
                           labelText: "Address",
                           controller: addressController,
+                          isRequired: false,
                         ),
                         RowTextField(
-                            controller1: cityController,
-                            controller2: countryController,
-                            labelText1: "City",
-                            labelText2: "Country"),
+                          controller1: cityController,
+                          controller2: countryController,
+                          labelText1: "City",
+                          labelText2: "Country",
+                          isRequired1: false,
+                          isRequired2: false,
+                        ),
                         GenerateQrButton(
                           onTap: () async {
-                            final date = DateTime.now();
-                            String d =
-                                "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
-                            context.read<ToggleProvider>().vib();
-                            context.read<DBProvider>().addData(
-                                code: concatenateString(code).text,
-                                date: DateTime.now(),
-                                isCreate: true);
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ResultScreen(
-                                    code: concatenateString(code).text,
-                                    navBack: GenerateScreen(),
-                                    date: d,
-                                  ),
-                                ));
+                            if (firstNameController.text.isNotEmpty &&
+                                lastNameController.text.isNotEmpty &&
+                                phoneController.text.isNotEmpty) {
+                              final date = DateTime.now();
+                              String d =
+                                  "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
+                              context.read<ToggleProvider>().vibrate();
+                              context.read<DBProvider>().addData(
+                                  code: concatenateString(code).text,
+                                  date: DateTime.now(),
+                                  isCreate: true);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ResultScreen(
+                                      code: concatenateString(code).text,
+                                      date: d,
+                                    ),
+                                  ));
+                            } else {
+                              flushBarMessage(
+                                  context, "Enter required details !");
+                            }
                           },
                         ),
                       ],

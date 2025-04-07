@@ -7,7 +7,6 @@ import 'package:qr_plus/provider/toggle_provider.dart';
 import 'package:qr_plus/screen/setting_screen.dart';
 
 import '../provider/db_provider.dart';
-import '../screen/home_screen.dart';
 import '../screen/result_screen.dart';
 import 'uihelper/color.dart';
 
@@ -31,7 +30,7 @@ class CustomTopBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Consumer<QrCodeProvider>(
-            builder: (context, value, child) => _buildButton(
+            builder: (context, value, child) => _topBarButton(
               icon: Icons.image_rounded,
               color: Colors.white,
               onTap: () {
@@ -45,18 +44,17 @@ class CustomTopBar extends StatelessWidget {
                     .whenComplete(
                   () {
                     if (value.detectedQrCode != "") {
-                      readToggle.vib();
+                      readToggle.vibrate();
                       context.read<DBProvider>().addData(
                             code: value.detectedQrCode,
                             date: DateTime.now(),
                             isCreate: false,
                           );
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => ResultScreen(
                             code: value.detectedQrCode,
-                            navBack: HomeScreen(),
                             date: d,
                           ),
                         ),
@@ -67,27 +65,27 @@ class CustomTopBar extends StatelessWidget {
               },
             ),
           ),
-          _buildButton(
+          _topBarButton(
             icon: watchToggle.isFlashOn ? Icons.flash_on : Icons.flash_off,
             onTap: () {
-              context.read<ToggleProvider>().toggleFlash(mobileController);
+              readToggle.toggleFlash(mobileController);
             },
             color: watchToggle.isFlashOn ? CustomColor.goldColor : Colors.white,
           ),
-          _buildButton(
+          _topBarButton(
             icon: watchToggle.isFront
                 ? Icons.camera_front
                 : Icons.photo_camera_back,
             onTap: () {
-              context.read<ToggleProvider>().toggleCamera(mobileController);
+              readToggle.toggleCamera(mobileController);
             },
             color: watchToggle.isFront ? CustomColor.goldColor : Colors.white,
           ),
-          _buildButton(
+          _topBarButton(
             icon: Icons.settings,
             color: Colors.white,
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => SettingScreen(),
@@ -99,7 +97,7 @@ class CustomTopBar extends StatelessWidget {
     );
   }
 
-  Widget _buildButton(
+  Widget _topBarButton(
       {required IconData icon,
       required VoidCallback onTap,
       required Color color}) {

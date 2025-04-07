@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'uihelper/color.dart';
 
 class GenerateQrButton extends StatelessWidget {
-  VoidCallback onTap;
-  GenerateQrButton({super.key, required this.onTap});
+  final VoidCallback onTap;
+  const GenerateQrButton({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

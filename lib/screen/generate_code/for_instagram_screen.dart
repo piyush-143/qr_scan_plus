@@ -29,7 +29,7 @@ class _ForInstagramScreenState extends State<ForInstagramScreen> {
         title: "Instagram",
         labelText: "Username",
         icon: FontAwesomeIcons.instagram,
-        minLine: 1,
+        minLines: 1,
       ),
     );
   }

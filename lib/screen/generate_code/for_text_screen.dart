@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:qr_plus/screen/result_screen.dart';
 import 'package:qr_plus/widgets/single_field.dart';
 
 import '../../widgets/uihelper/color.dart';
@@ -28,7 +27,7 @@ class _ForTextScreenState extends State<ForTextScreen> {
         title: "Text",
         labelText: "Enter Text",
         icon: Icons.text_fields,
-        minLine: 2,
+        minLines: 2,
       ),
     );
   }

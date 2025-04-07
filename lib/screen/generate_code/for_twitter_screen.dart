@@ -29,7 +29,7 @@ class _ForTwitterScreenState extends State<ForTwitterScreen> {
         title: "Twitter",
         labelText: "Username",
         icon: FontAwesomeIcons.xTwitter,
-        minLine: 1,
+        minLines: 1,
       ),
     );
   }

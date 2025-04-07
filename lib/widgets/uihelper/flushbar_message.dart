@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'color.dart';
 
-Future flushBarMessage(BuildContext context, String msg) {
+Future<void> flushBarMessage(BuildContext context, String msg) {
   return Flushbar(
     message: msg,
     margin: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
