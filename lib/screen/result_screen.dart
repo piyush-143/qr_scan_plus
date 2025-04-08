@@ -136,6 +136,11 @@ class _ResultScreenState extends State<ResultScreen> {
                             context.read<QrCodeProvider>().openUrl(widget.code);
                           }
                         },
+                        onLongPress: () {
+                          flushBarMessage(context, "Copied to clipboard");
+                          toggleProvider.vibrate();
+                          Clipboard.setData(ClipboardData(text: widget.code));
+                        },
                         child: Text(
                           widget.code,
                           maxLines: 3,
