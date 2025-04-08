@@ -1,0 +1,2 @@
+C:/Users/91843/Desktop/Flutter projects/qr_plus/android/app/.cxx/RelWithDebInfo/6a4v1m6q/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/91843/Desktop/Flutter projects/qr_plus/android/app/.cxx/RelWithDebInfo/6a4v1m6q/x86_64/CMakeFiles/rebuild_cache.dir
