@@ -10,6 +10,10 @@
 
 **QR Scan Plus** is a robust and user-friendly Flutter application designed to streamline your interaction with QR codes. Seamlessly scan various QR code formats and effortlessly generate your own, all while maintaining a comprehensive history for easy access. Leveraging the power of **Provider** for efficient state management and **sqflite** for persistent local storage, QR Scan Plus offers a reliable and intuitive solution for all your QR code needs.
 
+## 📸 Screenshots
+
+![QR Code Scan Result](https://drive.google.com/file/d/1hfQU3gAGuq_eVSX3GjDUZL3H7_IcjkgM/view?usp=drive_link)
+
 ## ✨ Highlighted Features
 
 * **Intelligent Scan Recognition:** QR Scan Plus goes beyond simple decoding. It intelligently recognizes the type of information encoded within the QR code. For URLs, it offers direct navigation to the website. For contact information, it provides options to save the contact directly to your address book. For Wi-Fi credentials, it can help you quickly connect to the network.
