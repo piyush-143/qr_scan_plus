@@ -12,7 +12,7 @@
 
 ## 📸 Screenshots
 
-![QR Code Scan Result](https://drive.google.com/file/d/1hfQU3gAGuq_eVSX3GjDUZL3H7_IcjkgM/view?usp=drive_link)
+![QR Code Scan Result](https://www.google.com/imgres?q=test%20qr&imgurl=https%3A%2F%2Fimages.squarespace-cdn.com%2Fcontent%2Fv1%2F5d3f241fa4e0350001fa20d5%2F1636491460338-AIZAXV2978MGIDQE0GT7%2Fqr-code.png&imgrefurl=https%3A%2F%2Fidemia-mobile-id.com%2Ftestqr&docid=2rXiediJKErJDM&tbnid=-reLZIovTV63oM&vet=12ahUKEwjLt4LP0cqMAxVxsFYBHZdzLFQQM3oECBwQAA..i&w=296&h=296&hcb=2&ved=2ahUKEwjLt4LP0cqMAxVxsFYBHZdzLFQQM3oECBwQAA)
 
 ## ✨ Highlighted Features
 
