@@ -11,8 +11,12 @@
 **QR Scan Plus** is a robust and user-friendly Flutter application designed to streamline your interaction with QR codes. Seamlessly scan various QR code formats and effortlessly generate your own, all while maintaining a comprehensive history for easy access. Leveraging the power of **Provider** for efficient state management and **sqflite** for persistent local storage, QR Scan Plus offers a reliable and intuitive solution for all your QR code needs.
 
 ## 📸 Screenshots
-
-![QR Code Scan Result](https://www.google.com/imgres?q=test%20qr&imgurl=https%3A%2F%2Fimages.squarespace-cdn.com%2Fcontent%2Fv1%2F5d3f241fa4e0350001fa20d5%2F1636491460338-AIZAXV2978MGIDQE0GT7%2Fqr-code.png&imgrefurl=https%3A%2F%2Fidemia-mobile-id.com%2Ftestqr&docid=2rXiediJKErJDM&tbnid=-reLZIovTV63oM&vet=12ahUKEwjLt4LP0cqMAxVxsFYBHZdzLFQQM3oECBwQAA..i&w=296&h=296&hcb=2&ved=2ahUKEwjLt4LP0cqMAxVxsFYBHZdzLFQQM3oECBwQAA)
+<img src="https://github.com/user-attachments/assets/f97c5117-6c1e-436d-a3a8-0db40fe4f4d7" data-canonical-src="https://github.com/user-attachments/assets/f97c5117-6c1e-436d-a3a8-0db40fe4f4d7" width="170" height="340" />
+<img src="https://github.com/user-attachments/assets/b8ea3e8b-e3bb-4a8f-acc9-90082056bf11" data-canonical-src="https://github.com/user-attachments/assets/b8ea3e8b-e3bb-4a8f-acc9-90082056bf11" width="170" height="340" />
+<img src="https://github.com/user-attachments/assets/aee9262a-8a5f-4cf3-a44b-a26ca9dd7e3f" data-canonical-src="https://github.com/user-attachments/assets/aee9262a-8a5f-4cf3-a44b-a26ca9dd7e3f" width="170" height="340" />
+<img src="https://github.com/user-attachments/assets/2e92bb43-ac93-47f9-af02-5e9edc6ba3c8" data-canonical-src="https://github.com/user-attachments/assets/2e92bb43-ac93-47f9-af02-5e9edc6ba3c8" width="170" height="340" />
+<img src="https://github.com/user-attachments/assets/d0282565-5eae-45ff-9cfa-59e5956aaca1" data-canonical-src="https://github.com/user-attachments/assets/d0282565-5eae-45ff-9cfa-59e5956aaca1" width="170" height="340" />
+<img src="https://github.com/user-attachments/assets/c55d5761-af9d-4737-96a1-02399af5ebeb" data-canonical-src="https://github.com/user-attachments/assets/c55d5761-af9d-4737-96a1-02399af5ebeb" width="170" height="340" />
 
 ## ✨ Highlighted Features
 
