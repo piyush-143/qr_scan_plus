@@ -30,9 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    super.dispose();
     mobileController.dispose();
+    super.dispose();
   }
 
   @override
@@ -83,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: const EdgeInsets.only(left: 35.0, right: 35, top: 25),
+              padding: const EdgeInsets.only(left: 35.0, right: 35, top: 55),
               child: CustomTopBar(
                 mobileController: mobileController,
               ),
@@ -118,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                    left: 35.0, right: 35, bottom: 20, top: 25),
+                    left: 35.0, right: 35, bottom: 40, top: 25),
                 child: CustomBottomBar(),
               ),
             ],

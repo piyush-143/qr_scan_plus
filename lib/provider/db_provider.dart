@@ -4,8 +4,10 @@ import 'package:qr_plus/database/local_database/db_helper.dart';
 
 class DBProvider with ChangeNotifier {
   final DBHelper _dbRef = DBHelper.getInstance;
+
   List<Map<String, dynamic>> _allScanData = [];
   List<Map<String, dynamic>> get allScanData => _allScanData;
+
   List<Map<String, dynamic>> _allCreateData = [];
   List<Map<String, dynamic>> get allCreateData => _allCreateData;
 

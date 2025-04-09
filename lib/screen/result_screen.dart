@@ -195,7 +195,8 @@ class _ResultScreenState extends State<ResultScreen> {
                   CustomShareSaveButton(
                       icon: Icons.share,
                       onTap: () {
-                        Share.share(widget.code);
+                        SharePlus.instance
+                            .share(ShareParams(text: widget.code));
                         toggleProvider.vibrate();
                       },
                       text: "Share"),

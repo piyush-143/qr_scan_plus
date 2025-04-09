@@ -83,11 +83,6 @@ class GenerateScreen extends StatelessWidget {
             padding: const EdgeInsets.only(right: 25),
             child: CustomCrossContainer(
               onTap: () {
-                // Navigator.pushReplacement(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => HomeScreen(),
-                //     ));
                 Navigator.pop(context);
               },
               icon: Icons.close,

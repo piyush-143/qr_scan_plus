@@ -26,38 +26,36 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => TabIndexProvider()),
         ChangeNotifierProvider(create: (_) => QrCodeProvider()),
       ],
-      child: SafeArea(
-        child: MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            useMaterial3: true,
-            appBarTheme: AppBarTheme(
-              color: Colors.transparent,
-              elevation: 0,
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          useMaterial3: true,
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
+          primaryColor: CustomColor.goldColor,
+          textTheme: TextTheme(
+            bodyLarge: GoogleFonts.itim(
+              fontSize: 30,
+              fontWeight: FontWeight.w500,
+              color: CustomColor.goldColor,
             ),
-            primaryColor: CustomColor.goldColor,
-            textTheme: TextTheme(
-              bodyLarge: GoogleFonts.itim(
-                fontSize: 30,
-                fontWeight: FontWeight.w500,
-                color: CustomColor.goldColor,
-              ),
-              bodyMedium: GoogleFonts.inter(
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-              bodySmall: GoogleFonts.roboto(
-                fontSize: 25,
-                fontWeight: FontWeight.w600,
-                color: CustomColor.goldColor,
-              ),
+            bodyMedium: GoogleFonts.inter(
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
+            bodySmall: GoogleFonts.roboto(
+              fontSize: 25,
+              fontWeight: FontWeight.w600,
+              color: CustomColor.goldColor,
             ),
           ),
-          debugShowCheckedModeBanner: false,
-          home: SplashScreen(),
         ),
+        debugShowCheckedModeBanner: false,
+        home: SplashScreen(),
       ),
     );
   }

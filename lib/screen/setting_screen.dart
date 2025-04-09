@@ -30,11 +30,6 @@ class SettingScreen extends StatelessWidget {
                 child: CustomCrossContainer(
                   icon: Icons.arrow_back_ios_sharp,
                   onTap: () {
-                    // Navigator.pushReplacement(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => HomeScreen(),
-                    //     ));
                     Navigator.pop(context);
                   },
                   size: 35,

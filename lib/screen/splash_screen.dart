@@ -15,7 +15,10 @@ class SplashScreen extends StatelessWidget {
       backgroundColor: Color.fromRGBO(253, 182, 35, 1),
       body: Stack(
         children: [
-          Image.asset("assets/splash/Intersect.png"),
+          Image.asset(
+            "assets/splash/Intersect.png",
+            scale: 0.9,
+          ),
           Align(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

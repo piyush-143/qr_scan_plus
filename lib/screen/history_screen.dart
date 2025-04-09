@@ -58,11 +58,6 @@ class _HistoryScreenState extends State<HistoryScreen>
             child: CustomCrossContainer(
               onTap: () {
                 context.read<TabIndexProvider>().setTabIndex(false);
-                // Navigator.pushReplacement(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => HomeScreen(),
-                //     ));
                 Navigator.pop(context);
               },
               icon: Icons.close,
