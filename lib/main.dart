@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => QrCodeProvider()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'QR Scan+',
         theme: ThemeData(
           primarySwatch: Colors.blue,
           useMaterial3: true,
