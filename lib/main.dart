@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_plus/core/constants/color.dart';
 import 'package:qr_plus/core/utils/size_config.dart';
 import 'package:qr_plus/providers/db_provider.dart';
 import 'package:qr_plus/providers/qr_code_provider.dart';
@@ -8,7 +9,6 @@ import 'package:qr_plus/providers/save_image_provider.dart';
 import 'package:qr_plus/providers/tab_index_provider.dart';
 import 'package:qr_plus/providers/toggle_provider.dart';
 import 'package:qr_plus/screens/splash_screen.dart';
-import 'package:qr_plus/core/constants/color.dart';
 
 void main() {
   runApp(
