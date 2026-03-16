@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_plus/provider/qr_code_provider.dart';
-import 'package:qr_plus/provider/toggle_provider.dart';
-import 'package:qr_plus/screen/setting_screen.dart';
+import 'package:qr_plus/core/utils/formatters.dart';
+import 'package:qr_plus/core/utils/size_config.dart';
+import 'package:qr_plus/providers/qr_code_provider.dart';
+import 'package:qr_plus/providers/toggle_provider.dart';
+import 'package:qr_plus/screens/setting_screen.dart';
 
-import '../provider/db_provider.dart';
-import '../screen/result_screen.dart';
-import 'uihelper/color.dart';
+import 'package:qr_plus/providers/db_provider.dart';
+import 'package:qr_plus/screens/result_screen.dart';
+import 'package:qr_plus/core/constants/color.dart';
 
 class CustomTopBar extends StatelessWidget {
   final MobileScannerController mobileController;
@@ -20,11 +21,11 @@ class CustomTopBar extends StatelessWidget {
     final readToggle = context.read<ToggleProvider>();
     final watchToggle = context.watch<ToggleProvider>();
     return Container(
-      height: 40,
+      height: 40.h,
       decoration: BoxDecoration(
         color: CustomColor.barBgColor,
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [BoxShadow(color: CustomColor.barBgColor, blurRadius: 8)],
+        borderRadius: BorderRadius.circular(8.r),
+        boxShadow: [BoxShadow(color: CustomColor.barBgColor, blurRadius: 8.r)],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -34,28 +35,24 @@ class CustomTopBar extends StatelessWidget {
               icon: Icons.image_rounded,
               color: Colors.white,
               onTap: () {
-                final date = DateTime.now();
-                String d =
-                    "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
-
                 context
                     .read<QrCodeProvider>()
                     .pickImageAndScan(context, mobileController)
                     .whenComplete(
                   () {
+                    if (!context.mounted) return;
                     if (value.detectedQrCode != "") {
                       readToggle.vibrate();
-                      context.read<DBProvider>().addData(
-                            code: value.detectedQrCode,
-                            date: DateTime.now(),
-                            isCreate: false,
-                          );
+                      context
+                          .read<DBProvider>()
+                          .addCurrentData(code: value.detectedQrCode, isCreate: false);
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => ResultScreen(
                             code: value.detectedQrCode,
-                            date: d,
+                            date: CustomFormat.now(),
                           ),
                         ),
                       );
@@ -106,7 +103,7 @@ class CustomTopBar extends StatelessWidget {
       child: Icon(
         icon,
         color: color,
-        size: 30,
+        size: 30.r,
       ),
     );
   }

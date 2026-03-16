@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'uihelper/color.dart';
+import 'package:qr_plus/core/utils/size_config.dart';
+import 'package:qr_plus/core/constants/color.dart';
 
 class GenerateQrButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -11,14 +11,14 @@ class GenerateQrButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: 150,
-        height: 42,
+        width: 150.w,
+        height: 42.h,
         decoration: BoxDecoration(
           color: CustomColor.goldColor,
-          borderRadius: BorderRadius.circular(7),
+          borderRadius: BorderRadius.circular(7.r),
           boxShadow: [
-            BoxShadow(color: CustomColor.barBgColor, blurRadius: 5),
-            BoxShadow(color: CustomColor.bgColor, blurRadius: 5),
+            BoxShadow(color: CustomColor.barBgColor, blurRadius: 5.r),
+            BoxShadow(color: CustomColor.bgColor, blurRadius: 5.r),
           ],
         ),
         child: Center(
@@ -26,7 +26,7 @@ class GenerateQrButton extends StatelessWidget {
             "Generate QR Code",
             style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: Colors.black,
-                  fontSize: 16,
+                  fontSize: 16.r,
                   fontWeight: FontWeight.w500,
                 ),
           ),

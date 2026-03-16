@@ -1,0 +1,34 @@
+import 'package:flutter/material.dart';
+import 'package:qr_plus/widgets/single_field.dart';
+
+import 'package:qr_plus/core/constants/color.dart';
+
+class ForTextScreen extends StatefulWidget {
+  const ForTextScreen({super.key});
+
+  @override
+  State<ForTextScreen> createState() => _ForTextScreenState();
+}
+
+class _ForTextScreenState extends State<ForTextScreen> {
+  TextEditingController controller = TextEditingController();
+  //  @override
+  //  void dispose() {
+  //    _controller.dispose();
+  //    super.dispose();
+  //  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: CustomColor.bgColor,
+      body: SingleField(
+        controller: controller,
+        title: "Text",
+        labelText: "Enter Text",
+        icon: Icons.text_fields,
+        minLines: 2,
+      ),
+    );
+  }
+}

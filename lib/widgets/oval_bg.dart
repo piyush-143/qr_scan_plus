@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 
-class OvalBg extends StatefulWidget {
+class OvalBg extends StatelessWidget {
   final Widget body;
   const OvalBg({super.key, required this.body});
 
-  @override
-  State<OvalBg> createState() => _OvalBgState();
-}
-
-class _OvalBgState extends State<OvalBg> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -25,7 +20,7 @@ class _OvalBgState extends State<OvalBg> {
             "assets/bg/lowerOval.png",
           ),
         ),
-        widget.body,
+        body,
       ],
     );
   }

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_plus/provider/toggle_provider.dart';
-import 'package:qr_plus/screen/result_screen.dart';
-import 'package:qr_plus/widgets/uihelper/flushbar_message.dart';
-import 'package:qr_plus/widgets/uihelper/size_data.dart';
+import 'package:qr_plus/core/utils/size_config.dart';
+import 'package:qr_plus/providers/toggle_provider.dart';
+import 'package:qr_plus/screens/result_screen.dart';
+import 'package:qr_plus/core/utils/flushbar_message.dart';
+import 'package:qr_plus/core/constants/size_data.dart';
 
-import '../provider/db_provider.dart';
+import 'package:qr_plus/providers/db_provider.dart';
 import 'custom_cross_container.dart';
 import 'custom_text_field.dart';
 import 'generate_qr_button.dart';
 import 'oval_bg.dart';
-import 'uihelper/color.dart';
+import 'package:qr_plus/core/constants/color.dart';
 
 class SingleField extends StatelessWidget {
   final TextEditingController controller;
@@ -33,69 +34,70 @@ class SingleField extends StatelessWidget {
   Widget build(BuildContext context) {
     return OvalBg(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+        padding: EdgeInsets.symmetric(horizontal: 25.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: SizeData.aboveAppBar),
+            SizedBox(height: SizeData.aboveAppBar.h),
             Padding(
-              padding: const EdgeInsets.only(left: 15),
+              padding: EdgeInsets.only(left: 15.w),
               child: Row(
                 children: [
                   CustomCrossContainer(
                     icon: Icons.arrow_back_ios_sharp,
                     onTap: () => Navigator.pop(context),
-                    size: 35,
+                    size: 35.r,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 28.0),
+                    padding: EdgeInsets.only(left: 28.w),
                     child: Text(
                       title,
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             color: Colors.white,
+                            fontSize: 22.r,
                           ),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: SizeData.belowAppBar),
+            SizedBox(height: SizeData.belowAppBar.h),
             Expanded(
               child: SingleChildScrollView(
                 child: Container(
-                  padding: EdgeInsets.all(15),
+                  padding: EdgeInsets.all(15.r),
                   decoration: BoxDecoration(
                     color: CustomColor.barBgColor.withAlpha(150),
                     border: Border.symmetric(
                         horizontal:
-                            BorderSide(color: CustomColor.goldColor, width: 2)),
-                    borderRadius: BorderRadius.circular(10),
+                            BorderSide(color: CustomColor.goldColor, width: 2.h)),
+                    borderRadius: BorderRadius.circular(10.r),
                     boxShadow: [
                       BoxShadow(
                         color: CustomColor.barBgColor,
-                        blurRadius: 8,
+                        blurRadius: 8.r,
                         blurStyle: BlurStyle.outer,
-                        offset: Offset(0, 1),
+                        offset: Offset(0, 1.h),
                       ),
                     ],
                   ),
                   child: Column(
-                    spacing: 22,
+                    spacing: 22.h,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Icon(
                         icon,
-                        size: 68,
+                        size: 68.r,
                         color: CustomColor.goldColor,
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       CustomTextField(
                         labelText: labelText,
                         controller: controller,
                         minLines: minLines ?? 1,
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       GenerateQrButton(
                         onTap: () async {
                           if (controller.text.isNotEmpty) {
@@ -121,7 +123,7 @@ class SingleField extends StatelessWidget {
                           }
                         },
                       ),
-                      SizedBox(height: 8),
+                      SizedBox(height: 8.h),
                     ],
                   ),
                 ),

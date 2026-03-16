@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'uihelper/color.dart';
+import 'package:qr_plus/core/utils/size_config.dart';
+import 'package:qr_plus/core/constants/color.dart';
 
 class CustomSocialButton extends StatelessWidget {
   final IconData icon;
@@ -20,11 +20,11 @@ class CustomSocialButton extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: CustomColor.barBgColor,
-          borderRadius: BorderRadius.circular(7),
+          borderRadius: BorderRadius.circular(7.r),
           border: Border.all(color: Colors.black12),
-          boxShadow: const [
-            BoxShadow(color: CustomColor.barBgColor, blurRadius: 5),
-            BoxShadow(color: CustomColor.bgColor, blurRadius: 7),
+          boxShadow: [
+            BoxShadow(color: CustomColor.barBgColor, blurRadius: 5.r),
+            BoxShadow(color: CustomColor.bgColor, blurRadius: 7.r),
           ],
         ),
         child: Column(
@@ -32,13 +32,13 @@ class CustomSocialButton extends StatelessWidget {
           children: [
             Icon(
               icon,
-              size: 38,
+              size: 38.r,
               color: CustomColor.goldColor,
             ),
             Text(
               text,
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontSize: 13,
+                    fontSize: 13.r,
                     fontWeight: FontWeight.w500,
                     letterSpacing: 0,
                   ),

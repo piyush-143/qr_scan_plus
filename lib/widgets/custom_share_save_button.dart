@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'uihelper/color.dart';
+import 'package:qr_plus/core/utils/size_config.dart';
+import 'package:qr_plus/core/constants/color.dart';
 
 class CustomShareSaveButton extends StatelessWidget {
   final IconData icon;
@@ -16,25 +16,25 @@ class CustomShareSaveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 10,
+      spacing: 10.h,
       children: [
         InkWell(
           onTap: onTap,
           child: Container(
-            width: 58,
-            height: 58,
+            width: 58.w,
+            height: 58.h,
             decoration: BoxDecoration(
               color: CustomColor.goldColor,
-              borderRadius: BorderRadius.circular(7),
+              borderRadius: BorderRadius.circular(7.r),
               border: Border.all(color: Colors.black12),
               boxShadow: [
-                BoxShadow(color: CustomColor.barBgColor, blurRadius: 3),
-                BoxShadow(color: CustomColor.bgColor, blurRadius: 3),
+                BoxShadow(color: CustomColor.barBgColor, blurRadius: 3.r),
+                BoxShadow(color: CustomColor.bgColor, blurRadius: 3.r),
               ],
             ),
             child: Icon(
               icon,
-              size: 30,
+              size: 30.r,
               color: CustomColor.barBgColor,
             ),
           ),
@@ -43,7 +43,7 @@ class CustomShareSaveButton extends StatelessWidget {
           text,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Colors.white,
-                fontSize: 18,
+                fontSize: 18.r,
               ),
         ),
       ],

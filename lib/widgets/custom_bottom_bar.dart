@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:qr_plus/screen/generate_screen.dart';
-import 'package:qr_plus/screen/history_screen.dart';
-import 'package:qr_plus/widgets/uihelper/color.dart'; // Assuming color.dart is in utils
+import 'package:qr_plus/core/utils/size_config.dart';
+import 'package:qr_plus/screens/generate_screen.dart';
+import 'package:qr_plus/screens/history_screen.dart';
+import 'package:qr_plus/core/constants/color.dart';
 
 class CustomBottomBar extends StatelessWidget {
   const CustomBottomBar({super.key});
@@ -11,17 +12,17 @@ class CustomBottomBar extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: CustomColor.barBgColor,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(8.r),
         border: Border(
           bottom: BorderSide(
             color: CustomColor.goldColor,
-            width: 4,
+            width: 4.h,
           ),
         ),
         boxShadow: [
           BoxShadow(
             color: CustomColor.barBgColor,
-            blurRadius: 8,
+            blurRadius: 8.r,
           ),
         ],
       ),
@@ -40,20 +41,20 @@ class CustomBottomBar extends StatelessWidget {
           ),
           // Highlighted middle button - elevated with Transform
           Transform.translate(
-            offset: const Offset(-4, -25),
+            offset: Offset(-4.w, -25.h),
             child: Container(
-              padding: const EdgeInsets.all(15),
+              padding: EdgeInsets.all(15.r),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: CustomColor.goldColor,
                 boxShadow: [
-                  BoxShadow(color: CustomColor.goldColor, blurRadius: 10),
+                  BoxShadow(color: CustomColor.goldColor, blurRadius: 10.r),
                 ],
               ),
               child: Image.asset(
-                'assets/splash/logo.png', // Replace with your image path
-                width: 35,
-                height: 35,
+                'assets/splash/logo.png',
+                width: 35.w,
+                height: 35.h,
               ),
             ),
           ),
@@ -94,13 +95,13 @@ class _BottomBarButton extends StatelessWidget {
           Icon(
             icon,
             color: Colors.white,
-            size: 25,
+            size: 25.r,
           ),
           Text(
             text,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: Colors.white,
-                  fontSize: 17,
+                  fontSize: 17.r,
                 ),
           ),
         ],

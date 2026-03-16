@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_plus/provider/db_provider.dart';
-import 'package:qr_plus/provider/qr_code_provider.dart';
-import 'package:qr_plus/provider/save_image_provider.dart';
-import 'package:qr_plus/provider/tab_index_provider.dart';
-import 'package:qr_plus/provider/toggle_provider.dart';
-import 'package:qr_plus/screen/splash_screen.dart';
-import 'package:qr_plus/widgets/uihelper/color.dart';
+import 'package:qr_plus/core/utils/size_config.dart';
+import 'package:qr_plus/providers/db_provider.dart';
+import 'package:qr_plus/providers/qr_code_provider.dart';
+import 'package:qr_plus/providers/save_image_provider.dart';
+import 'package:qr_plus/providers/tab_index_provider.dart';
+import 'package:qr_plus/providers/toggle_provider.dart';
+import 'package:qr_plus/screens/splash_screen.dart';
+import 'package:qr_plus/core/constants/color.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    AppSizer(
+      builder: (context, constraints, orientation) {
+        return const MyApp();
+      },
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -31,7 +38,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
           useMaterial3: true,
-          appBarTheme: AppBarTheme(
+          appBarTheme: const AppBarTheme(
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),
@@ -55,7 +62,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

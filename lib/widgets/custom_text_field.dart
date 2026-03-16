@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qr_plus/widgets/uihelper/color.dart';
+import 'package:qr_plus/core/utils/size_config.dart';
+import 'package:qr_plus/core/constants/color.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -20,7 +21,7 @@ class CustomTextField extends StatelessWidget {
     final focusNode = FocusNode();
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(8.r),
         color: CustomColor.barBgColor,
       ),
       child: TextFormField(
@@ -28,30 +29,30 @@ class CustomTextField extends StatelessWidget {
         focusNode: focusNode,
         maxLines: 3,
         minLines: minLines ?? 1,
-        style: const TextStyle(color: Colors.white, fontSize: 17),
+        style: TextStyle(color: Colors.white, fontSize: 17.r),
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
           contentPadding:
-              const EdgeInsets.symmetric(horizontal: 7, vertical: 5),
+              EdgeInsets.symmetric(horizontal: 7.w, vertical: 5.h),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: Colors.white38, width: 1.3),
+            borderRadius: BorderRadius.circular(8.r),
+            borderSide: BorderSide(color: Colors.white38, width: 1.3.w),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: Colors.white38, width: 1.3),
+            borderRadius: BorderRadius.circular(8.r),
+            borderSide: BorderSide(color: Colors.white38, width: 1.3.w),
           ),
           label: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 labelText,
-                style: const TextStyle(color: Colors.white70, fontSize: 18),
+                style: TextStyle(color: Colors.white70, fontSize: 18.r),
               ),
               if (isRequired)
-                const Text(
+                Text(
                   " *",
-                  style: TextStyle(color: Colors.red, fontSize: 18),
+                  style: TextStyle(color: Colors.red, fontSize: 18.r),
                 ),
             ],
           ),
@@ -84,7 +85,7 @@ class RowTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: 15,
+      spacing: 15.w,
       children: [
         Expanded(
           child: CustomTextField(

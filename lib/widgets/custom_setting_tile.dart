@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qr_plus/widgets/uihelper/color.dart';
+import 'package:qr_plus/core/utils/size_config.dart';
+import 'package:qr_plus/core/constants/color.dart';
 
 class CustomSettingTile extends StatelessWidget {
   final String title;
@@ -16,34 +17,36 @@ class CustomSettingTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 15),
+      margin: EdgeInsets.only(top: 15.h),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: const Border(
-          bottom: BorderSide(color: CustomColor.goldColor, width: 2),
+        borderRadius: BorderRadius.circular(10.r),
+        border: Border(
+          bottom: BorderSide(color: CustomColor.goldColor, width: 2.h),
         ),
         boxShadow: [
           BoxShadow(
             color: CustomColor.barBgColor,
-            blurRadius: 15, blurStyle: BlurStyle.outer,
-            offset: Offset(0, 1), // changes position of shadow
+            blurRadius: 15.r, blurStyle: BlurStyle.outer,
+            offset: Offset(0, 1.h),
           ),
         ],
       ),
       child: ListTile(
         title: Text(title),
         subtitle: Text(subtitle),
-        leading: Icon(leadingIcon),
+        leading: Icon(leadingIcon, size: 24.r),
         trailing: trailing,
-        titleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(),
+        titleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+          fontSize: 15.r,
+        ),
         subtitleTextStyle: Theme.of(context)
             .textTheme
             .bodyMedium!
-            .copyWith(fontSize: 12, color: Colors.white60),
+            .copyWith(fontSize: 12.r, color: Colors.white60),
         tileColor: CustomColor.barBgColor,
         iconColor: CustomColor.goldColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        minTileHeight: 64,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+        minTileHeight: 64.h,
       ),
     );
   }
