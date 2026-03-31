@@ -51,7 +51,7 @@ class CustomTextField extends StatelessWidget {
               ),
               if (isRequired)
                 Text(
-                  " *",
+                  ' *',
                   style: TextStyle(color: Colors.red, fontSize: 18.r),
                 ),
             ],

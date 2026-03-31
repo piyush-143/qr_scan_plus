@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qr_plus/core/utils/formatters.dart';
+import 'package:qr_plus/data/models/qr_result.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_plus/core/utils/size_config.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
@@ -7,12 +7,12 @@ import 'package:qr_plus/core/utils/flushbar_message.dart';
 
 import 'package:qr_plus/providers/db_provider.dart';
 import 'package:qr_plus/providers/toggle_provider.dart';
-import '../../widgets/custom_cross_container.dart';
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/generate_qr_button.dart';
+import 'package:qr_plus/widgets/custom_cross_container.dart';
+import 'package:qr_plus/widgets/custom_text_field.dart';
+import 'package:qr_plus/widgets/generate_qr_button.dart';
 import 'package:qr_plus/core/constants/color.dart';
 import 'package:qr_plus/core/utils/concat_string.dart';
-import '../result_screen.dart';
+import 'package:qr_plus/screens/result_screen.dart';
 
 class ForContactScreen extends StatefulWidget {
   const ForContactScreen({super.key});
@@ -22,15 +22,16 @@ class ForContactScreen extends StatefulWidget {
 }
 
 class _ForContactScreenState extends State<ForContactScreen> {
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController companyNameController = TextEditingController();
-  TextEditingController jobNameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController countryController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController companyNameController = TextEditingController();
+  final TextEditingController jobNameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
+  final TextEditingController countryController = TextEditingController();
+
   @override
   void dispose() {
     firstNameController.dispose();
@@ -47,7 +48,7 @@ class _ForContactScreenState extends State<ForContactScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<TextEditingController> code = [
+    List<TextEditingController> codeInput = [
       firstNameController,
       lastNameController,
       companyNameController,
@@ -82,7 +83,7 @@ class _ForContactScreenState extends State<ForContactScreen> {
                     Padding(
                       padding: EdgeInsets.only(left: 28.w),
                       child: Text(
-                        "Contact",
+                        'Contact',
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               color: Colors.white,
                               fontSize: 22.r,
@@ -96,7 +97,8 @@ class _ForContactScreenState extends State<ForContactScreen> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
                     decoration: BoxDecoration(
                       color: CustomColor.barBgColor.withAlpha(150),
                       border: Border.symmetric(
@@ -124,35 +126,35 @@ class _ForContactScreenState extends State<ForContactScreen> {
                         RowTextField(
                             controller1: firstNameController,
                             controller2: lastNameController,
-                            labelText1: "First Name",
-                            labelText2: "Last Name"),
+                            labelText1: 'First Name',
+                            labelText2: 'Last Name'),
                         RowTextField(
                           controller1: companyNameController,
                           controller2: jobNameController,
-                          labelText1: "Company",
-                          labelText2: "Job",
+                          labelText1: 'Company',
+                          labelText2: 'Job',
                           isRequired1: false,
                           isRequired2: false,
                         ),
                         CustomTextField(
-                          labelText: "phone",
+                          labelText: 'phone',
                           controller: phoneController,
                         ),
                         CustomTextField(
-                          labelText: "Email",
+                          labelText: 'Email',
                           controller: emailController,
                           isRequired: false,
                         ),
                         CustomTextField(
-                          labelText: "Address",
+                          labelText: 'Address',
                           controller: addressController,
                           isRequired: false,
                         ),
                         RowTextField(
                           controller1: cityController,
                           controller2: countryController,
-                          labelText1: "City",
-                          labelText2: "Country",
+                          labelText1: 'City',
+                          labelText2: 'Country',
                           isRequired1: false,
                           isRequired2: false,
                         ),
@@ -161,24 +163,27 @@ class _ForContactScreenState extends State<ForContactScreen> {
                             if (firstNameController.text.isNotEmpty &&
                                 lastNameController.text.isNotEmpty &&
                                 phoneController.text.isNotEmpty) {
-                              
-                              final resultText = concatenateString(code).text;
+                              final resultText = concatenateString(codeInput).text;
                               context.read<ToggleProvider>().vibrate();
                               context.read<DBProvider>().addCurrentData(
-                                  code: resultText,
-                                  isCreate: true);
- 
+                                  code: resultText, isCreate: true);
+
+                              final result = QRResult(
+                                content: resultText,
+                                date: DateTime.now(),
+                                isCreated: true,
+                              );
+
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ResultScreen(
-                                      code: resultText,
-                                      date: CustomFormat.now(),
+                                      result: result,
                                     ),
                                   ));
                             } else {
                               flushBarMessage(
-                                  context, "Enter required details !");
+                                  context, 'Enter required details !');
                             }
                           },
                         ),

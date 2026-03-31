@@ -11,13 +11,13 @@ class OvalBg extends StatelessWidget {
         Align(
           alignment: Alignment.topRight,
           child: Image.asset(
-            "assets/bg/upperOval.png",
+            'assets/bg/upperOval.png',
           ),
         ),
         Align(
           alignment: Alignment.bottomLeft,
           child: Image.asset(
-            "assets/bg/lowerOval.png",
+            'assets/bg/lowerOval.png',
           ),
         ),
         body,

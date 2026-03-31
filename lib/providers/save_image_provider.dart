@@ -15,10 +15,10 @@ class SaveImageToGalleryProvider with ChangeNotifier {
         final result =
             await ImageGallerySaverPlus.saveImage(screenShot, quality: 50);
         if (!context.mounted) return;
-        if (result != null || result == "") {
-          flushBarMessage(context, "Image saved to gallery");
+        if (result != null || result == '') {
+          flushBarMessage(context, 'Image saved to gallery');
         } else {
-          flushBarMessage(context, "Unable to save image");
+          flushBarMessage(context, 'Unable to save image');
         }
       }
     }

@@ -11,13 +11,8 @@ import 'package:qr_plus/providers/toggle_provider.dart';
 import 'package:qr_plus/screens/splash_screen.dart';
 
 void main() {
-  runApp(
-    AppSizer(
-      builder: (context, constraints, orientation) {
-        return const MyApp();
-      },
-    ),
-  );
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -35,6 +30,14 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'QR Scan+',
+        builder: (context, child) {
+          return LayoutBuilder(builder: (context, constraints) {
+            return OrientationBuilder(builder: (context, orientation) {
+              SizeConfig.init(constraints, orientation);
+              return child!;
+            });
+          });
+        },
         theme: ThemeData(
           primarySwatch: Colors.blue,
           useMaterial3: true,

@@ -15,8 +15,8 @@ import 'package:qr_plus/widgets/custom_cross_container.dart';
 import 'package:qr_plus/core/constants/color.dart';
 import 'package:qr_plus/core/constants/size_data.dart';
 
-import '../widgets/custom_social_button.dart';
-import 'generate_code/for_email_screen.dart';
+import 'package:qr_plus/widgets/custom_social_button.dart';
+import 'package:qr_plus/screens/generate_code/for_email_screen.dart';
 
 class GenerateScreen extends StatelessWidget {
   final List<IconData> icon = [
@@ -33,17 +33,17 @@ class GenerateScreen extends StatelessWidget {
     Icons.phone_callback,
   ];
   final List<String> text = [
-    "Text",
-    "Website",
-    "Wi-Fi",
-    "Event",
-    "Contact",
-    "Business",
-    "WhatsApp",
-    "Email",
-    "Twitter",
-    "Instagram",
-    "Phone",
+    'Text',
+    'Website',
+    'Wi-Fi',
+    'Event',
+    'Contact',
+    'Business',
+    'WhatsApp',
+    'Email',
+    'Twitter',
+    'Instagram',
+    'Phone',
   ];
   final List<Widget> route = [
     const ForTextScreen(),
@@ -68,7 +68,7 @@ class GenerateScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
         title: Text(
-          "Generate QR",
+          'Generate QR',
           style: Theme.of(context)
               .textTheme
               .bodyLarge!

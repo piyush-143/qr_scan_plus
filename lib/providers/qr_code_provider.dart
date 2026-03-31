@@ -11,7 +11,7 @@ class QrCodeProvider with ChangeNotifier {
   String _scannedQrCode = '';
   String get scannedQrCode => _scannedQrCode;
   void setQrCode(List<Barcode> barcodes) {
-    _scannedQrCode = barcodes.first.rawValue ?? "---";
+    _scannedQrCode = barcodes.first.rawValue ?? '---';
     notifyListeners();
   }
 
@@ -27,13 +27,13 @@ class QrCodeProvider with ChangeNotifier {
         notifyListeners();
       } else {
         if (!context.mounted) return;
-        flushBarMessage(context, "No code found!!!");
-        _detectedQrCode = "";
+        flushBarMessage(context, 'No code found!!!');
+        _detectedQrCode = '';
       }
     } else {
       if (!context.mounted) return;
-      flushBarMessage(context, "Image not picked!!!");
-      _detectedQrCode = "";
+      flushBarMessage(context, 'Image not picked!!!');
+      _detectedQrCode = '';
     }
   }
 

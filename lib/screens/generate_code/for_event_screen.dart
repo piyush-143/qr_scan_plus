@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qr_plus/core/utils/formatters.dart';
+import 'package:qr_plus/data/models/qr_result.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_plus/core/utils/size_config.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
@@ -8,12 +8,12 @@ import 'package:qr_plus/core/constants/size_data.dart';
 
 import 'package:qr_plus/providers/db_provider.dart';
 import 'package:qr_plus/providers/toggle_provider.dart';
-import '../../widgets/custom_cross_container.dart';
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/generate_qr_button.dart';
+import 'package:qr_plus/widgets/custom_cross_container.dart';
+import 'package:qr_plus/widgets/custom_text_field.dart';
+import 'package:qr_plus/widgets/generate_qr_button.dart';
 import 'package:qr_plus/core/constants/color.dart';
 import 'package:qr_plus/core/utils/concat_string.dart';
-import '../result_screen.dart';
+import 'package:qr_plus/screens/result_screen.dart';
 
 class ForEventScreen extends StatefulWidget {
   const ForEventScreen({super.key});
@@ -23,11 +23,11 @@ class ForEventScreen extends StatefulWidget {
 }
 
 class _ForEventScreenState extends State<ForEventScreen> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController startDateTimeController = TextEditingController();
-  TextEditingController endDateTimeController = TextEditingController();
-  TextEditingController locationController = TextEditingController();
-  TextEditingController descController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController startDateTimeController = TextEditingController();
+  final TextEditingController endDateTimeController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController descController = TextEditingController();
 
   @override
   void dispose() {
@@ -41,7 +41,7 @@ class _ForEventScreenState extends State<ForEventScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<TextEditingController> code = [
+    List<TextEditingController> codeInput = [
       nameController,
       startDateTimeController,
       endDateTimeController,
@@ -72,7 +72,7 @@ class _ForEventScreenState extends State<ForEventScreen> {
                     Padding(
                       padding: EdgeInsets.only(left: 28.w),
                       child: Text(
-                        "Event",
+                        'Event',
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               color: Colors.white,
                               fontSize: 22.r,
@@ -113,20 +113,20 @@ class _ForEventScreenState extends State<ForEventScreen> {
                           color: CustomColor.goldColor,
                         ),
                         CustomTextField(
-                          labelText: "Event Name",
+                          labelText: 'Event Name',
                           controller: nameController,
                         ),
                         RowTextField(
                             controller1: startDateTimeController,
                             controller2: endDateTimeController,
-                            labelText1: "Start Date",
-                            labelText2: "End Date"),
+                            labelText1: 'Start Date',
+                            labelText2: 'End Date'),
                         CustomTextField(
-                          labelText: "Event Location",
+                          labelText: 'Event Location',
                           controller: locationController,
                         ),
                         CustomTextField(
-                          labelText: "Description",
+                          labelText: 'Description',
                           controller: descController,
                           minLines: 2,
                           isRequired: false,
@@ -138,24 +138,27 @@ class _ForEventScreenState extends State<ForEventScreen> {
                                 startDateTimeController.text.isNotEmpty &&
                                 endDateTimeController.text.isNotEmpty &&
                                 locationController.text.isNotEmpty) {
-                              
-                              final resultText = concatenateString(code).text;
+                              final resultText = concatenateString(codeInput).text;
                               context.read<ToggleProvider>().vibrate();
                               context.read<DBProvider>().addCurrentData(
-                                  code: resultText,
-                                  isCreate: true);
- 
+                                  code: resultText, isCreate: true);
+
+                              final result = QRResult(
+                                content: resultText,
+                                date: DateTime.now(),
+                                isCreated: true,
+                              );
+
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ResultScreen(
-                                      code: resultText,
-                                      date: CustomFormat.now(),
+                                      result: result,
                                     ),
                                   ));
                             } else {
                               flushBarMessage(
-                                  context, "Enter required details !");
+                                  context, 'Enter required details !');
                             }
                           },
                         ),

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_plus/core/utils/size_config.dart';
 import 'package:qr_plus/providers/toggle_provider.dart';
 import 'package:qr_plus/screens/result_screen.dart';
 import 'package:qr_plus/core/utils/flushbar_message.dart';
 import 'package:qr_plus/core/constants/size_data.dart';
+import 'package:qr_plus/data/models/qr_result.dart';
 
 import 'package:qr_plus/providers/db_provider.dart';
-import 'custom_cross_container.dart';
-import 'custom_text_field.dart';
-import 'generate_qr_button.dart';
-import 'oval_bg.dart';
+import 'package:qr_plus/widgets/custom_cross_container.dart';
+import 'package:qr_plus/widgets/custom_text_field.dart';
+import 'package:qr_plus/widgets/generate_qr_button.dart';
+import 'package:qr_plus/widgets/oval_bg.dart';
 import 'package:qr_plus/core/constants/color.dart';
 
 class SingleField extends StatelessWidget {
@@ -102,24 +102,27 @@ class SingleField extends StatelessWidget {
                         onTap: () async {
                           if (controller.text.isNotEmpty) {
                             final date = DateTime.now();
-                            String d =
-                                "${DateFormat('d MMM y, hh:mm').format(date)} ${DateFormat("a").format(date).toLowerCase()}";
+                            final result = QRResult(
+                              content: controller.text,
+                              date: date,
+                              isCreated: true,
+                            );
+
                             context.read<ToggleProvider>().vibrate();
                             context.read<DBProvider>().addData(
-                                  code: controller.text,
-                                  date: date,
-                                  isCreate: true,
+                                  content: result.content,
+                                  date: result.date,
+                                  isCreated: result.isCreated,
                                 );
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ResultScreen(
-                                    code: controller.text,
-                                    date: d,
+                                    result: result,
                                   ),
                                 ));
                           } else {
-                            flushBarMessage(context, "Enter required detail !");
+                            flushBarMessage(context, 'Enter required detail !');
                           }
                         },
                       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_plus/core/utils/formatters.dart';
+import 'package:qr_plus/data/models/qr_result.dart';
 import 'package:qr_plus/core/utils/size_config.dart';
 import 'package:qr_plus/providers/db_provider.dart';
 import 'package:qr_plus/providers/toggle_provider.dart';
@@ -9,7 +9,7 @@ import 'package:qr_plus/screens/result_screen.dart';
 import 'package:qr_plus/widgets/custom_bottom_bar.dart';
 import 'package:qr_scanner_overlay/qr_scanner_overlay.dart';
 
-import '../widgets/custom_top_bar.dart';
+import 'package:qr_plus/widgets/custom_top_bar.dart';
 import 'package:qr_plus/core/constants/color.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,7 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<DBProvider>().getInitialData();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        context.read<DBProvider>().getInitialData();
+      }
+    });
   }
 
   @override
@@ -54,19 +58,25 @@ class _HomeScreenState extends State<HomeScreen> {
                           detectedCode.barcodes.first.rawValue.toString();
 
                       toggleProvider.vibrate();
-                      context
-                          .read<DBProvider>()
-                          .addCurrentData(code: scannedCode, isCreate: false);
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ResultScreen(
+                      context.read<DBProvider>().addCurrentData(
                             code: scannedCode,
-                            date: CustomFormat.now(),
+                            isCreate: false,
+                          );
+
+                      if (mounted) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ResultScreen(
+                              result: QRResult(
+                                content: scannedCode,
+                                date: DateTime.now(),
+                                isCreated: false,
+                              ),
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                      }
                     },
                   ),
                 ),
@@ -78,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Center(
                   child: Image.asset(
-                    "assets/home/overlayMidLine.png",
+                    'assets/home/overlayMidLine.png',
                     width: 260.w,
                   ),
                 ),

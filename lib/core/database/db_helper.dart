@@ -1,72 +1,89 @@
-import 'dart:io';
-
+import 'package:qr_plus/data/models/qr_result.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sqflite/sqflite.dart';
+import 'dart:io';
 
 class DBHelper {
   DBHelper._();
   static final DBHelper getInstance = DBHelper._();
 
-  static const String scanTableName = "ScanTable";
-  static const String scanTableColumnCode = "ScanCode";
-  static const String scanTableColumnSno = "ScanSno";
-  static const String scanTableColumnDate = "ScanDate";
+  static const String scanTableName = 'ScanTable';
+  static const String scanTableColumnCode = 'ScanCode';
+  static const String scanTableColumnSno = 'ScanSno';
+  static const String scanTableColumnDate = 'ScanDate';
 
-  static const String createTableName = "createTable";
-  static const String createTableColumnCode = "createCode";
-  static const String createTableColumnSno = "createSno";
-  static const String createTableColumnDate = "createDate";
+  static const String createTableName = 'createTable';
+  static const String createTableColumnCode = 'createCode';
+  static const String createTableColumnSno = 'createSno';
+  static const String createTableColumnDate = 'createDate';
 
   Database? _myDb;
+
   Future<Database> getDb() async {
-    if (_myDb != null) {
-      return _myDb!;
-    }
-    _myDb = await openDb();
+    _myDb ??= await openDb();
     return _myDb!;
   }
 
   Future<Database> openDb() async {
-    Directory dir = await getApplicationDocumentsDirectory();
-    String dbPath = join(dir.path, "qrPlusDb.db");
-    return await openDatabase(dbPath, onCreate: (db, version) {
-      db.execute(
-          "create table $scanTableName ($scanTableColumnSno integer primary key autoincrement,$scanTableColumnCode text,$scanTableColumnDate text)");
-      db.execute(
-          "create table $createTableName ($createTableColumnSno integer primary key autoincrement,$createTableColumnCode text,$createTableColumnDate text)");
-    }, version: 1);
+    try {
+      Directory dir = await getApplicationDocumentsDirectory();
+      String dbPath = join(dir.path, 'qrPlusDb.db');
+      return await openDatabase(
+        dbPath,
+        onCreate: (db, version) async {
+          await db.execute(
+            'CREATE TABLE $scanTableName ($scanTableColumnSno INTEGER PRIMARY KEY AUTOINCREMENT, $scanTableColumnCode TEXT, $scanTableColumnDate TEXT)',
+          );
+          await db.execute(
+            'CREATE TABLE $createTableName ($createTableColumnSno INTEGER PRIMARY KEY AUTOINCREMENT, $createTableColumnCode TEXT, $createTableColumnDate TEXT)',
+          );
+        },
+        version: 1,
+      );
+    } catch (e) {
+      rethrow;
+    }
   }
 
-  Future<bool> addHistory(
-      {required String code,
-      required String date,
-      required bool isCreate}) async {
-    var db = await getDb();
-    int rowsEffected = isCreate
-        ? await db.insert(createTableName,
-            {createTableColumnCode: code, createTableColumnDate: date})
-        : await db.insert(scanTableName,
-            {scanTableColumnCode: code, scanTableColumnDate: date});
-    return rowsEffected > 0;
+  Future<bool> addHistory(QRResult result) async {
+    try {
+      final db = await getDb();
+      final table = result.isCreated ? createTableName : scanTableName;
+      final int rowsAffected = await db.insert(table, result.toInsertMap());
+      return rowsAffected > 0;
+    } catch (e) {
+      return false;
+    }
   }
 
-  Future<bool> deleteHistory({required int sno, required bool isCreate}) async {
-    var db = await getDb();
-    int rowsEffected = isCreate
-        ? await db.delete(createTableName,
-            where: "$createTableColumnSno=?", whereArgs: ["$sno"])
-        : await db.delete(scanTableName,
-            where: "$scanTableColumnSno=?", whereArgs: ["$sno"]);
-    return rowsEffected > 0;
+  Future<bool> deleteHistory({required int sno, required bool isCreated}) async {
+    try {
+      final db = await getDb();
+      final table = isCreated ? createTableName : scanTableName;
+      final columnId = isCreated ? createTableColumnSno : scanTableColumnSno;
+      final int rowsAffected = await db.delete(
+        table,
+        where: '$columnId = ?',
+        whereArgs: [sno],
+      );
+      return rowsAffected > 0;
+    } catch (e) {
+      return false;
+    }
   }
 
-  Future<List<Map<String, dynamic>>> getAllData(
-      {required bool isCreate}) async {
-    var db = await getDb();
-    List<Map<String, dynamic>> data = isCreate
-        ? await db.query(createTableName)
-        : await db.query(scanTableName);
-    return data;
+  Future<List<QRResult>> getAllData({required bool isCreated}) async {
+    try {
+      final db = await getDb();
+      final table = isCreated ? createTableName : scanTableName;
+      final List<Map<String, dynamic>> maps = await db.query(table);
+
+      return List.generate(maps.length, (i) {
+        return QRResult.fromMap(maps[i], isCreated);
+      });
+    } catch (e) {
+      return [];
+    }
   }
 }

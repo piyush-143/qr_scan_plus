@@ -11,30 +11,9 @@ class SizeConfig {
 
   /// Initializes the screen size parameters.
   static void init(BoxConstraints constraints, Orientation currentOrientation) {
-    if (currentOrientation == Orientation.portrait) {
-      screenWidth = constraints.maxWidth;
-      screenHeight = constraints.maxHeight;
-    } else {
-      screenWidth = constraints.maxHeight;
-      screenHeight = constraints.maxWidth;
-    }
+    screenWidth = constraints.maxWidth;
+    screenHeight = constraints.maxHeight;
     orientation = currentOrientation;
-  }
-}
-
-class AppSizer extends StatelessWidget {
-  final Widget Function(BuildContext, BoxConstraints, Orientation) builder;
-
-  const AppSizer({super.key, required this.builder});
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return OrientationBuilder(builder: (context, orientation) {
-        SizeConfig.init(constraints, orientation);
-        return builder(context, constraints, orientation);
-      });
-    });
   }
 }
 

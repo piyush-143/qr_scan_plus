@@ -25,8 +25,8 @@ class _ForInstagramScreenState extends State<ForInstagramScreen> {
       backgroundColor: CustomColor.bgColor,
       body: SingleField(
         controller: controller,
-        title: "Instagram",
-        labelText: "Username",
+        title: 'Instagram',
+        labelText: 'Username',
         icon: FontAwesomeIcons.instagram,
         minLines: 1,
       ),

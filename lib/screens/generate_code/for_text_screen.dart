@@ -24,8 +24,8 @@ class _ForTextScreenState extends State<ForTextScreen> {
       backgroundColor: CustomColor.bgColor,
       body: SingleField(
         controller: controller,
-        title: "Text",
-        labelText: "Enter Text",
+        title: 'Text',
+        labelText: 'Enter Text',
         icon: Icons.text_fields,
         minLines: 2,
       ),

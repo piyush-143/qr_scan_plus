@@ -12,18 +12,20 @@ import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
 import 'package:qr_plus/providers/save_image_provider.dart';
-import '../widgets/custom_cross_container.dart';
-import '../widgets/custom_share_save_button.dart';
+import 'package:qr_plus/widgets/custom_cross_container.dart';
+import 'package:qr_plus/widgets/custom_share_save_button.dart';
 import 'package:qr_plus/core/constants/color.dart';
+import 'package:qr_plus/core/constants/assets.dart';
+
+import 'package:qr_plus/data/models/qr_result.dart';
+import 'package:intl/intl.dart';
 
 class ResultScreen extends StatefulWidget {
-  final String code;
-  final String date;
+  final QRResult result;
 
   const ResultScreen({
     super.key,
-    required this.code,
-    required this.date,
+    required this.result,
   });
 
   @override
@@ -35,8 +37,10 @@ class _ResultScreenState extends State<ResultScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isUrl = Uri.tryParse(widget.code)?.hasAbsolutePath ?? false;
+    bool isUrl = Uri.tryParse(widget.result.content)?.hasAbsolutePath ?? false;
     final toggleProvider = context.read<ToggleProvider>();
+    final formattedDate = DateFormat('d MMM y, hh:mm a').format(widget.result.date);
+
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
       body: OvalBg(
@@ -61,7 +65,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     Padding(
                       padding: EdgeInsets.only(left: 28.w),
                       child: Text(
-                        "Result",
+                        'Result',
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               color: Colors.white,
                               fontSize: 30.r,
@@ -96,7 +100,7 @@ class _ResultScreenState extends State<ResultScreen> {
                         spacing: 20.w,
                         children: [
                           Image.asset(
-                            "assets/result/resultIcon.png",
+                            AppAssets.resultIcon,
                             height: 40.r,
                             width: 40.r,
                           ),
@@ -104,7 +108,7 @@ class _ResultScreenState extends State<ResultScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Data",
+                                'Data',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge!
@@ -114,7 +118,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                     ),
                               ),
                               Text(
-                                widget.date,
+                                formattedDate,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge!
@@ -134,16 +138,16 @@ class _ResultScreenState extends State<ResultScreen> {
                       InkWell(
                         onTap: () {
                           if (isUrl) {
-                            context.read<QrCodeProvider>().openUrl(widget.code);
+                            context.read<QrCodeProvider>().openUrl(widget.result.content);
                           }
                         },
                         onLongPress: () {
-                          flushBarMessage(context, "Copied to clipboard");
+                          flushBarMessage(context, 'Copied to clipboard');
                           toggleProvider.vibrate();
-                          Clipboard.setData(ClipboardData(text: widget.code));
+                          Clipboard.setData(ClipboardData(text: widget.result.content));
                         },
                         child: Text(
-                          widget.code,
+                          widget.result.content,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -182,7 +186,7 @@ class _ResultScreenState extends State<ResultScreen> {
                       ],
                     ),
                     child: QrImageView(
-                      data: widget.code,
+                      data: widget.result.content,
                       version: QrVersions.auto,
                     ),
                   ),
@@ -196,19 +200,18 @@ class _ResultScreenState extends State<ResultScreen> {
                   CustomShareSaveButton(
                       icon: Icons.share,
                       onTap: () {
-                        SharePlus.instance
-                            .share(ShareParams(text: widget.code));
+                        SharePlus.instance.share(ShareParams(text: widget.result.content));
                         toggleProvider.vibrate();
                       },
-                      text: "Share"),
+                      text: 'Share'),
                   CustomShareSaveButton(
                       icon: Icons.file_copy,
                       onTap: () {
-                        flushBarMessage(context, "Copied to clipboard");
+                        flushBarMessage(context, 'Copied to clipboard');
                         toggleProvider.vibrate();
-                        Clipboard.setData(ClipboardData(text: widget.code));
+                        Clipboard.setData(ClipboardData(text: widget.result.content));
                       },
-                      text: "Copy"),
+                      text: 'Copy'),
                   CustomShareSaveButton(
                       icon: Icons.save_sharp,
                       onTap: () {
@@ -217,7 +220,7 @@ class _ResultScreenState extends State<ResultScreen> {
                             .saveImageToGallery(screenshotController, context);
                         toggleProvider.vibrate();
                       },
-                      text: "Save"),
+                      text: 'Save'),
                 ],
               )
             ],

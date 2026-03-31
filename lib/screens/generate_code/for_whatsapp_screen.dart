@@ -25,8 +25,8 @@ class _ForWhatsappScreenState extends State<ForWhatsappScreen> {
       backgroundColor: CustomColor.bgColor,
       body: SingleField(
         controller: controller,
-        title: "WhatsApp",
-        labelText: "WhatsApp Number",
+        title: 'WhatsApp',
+        labelText: 'WhatsApp Number',
         icon: FontAwesomeIcons.whatsapp,
         // minLine: 1,
       ),

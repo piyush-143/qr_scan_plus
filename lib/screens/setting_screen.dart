@@ -38,7 +38,7 @@ class SettingScreen extends StatelessWidget {
               ),
               SizedBox(height: 20.h),
               Text(
-                "Settings",
+                'Settings',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       fontSize: 18.r,
                     ),
@@ -46,17 +46,17 @@ class SettingScreen extends StatelessWidget {
 
               //SizedBox(height: 20),
               CustomSettingTile(
-                title: "Vibrate",
-                subtitle: "Vibration when scan is done.",
+                title: 'Vibrate',
+                subtitle: 'Vibration when scan is done.',
                 leadingIcon: Icons.vibration,
                 trailing: CustomSwitchButton(
                   val: context.watch<ToggleProvider>().canVibrate,
                   onChanged: (value) {
                     toggleProvider.toggleVibration(value);
                     if (value == true) {
-                      flushBarMessage(context, "Vibration turned On");
+                      flushBarMessage(context, 'Vibration turned On');
                     } else {
-                      flushBarMessage(context, "Vibration turned Off");
+                      flushBarMessage(context, 'Vibration turned Off');
                     }
                   },
                 ),
@@ -64,24 +64,24 @@ class SettingScreen extends StatelessWidget {
 
               SizedBox(height: 15.h),
               Text(
-                "Support",
+                'Support',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       fontSize: 18.r,
                     ),
               ),
               const CustomSettingTile(
-                title: "Rate Us",
-                subtitle: "Your best reward to us.",
+                title: 'Rate Us',
+                subtitle: 'Your best reward to us.',
                 leadingIcon: Icons.verified,
               ),
               const CustomSettingTile(
-                title: "Privacy Policy",
-                subtitle: "Follow our policies that benefits you.",
+                title: 'Privacy Policy',
+                subtitle: 'Follow our policies that benefits you.',
                 leadingIcon: Icons.privacy_tip,
               ),
               const CustomSettingTile(
-                title: "Share",
-                subtitle: "Share app with others.",
+                title: 'Share',
+                subtitle: 'Share app with others.',
                 leadingIcon: Icons.share,
               ),
             ],

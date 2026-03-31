@@ -24,8 +24,8 @@ class _ForWebsiteScreenState extends State<ForWebsiteScreen> {
       backgroundColor: CustomColor.bgColor,
       body: SingleField(
         controller: controller,
-        title: "Website",
-        labelText: "Website Url",
+        title: 'Website',
+        labelText: 'Website Url',
         icon: Icons.language,
         minLines: 2,
       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qr_plus/core/utils/formatters.dart';
+import 'package:qr_plus/data/models/qr_result.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_plus/core/utils/size_config.dart';
 import 'package:qr_plus/widgets/oval_bg.dart';
@@ -7,12 +7,12 @@ import 'package:qr_plus/core/utils/flushbar_message.dart';
 
 import 'package:qr_plus/providers/db_provider.dart';
 import 'package:qr_plus/providers/toggle_provider.dart';
-import '../../widgets/custom_cross_container.dart';
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/generate_qr_button.dart';
+import 'package:qr_plus/widgets/custom_cross_container.dart';
+import 'package:qr_plus/widgets/custom_text_field.dart';
+import 'package:qr_plus/widgets/generate_qr_button.dart';
 import 'package:qr_plus/core/constants/color.dart';
 import 'package:qr_plus/core/utils/concat_string.dart';
-import '../result_screen.dart';
+import 'package:qr_plus/screens/result_screen.dart';
 
 class ForBusinessScreen extends StatefulWidget {
   const ForBusinessScreen({super.key});
@@ -22,14 +22,14 @@ class ForBusinessScreen extends StatefulWidget {
 }
 
 class _ForBusinessScreenState extends State<ForBusinessScreen> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController industryController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController websiteController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController stateController = TextEditingController();
-  TextEditingController countryController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController industryController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController websiteController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController stateController = TextEditingController();
+  final TextEditingController countryController = TextEditingController();
 
   @override
   void dispose() {
@@ -46,7 +46,7 @@ class _ForBusinessScreenState extends State<ForBusinessScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<TextEditingController> code = [
+    List<TextEditingController> codeInput = [
       nameController,
       industryController,
       phoneController,
@@ -80,7 +80,7 @@ class _ForBusinessScreenState extends State<ForBusinessScreen> {
                     Padding(
                       padding: EdgeInsets.only(left: 28.w),
                       child: Text(
-                        "Business",
+                        'Business',
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               color: Colors.white,
                               fontSize: 22.r,
@@ -94,7 +94,8 @@ class _ForBusinessScreenState extends State<ForBusinessScreen> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
                     decoration: BoxDecoration(
                       color: CustomColor.barBgColor.withAlpha(150),
                       border: Border.symmetric(
@@ -120,34 +121,34 @@ class _ForBusinessScreenState extends State<ForBusinessScreen> {
                           color: CustomColor.goldColor,
                         ),
                         CustomTextField(
-                          labelText: "Company Name",
+                          labelText: 'Company Name',
                           controller: nameController,
                         ),
                         CustomTextField(
-                          labelText: "Industry Name",
+                          labelText: 'Industry Name',
                           controller: industryController,
                         ),
                         CustomTextField(
-                          labelText: "Phone",
+                          labelText: 'Phone',
                           controller: phoneController,
                         ),
                         CustomTextField(
-                          labelText: "Email",
+                          labelText: 'Email',
                           controller: emailController,
                         ),
                         CustomTextField(
-                          labelText: "Website",
+                          labelText: 'Website',
                           controller: websiteController,
                         ),
                         CustomTextField(
-                          labelText: "Address",
+                          labelText: 'Address',
                           controller: addressController,
                         ),
                         RowTextField(
                           controller1: stateController,
                           controller2: countryController,
-                          labelText1: "State Name",
-                          labelText2: "Country Name",
+                          labelText1: 'State Name',
+                          labelText2: 'Country Name',
                           isRequired1: false,
                           isRequired2: false,
                         ),
@@ -159,24 +160,27 @@ class _ForBusinessScreenState extends State<ForBusinessScreen> {
                                 emailController.text.isNotEmpty &&
                                 websiteController.text.isNotEmpty &&
                                 addressController.text.isNotEmpty) {
-                              
-                              final resultText = concatenateString(code).text;
+                              final resultText = concatenateString(codeInput).text;
                               context.read<ToggleProvider>().vibrate();
                               context.read<DBProvider>().addCurrentData(
-                                  code: resultText,
-                                  isCreate: true);
-                              
+                                  code: resultText, isCreate: true);
+
+                              final result = QRResult(
+                                content: resultText,
+                                date: DateTime.now(),
+                                isCreated: true,
+                              );
+
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ResultScreen(
-                                      code: resultText,
-                                      date: CustomFormat.now(),
+                                      result: result,
                                     ),
                                   ));
                             } else {
                               flushBarMessage(
-                                  context, "Enter required details !");
+                                  context, 'Enter required details !');
                             }
                           },
                         ),

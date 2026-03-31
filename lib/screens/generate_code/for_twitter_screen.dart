@@ -25,8 +25,8 @@ class _ForTwitterScreenState extends State<ForTwitterScreen> {
       backgroundColor: CustomColor.bgColor,
       body: SingleField(
         controller: controller,
-        title: "Twitter",
-        labelText: "Username",
+        title: 'Twitter',
+        labelText: 'Username',
         icon: FontAwesomeIcons.xTwitter,
         minLines: 1,
       ),

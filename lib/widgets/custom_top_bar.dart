@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:qr_plus/data/models/qr_result.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_plus/core/utils/formatters.dart';
 import 'package:qr_plus/core/utils/size_config.dart';
 import 'package:qr_plus/providers/qr_code_provider.dart';
 import 'package:qr_plus/providers/toggle_provider.dart';
@@ -41,18 +41,20 @@ class CustomTopBar extends StatelessWidget {
                     .whenComplete(
                   () {
                     if (!context.mounted) return;
-                    if (value.detectedQrCode != "") {
+                    if (value.detectedQrCode != '') {
                       readToggle.vibrate();
-                      context
-                          .read<DBProvider>()
-                          .addCurrentData(code: value.detectedQrCode, isCreate: false);
+                      context.read<DBProvider>().addCurrentData(
+                          code: value.detectedQrCode, isCreate: false);
 
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => ResultScreen(
-                            code: value.detectedQrCode,
-                            date: CustomFormat.now(),
+                            result: QRResult(
+                              content: value.detectedQrCode,
+                              date: DateTime.now(),
+                              isCreated: false,
+                            ),
                           ),
                         ),
                       );
@@ -85,7 +87,7 @@ class CustomTopBar extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SettingScreen(),
+                    builder: (context) => const SettingScreen(),
                   ));
             },
           ),

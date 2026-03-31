@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qr_plus/core/utils/formatters.dart';
+import 'package:qr_plus/data/models/qr_result.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_plus/core/utils/size_config.dart';
 import 'package:qr_plus/screens/result_screen.dart';
@@ -10,9 +10,9 @@ import 'package:qr_plus/core/constants/size_data.dart';
 
 import 'package:qr_plus/providers/db_provider.dart';
 import 'package:qr_plus/providers/toggle_provider.dart';
-import '../../widgets/custom_cross_container.dart';
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/generate_qr_button.dart';
+import 'package:qr_plus/widgets/custom_cross_container.dart';
+import 'package:qr_plus/widgets/custom_text_field.dart';
+import 'package:qr_plus/widgets/generate_qr_button.dart';
 import 'package:qr_plus/core/constants/color.dart';
 
 class ForWiFiScreen extends StatefulWidget {
@@ -23,8 +23,8 @@ class ForWiFiScreen extends StatefulWidget {
 }
 
 class _ForWiFiScreenState extends State<ForWiFiScreen> {
-  TextEditingController networkController = TextEditingController();
-  TextEditingController passController = TextEditingController();
+  final TextEditingController networkController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
 
   @override
   void dispose() {
@@ -35,7 +35,7 @@ class _ForWiFiScreenState extends State<ForWiFiScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<TextEditingController> code = [networkController, passController];
+    List<TextEditingController> codeInput = [networkController, passController];
     return Scaffold(
       backgroundColor: CustomColor.bgColor,
       body: OvalBg(
@@ -60,7 +60,7 @@ class _ForWiFiScreenState extends State<ForWiFiScreen> {
                     Padding(
                       padding: EdgeInsets.only(left: 28.w),
                       child: Text(
-                        "Wi-Fi",
+                        'Wi-Fi',
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               color: Colors.white,
                               fontSize: 22.r,
@@ -101,11 +101,11 @@ class _ForWiFiScreenState extends State<ForWiFiScreen> {
                         ),
                         SizedBox(height: 10.h),
                         CustomTextField(
-                          labelText: "Network",
+                          labelText: 'Network',
                           controller: networkController,
                         ),
                         CustomTextField(
-                          labelText: "Password",
+                          labelText: 'Password',
                           controller: passController,
                         ),
                         SizedBox(height: 10.h),
@@ -113,24 +113,27 @@ class _ForWiFiScreenState extends State<ForWiFiScreen> {
                           onTap: () async {
                             if (networkController.text.isNotEmpty &&
                                 passController.text.isNotEmpty) {
-                              
-                              final resultText = concatenateString(code).text;
+                              final resultText = concatenateString(codeInput).text;
                               context.read<ToggleProvider>().vibrate();
                               context.read<DBProvider>().addCurrentData(
-                                  code: resultText,
-                                  isCreate: true);
+                                  code: resultText, isCreate: true);
+
+                              final result = QRResult(
+                                content: resultText,
+                                date: DateTime.now(),
+                                isCreated: true,
+                              );
 
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ResultScreen(
-                                      code: resultText,
-                                      date: CustomFormat.now(),
+                                      result: result,
                                     ),
                                   ));
                             } else {
                               flushBarMessage(
-                                  context, "Enter required details!!!");
+                                  context, 'Enter required details!!!');
                             }
                           },
                         ),

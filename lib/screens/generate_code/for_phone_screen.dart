@@ -24,8 +24,8 @@ class _ForPhoneScreenState extends State<ForPhoneScreen> {
       backgroundColor: CustomColor.bgColor,
       body: SingleField(
         controller: controller,
-        title: "Phone",
-        labelText: "Phone Number",
+        title: 'Phone',
+        labelText: 'Phone Number',
         icon: Icons.phone_callback,
         minLines: 1,
       ),

@@ -23,7 +23,7 @@ class GenerateQrButton extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            "Generate QR Code",
+            'Generate QR Code',
             style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: Colors.black,
                   fontSize: 16.r,

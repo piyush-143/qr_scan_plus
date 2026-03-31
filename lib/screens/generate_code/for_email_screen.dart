@@ -24,8 +24,8 @@ class _ForEmailScreenState extends State<ForEmailScreen> {
       backgroundColor: CustomColor.bgColor,
       body: SingleField(
         controller: controller,
-        title: "Email",
-        labelText: "Email",
+        title: 'Email',
+        labelText: 'Email',
         icon: Icons.mark_email_unread,
         minLines: 1,
       ),

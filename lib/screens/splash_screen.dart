@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_plus/core/utils/size_config.dart';
 import 'package:qr_plus/providers/toggle_provider.dart';
 import 'package:qr_plus/screens/home_screen.dart';
 import 'package:vibration/vibration.dart';
@@ -17,36 +16,38 @@ class SplashScreen extends StatelessWidget {
       body: Stack(
         children: [
           Image.asset(
-            "assets/splash/Intersect.png",
+            'assets/splash/Intersect.png',
+            width: double.infinity,
+            fit: BoxFit.fitWidth,
           ),
           Align(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/splash/logo.png",
-                  width: 160.r,
-                  height: 160.r,
+                  'assets/splash/logo.png',
+                  width: 160,
+                  height: 160,
                 ),
-                SizedBox(height: 25.h),
+                const SizedBox(height: 25),
                 Column(
                   children: [
                     Text(
-                      "Get Started",
+                      'Get Started',
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             color: Colors.black,
-                            fontSize: 43.r,
+                            fontSize: 43,
                           ),
                     ),
-                    SizedBox(
-                      width: 300.w,
+                    const SizedBox(
+                      width: 300,
                       child: Text(
-                        "Go and enjoy our features for free and make your life easy with us.",
+                        'Go and enjoy our features for free and make your life easy with us.',
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              color: Colors.black54,
-                              fontSize: 17.r,
-                            ),
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500),
                       ),
                     ),
                   ],
@@ -57,7 +58,9 @@ class SplashScreen extends StatelessWidget {
           Align(
             alignment: Alignment.bottomRight,
             child: Image.asset(
-              "assets/splash/lowerIntersect.png",
+              'assets/splash/lowerIntersect.png',
+              width: double.infinity,
+              fit: BoxFit.fitWidth,
             ),
           ),
           Align(
@@ -81,12 +84,13 @@ class SplashScreen extends StatelessWidget {
                 );
               },
               child: Container(
-                padding: EdgeInsets.all(20.r),
+                padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: CustomColor.goldColor,
                   boxShadow: [
-                    BoxShadow(color: CustomColor.goldColor, blurRadius: 10.r)
+                    const BoxShadow(
+                        color: CustomColor.goldColor, blurRadius: 10)
                   ],
                 ),
                 child: const Icon(Icons.arrow_forward),
